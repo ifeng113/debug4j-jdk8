@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]初始化">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-boot-starter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-boot-starter/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo1/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/Debug4jServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/Debug4jServerApplication.java" afterDir="false" />
-    </list>
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]初始化" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -286,7 +275,7 @@
       <option name="presentableId" value="Default" />
       <updated>1727592817814</updated>
       <workItem from="1727592818828" duration="1000" />
-      <workItem from="1727599523905" duration="4757000" />
+      <workItem from="1727599523905" duration="4969000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -304,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727602322073</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="[-]初始化">
+      <option name="closed" value="true" />
+      <created>1727605358005</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1727605358005</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
