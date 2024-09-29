@@ -5,8 +5,29 @@ plugins {
 group = 'com.k4ln'
 version = '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
+allprojects {
+
+    apply plugin: "java"
+
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/central'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/gradle-plugin'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/spring'
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'cn.hutool:hutool-all:5.8.32'
+    }
 }
 
 dependencies {

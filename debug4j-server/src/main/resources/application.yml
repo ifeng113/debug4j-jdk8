@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: debug4j-server
