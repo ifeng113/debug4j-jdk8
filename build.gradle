@@ -5,9 +5,32 @@ plugins {
 group = 'com.k4ln'
 version = '1.0-SNAPSHOT'
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 allprojects {
 
     apply plugin: "java"
+
+    buildscript {
+        repositories {
+            maven {
+                url 'https://maven.aliyun.com/repository/central'
+            }
+            maven {
+                url 'https://maven.aliyun.com/repository/public'
+            }
+            maven {
+                url 'https://maven.aliyun.com/repository/gradle-plugin'
+            }
+            maven {
+                url 'https://maven.aliyun.com/repository/spring'
+            }
+        }
+    }
 
     repositories {
         maven {
@@ -26,8 +49,14 @@ allprojects {
     }
 
     dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.30'
+        annotationProcessor 'org.projectlombok:lombok:1.18.30'
+//        implementation 'org.slf4j:slf4j-api:2.0.16'
+        implementation 'ch.qos.logback:logback-classic:1.5.8'
+
         implementation 'cn.hutool:hutool-all:5.8.32'
     }
+
 }
 
 dependencies {

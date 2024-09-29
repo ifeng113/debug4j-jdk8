@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]初始化">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-boot-starter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-boot-starter/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-common/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-demo1/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/Debug4jServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/Debug4jServerApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +29,40 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/debug4j-demo1">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="debug4j" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="debug4j" type="f1a62948:ProjectNode" />
+                <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="debug4j" type="f1a62948:ProjectNode" />
+                <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="debug4j" type="f1a62948:ProjectNode" />
+                <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="debug4j" type="f1a62948:ProjectNode" />
+                <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="shadow" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -50,7 +85,25 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Build debug4j.executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [build].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [classes].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [clean].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [jar].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [shadowJar].executor": "Run",
+    "Remote JVM Debug.debug4j.executor": "Debug",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Debug4jServerApplication.executor": "Run",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "E:/JavaSpace/24_java/dodo-authority",
     "node.js.detected.package.eslint": "true",
@@ -58,10 +111,138 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "File.Encoding",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Remote JVM Debug.debug4j">
+    <configuration name="debug4j:debug4j-demo1 [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-demo1" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="debug4j:debug4j-demo1 [classes]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-demo1" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="classes" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="debug4j:debug4j-demo1 [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-demo1" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="debug4j:debug4j-demo1 [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-demo1" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="debug4j:debug4j-demo1 [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-demo1" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="debug4j" type="Remote">
+      <module name="debug4j.debug4j-demo1.main" />
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="192.168.2.26" />
+      <option name="PORT" value="5005" />
+      <option name="AUTO_RESTART" value="false" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="5005" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2" />
+    </configuration>
     <configuration name="Debug4jServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="debug4j.debug4j-server.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.k4ln.debug4j.Debug4jServerApplication" />
@@ -69,6 +250,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Gradle.debug4j:debug4j-demo1 [build]" />
+      <item itemvalue="Gradle.debug4j:debug4j-demo1 [classes]" />
+      <item itemvalue="Gradle.debug4j:debug4j-demo1 [clean]" />
+      <item itemvalue="Gradle.debug4j:debug4j-demo1 [jar]" />
+      <item itemvalue="Gradle.debug4j:debug4j-demo1 [shadowJar]" />
+      <item itemvalue="Remote JVM Debug.debug4j" />
+      <item itemvalue="Spring Boot.Debug4jServerApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.debug4j:debug4j-demo1 [shadowJar]" />
+        <item itemvalue="Gradle.debug4j:debug4j-demo1 [clean]" />
+        <item itemvalue="Gradle.debug4j:debug4j-demo1 [jar]" />
+        <item itemvalue="Gradle.debug4j:debug4j-demo1 [classes]" />
+        <item itemvalue="Gradle.debug4j:debug4j-demo1 [build]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -87,7 +286,7 @@
       <option name="presentableId" value="Default" />
       <updated>1727592817814</updated>
       <workItem from="1727592818828" duration="1000" />
-      <workItem from="1727599523905" duration="1819000" />
+      <workItem from="1727599523905" duration="4757000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -97,7 +296,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727602214837</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="[-]初始化">
+      <option name="closed" value="true" />
+      <created>1727602322073</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727602322073</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
