@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/resources/application.yml" afterDir="false" />
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]初始化">
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,6 +61,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Debug4jServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="debug4j.debug4j-server.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.k4ln.debug4j.Debug4jServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -81,11 +87,24 @@
       <option name="presentableId" value="Default" />
       <updated>1727592817814</updated>
       <workItem from="1727592818828" duration="1000" />
-      <workItem from="1727599523905" duration="1701000" />
+      <workItem from="1727599523905" duration="1819000" />
     </task>
+    <task id="LOCAL-00001" summary="[-]初始化">
+      <option name="closed" value="true" />
+      <created>1727602214837</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727602214837</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[-]初始化" />
+    <option name="LAST_COMMIT_MESSAGE" value="[-]初始化" />
   </component>
 </project>
