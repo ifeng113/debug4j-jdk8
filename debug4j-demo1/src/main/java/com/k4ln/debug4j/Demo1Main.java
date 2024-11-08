@@ -22,6 +22,9 @@ public class Demo1Main {
 //        }
         for (int i = 0; i < 1000; i++) {
             logNumber(i);
+            if (i == 999){
+                i = 0;
+            }
         }
     }
 

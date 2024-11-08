@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Debug4jServerApplication {
     public static void main(String[] args) {
-        log.error("Hello World");
         SpringApplication.run(Debug4jServerApplication.class, args);
     }
 }
