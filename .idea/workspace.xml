@@ -4,27 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]step3">
-      <change afterPath="$PROJECT_DIR$/## 协议文档.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/ProtocolTypeEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocol.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocolDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocolUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/jwdp/TFProtocolDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ServerRunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/ServerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketTFProxyClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketTFProxyServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]新增标准server与透传server">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Demo1Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Demo1Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/Debug4jServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/Debug4jServerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ServerRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ServerRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,46 +87,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Build debug4j.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.debug4j:debug4j-agent [clean].executor": "Run",
-    "Gradle.debug4j:debug4j-agent [jar].executor": "Run",
-    "Gradle.debug4j:debug4j-agent [shadowJar].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor": "Debug",
-    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [build].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [classes].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [clean].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [jar].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [shadowJar].executor": "Run",
-    "Remote JVM Debug.debug4j.executor": "Debug",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.Debug4jServerApplication.executor": "Debug",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/JavaSpace/24_java/dodo-authority",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "File.Encoding",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build debug4j.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [shadowJar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [classes].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [shadowJar].executor&quot;: &quot;Run&quot;,
+    &quot;Remote JVM Debug.debug4j.executor&quot;: &quot;Debug&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Debug4jServerApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/JavaSpace/24_java/dodo-authority&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-common\src\main\java\com\k4ln\debug4j" />
@@ -359,6 +342,7 @@
       <workItem from="1728438234145" duration="620000" />
       <workItem from="1728548719451" duration="598000" />
       <workItem from="1730943784720" duration="32931000" />
+      <workItem from="1731044280208" duration="12058000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -408,7 +392,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727687211129</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="[-]新增标准server与透传server">
+      <option name="closed" value="true" />
+      <created>1731044342033</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731044342033</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -429,7 +421,8 @@
     <MESSAGE value="[-]初始化" />
     <MESSAGE value="[-]step2" />
     <MESSAGE value="[-]step3" />
-    <option name="LAST_COMMIT_MESSAGE" value="[-]step3" />
+    <MESSAGE value="[-]新增标准server与透传server" />
+    <option name="LAST_COMMIT_MESSAGE" value="[-]新增标准server与透传server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

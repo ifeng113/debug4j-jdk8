@@ -19,6 +19,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * socket实现HTTP代理和HTTPS代理【透明代理】：https://www.jb51.net/program/3204924ux.htm
+ * 代理分三种：
+ *      TCP全流量（如OpenVPN，需要修改本地路由表、创建虚拟网卡等）
+ *      TCP指定端口（SocketTFProxyServer + SocketTFProxyClient），指定端口代理
+ *      HTTP全流量（Clash[透明代理]、笔记[http+https]：20220809/0825-pj/https-proxy + proxy-dm）
+ *          - http 劫持代理（可篡改内容）
+ *          - https
+ *              - 劫持代理（可篡改内容，需要安装证书）
+ *              - 透明代理（流量透明转发，获取到的是tcp流量包，篡改内容较为复杂，需对数据包处理）
+ */
 @Slf4j
 @Component
 public class SocketServer {
