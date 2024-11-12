@@ -1,4 +1,4 @@
-package com.k4ln.debug4j.protocol.jwdp;
+package com.k4ln.debug4j.protocol.socket;
 
 import lombok.extern.slf4j.Slf4j;
 import org.smartboot.socket.Protocol;

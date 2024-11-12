@@ -1,9 +1,11 @@
-package com.k4ln.debug4j.protocol;
+package com.k4ln.debug4j.utils;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ByteUtil;
 import cn.hutool.core.util.NumberUtil;
+import com.k4ln.debug4j.protocol.socket.ProtocolTypeEnum;
+import com.k4ln.debug4j.protocol.socket.SocketProtocol;
 import lombok.extern.slf4j.Slf4j;
 import org.smartboot.socket.transport.AioSession;
 import org.smartboot.socket.transport.WriteBuffer;
@@ -25,7 +27,7 @@ public class SocketProtocolUtil {
 
     public static final int BUFFER_LENGTH = 4;
 
-    public static final int BUFFER_HEADER = 8;
+    public static final int BUFFER_HEADER = 12;
 
     /**
      * 解析代理协议
@@ -34,16 +36,21 @@ public class SocketProtocolUtil {
      */
     public static SocketProtocol analysisProxyProtocol(ByteBuffer readBuffer) {
 
+        int remaining = readBuffer.remaining();
+        if (remaining < Integer.BYTES) {
+            return null;
+        }
+        readBuffer.mark();
+
         int dataLength = readBuffer.getInt();
 
-        int messageBodyLength = dataLength + 8;
+        int messageBodyLength = dataLength + BUFFER_HEADER;
         if (messageBodyLength > readBuffer.remaining()) {
             readBuffer.reset();
-            // 丢弃
             return null;
         }
 
-        byte[] header = new byte[8];
+        byte[] header = new byte[BUFFER_HEADER];
         readBuffer.get(header);
         readBuffer.mark();
 
@@ -52,6 +59,7 @@ public class SocketProtocolUtil {
         int subcontract = header[3];
         int subcontractCount = ByteUtil.bytesToShort(ArrayUtil.sub(header, 4, 6), ByteOrder.BIG_ENDIAN);
         int subcontractIndex = ByteUtil.bytesToShort(ArrayUtil.sub(header, 6, 8), ByteOrder.BIG_ENDIAN);
+        int clientId = ByteUtil.bytesToInt(ArrayUtil.sub(header, 8, 12), ByteOrder.BIG_ENDIAN);
 
         byte[] body = new byte[dataLength];
         readBuffer.get(body);
@@ -63,6 +71,7 @@ public class SocketProtocolUtil {
                 .subcontract(subcontract == 1)
                 .subcontractCount(subcontractCount)
                 .subcontractIndex(subcontractIndex)
+                .clientId(clientId)
                 .body(body)
                 .build();
     }
@@ -74,16 +83,17 @@ public class SocketProtocolUtil {
      */
     private static byte[] buildProxyProtocol(SocketProtocol socketProtocol){
         return buildProxyProtocol(socketProtocol.getVersion(), socketProtocol.getProtocolType(), socketProtocol.getSubcontract(),
-                socketProtocol.getSubcontractCount(), socketProtocol.getSubcontractIndex(), socketProtocol.getBody());
+                socketProtocol.getSubcontractCount(), socketProtocol.getSubcontractIndex(), socketProtocol.getClientId(), socketProtocol.getBody());
     }
 
     /**
      * 发送数据
      * @param session
+     * @param clientId
      * @param protocolType
      * @param body
      */
-    public static void sendMessage(AioSession session, ProtocolTypeEnum protocolType, byte[] body) {
+    public static void sendMessage(AioSession session, Integer clientId, ProtocolTypeEnum protocolType, byte[] body) {
         if (body == null || body.length == 0) {
             body = new byte[0];
         }
@@ -100,6 +110,7 @@ public class SocketProtocolUtil {
                         .subcontract(true)
                         .subcontractCount(subcontractCount)
                         .subcontractIndex(i / maxBodyLength + 1)
+                        .clientId(clientId)
                         .body(simple)
                         .build());
             }
@@ -107,6 +118,7 @@ public class SocketProtocolUtil {
             send(session, SocketProtocol.builder()
                     .protocolType(protocolType)
                     .subcontract(false)
+                    .clientId(clientId)
                     .body(body)
                     .build());
         }
@@ -138,8 +150,8 @@ public class SocketProtocolUtil {
      * @return
      */
     public static byte[] buildProxyProtocol(Integer version, ProtocolTypeEnum protocolType, Boolean subcontract,
-                                            Integer subcontractCount, Integer subcontractIndex, byte[] body){
-        byte[] header = new byte[8];
+                                            Integer subcontractCount, Integer subcontractIndex, Integer clientId, byte[] body){
+        byte[] header = new byte[BUFFER_HEADER];
         byte[] versionBytes = Convert.shortToBytes(version.shortValue());
         System.arraycopy(versionBytes, 0, header, 0, 1);
         byte[] protocolTypeBytes = Convert.hexToBytes(protocolType.getCode().replace("0x", ""));
@@ -150,12 +162,14 @@ public class SocketProtocolUtil {
         System.arraycopy(subcontractCountBytes, 0, header, 4, 2);
         byte[] subcontractIndexBytes = ByteUtil.shortToBytes(subcontractIndex.shortValue(), ByteOrder.BIG_ENDIAN);
         System.arraycopy(subcontractIndexBytes, 0, header, 6, 2);
+        byte[] clientIdBytes = ByteUtil.intToBytes(clientId, ByteOrder.BIG_ENDIAN);
+        System.arraycopy(clientIdBytes, 0, header, 8, 4);
 
         byte[] data = new byte[4 + header.length + body.length];
         byte[] lengthBytes = ByteUtil.intToBytes(body.length, ByteOrder.BIG_ENDIAN);
         System.arraycopy(lengthBytes, 0, data, 0, 4);
-        System.arraycopy(header, 0, data, 4, 8);
-        System.arraycopy(body, 0, data, 12, body.length);
+        System.arraycopy(header, 0, data, 4, BUFFER_HEADER);
+        System.arraycopy(body, 0, data, 4 + BUFFER_HEADER, body.length);
         return data;
     }
 }

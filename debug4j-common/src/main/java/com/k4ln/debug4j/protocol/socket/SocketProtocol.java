@@ -1,4 +1,4 @@
-package com.k4ln.debug4j.protocol;
+package com.k4ln.debug4j.protocol.socket;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +38,11 @@ public class SocketProtocol {
      */
     @Builder.Default
     private Integer subcontractIndex = 1;
+
+    /**
+     * 客户端ID
+     */
+    private Integer clientId;
 
     /**
      * 数据内容

@@ -1,22 +1,21 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'com.k4ln'
 version = '1.0-SNAPSHOT'
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    implementation project(":debug4j-core")
+    implementation project(":debug4j-common")
+
+    implementation 'org.smartboot.socket:aio-pro:1.6.6'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-}
-
-shadowJar {
-    manifest {
-        attributes('Main-Class': 'com.k4ln.debug4j.Demo1Main')
-    }
 }
 
 test {

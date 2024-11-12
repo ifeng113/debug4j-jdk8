@@ -1,8 +1,11 @@
 package com.k4ln.debug4j.socket;
 
-import cn.hutool.extra.spring.SpringUtil;
-import com.k4ln.debug4j.protocol.SocketProtocolUtil;
-import com.k4ln.debug4j.protocol.jwdp.TFProtocolDecoder;
+import cn.hutool.core.net.NetUtil;
+import com.k4ln.debug4j.controller.vo.ProxyReqVO;
+import com.k4ln.debug4j.protocol.command.CommandTypeEnum;
+import com.k4ln.debug4j.protocol.command.message.CommandProxyMessage;
+import com.k4ln.debug4j.protocol.socket.ProtocolTypeEnum;
+import com.k4ln.debug4j.protocol.socket.TFProtocolDecoder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.smartboot.socket.StateMachineEnum;
@@ -10,88 +13,124 @@ import org.smartboot.socket.extension.processor.AbstractMessageProcessor;
 import org.smartboot.socket.transport.AioQuickServer;
 import org.smartboot.socket.transport.AioSession;
 import org.smartboot.socket.transport.WriteBuffer;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-@Component
 public class SocketTFProxyServer {
 
-    @Value("${ss.tfp-server-port}")
+    @Getter
     Integer tfpServerPort;
 
-    @Value("${ss.client.tfp-host}")
-    String tfpClientHost;
+    @Getter
+    ProxyReqVO proxyReqVO;
 
-    @Value("${ss.client.tfp-port}")
-    Integer tfpClientPort;
+    @Getter
+    SocketServer socketServer;
 
     @Getter
     AioQuickServer server;
+
+    public SocketTFProxyServer(Integer tfpServerPort, ProxyReqVO proxyReqVO, SocketServer socketServer) {
+        this.tfpServerPort = tfpServerPort;
+        this.proxyReqVO = proxyReqVO;
+        this.socketServer = socketServer;
+    }
 
     @Getter
     AbstractMessageProcessor<byte[]> processor;
 
     /**
-     * serverId -> server
+     * sourceClientId -> sourceClient
      */
-    final Map<String, AioSession> sessionMap = new HashMap<>();
+    static final Map<String, AioSession> sessionMap = new ConcurrentHashMap<>();
 
     public void start() throws Exception {
 
         processor = new AbstractMessageProcessor<>() {
 
-            // Source -> Server
+            // Source -> TFPServer
             @Override
             public void process0(AioSession session, byte[] body) {
-                //  Server -> Client
-                SocketTFProxyClient jdwpClient = SpringUtil.getBean("socketTFProxyClient");
-                String clientSessionId = jdwpClient.sendMessage(session.getAttachment(), body,
-                        session.getSessionID(), tfpClientHost, tfpClientPort);
-                session.setAttachment(clientSessionId);
+                //  TFPServer -> socketServer
+                socketServer.sendMessage(proxyReqVO.getSocketClient(), getSessionClientId(session), ProtocolTypeEnum.PROXY, body);
+            }
+
+            private static Integer getSessionClientId(AioSession session) {
+                return Integer.parseInt(session.getSessionID().replace("aioSession-", ""));
             }
 
             @Override
             public void stateEvent0(AioSession session, StateMachineEnum stateMachineEnum, Throwable throwable) {
                 if (stateMachineEnum.equals(StateMachineEnum.NEW_SESSION)) {
+                    sessionMap.put(session.getSessionID(), session);
+                    log.info("TFProxy server clientId:{} connected", getSessionClientId(session));
                     try {
-                        log.info("TFProxy server sessionId:{} ip:{} port:{} time:{}", session.getSessionID(),
-                                session.getRemoteAddress().getHostName(), session.getRemoteAddress().getPort(),
-                                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-                    } catch (Exception e) {
+                        if (allowNetworks(session.getRemoteAddress().getAddress().getHostAddress())){
+                            socketServer.sendMessage(proxyReqVO.getSocketClient(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
+                                    CommandProxyMessage.buildCommandProxyMessage(CommandTypeEnum.PROXY_OPEN, proxyReqVO.getRemoteHost(),
+                                            proxyReqVO.getRemotePort()));
+                            return;
+                        }
+                    } catch (Exception e){
                         e.printStackTrace();
                     }
-                    sessionMap.put(session.getSessionID(), session);
-                    log.info("TFProxy server session:{} connected", session.getSessionID());
+                    // 关闭客户端
+                    closeClient(getSessionClientId(session));
                 } else if (stateMachineEnum.equals(StateMachineEnum.SESSION_CLOSED)) {
                     sessionMap.remove(session.getSessionID());
-                    log.info("TFProxy server session:{} disConnected", session.getSessionID());
+                    socketServer.getClientIdSocketMap().remove(getSessionClientId(session));
+                    log.info("TFProxy server clientId:{} disConnected", getSessionClientId(session));
+                    socketServer.sendMessage(proxyReqVO.getSocketClient(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
+                            CommandProxyMessage.buildCommandProxyMessage(CommandTypeEnum.PROXY_CLOSE, proxyReqVO.getRemoteHost(),
+                                    proxyReqVO.getRemotePort()));
                 } else if (throwable != null) {
                     throwable.printStackTrace();
                 }
             }
+
+            private boolean allowNetworks(String hostAddress) {
+                List<String> allowNetworks = proxyReqVO.getAllowNetworks();
+                for (String allowNetwork : allowNetworks) {
+                    if (NetUtil.isInRange(hostAddress, allowNetwork)){
+                        return true;
+                    }
+                }
+                return false;
+            }
         };
 
         server = new AioQuickServer(tfpServerPort, new TFProtocolDecoder(), processor);
-        server.setReadBufferSize(SocketProtocolUtil.READ_BUFFER_SIZE * SocketProtocolUtil.READ_BUFFER_SIZE);
         server.start();
 
         log.info("TFProxy server started at port {}", tfpServerPort);
     }
 
-    public void sendMessage(String sessionId, byte[] body) {
+    public static void callbackMessage(Integer clientId, byte[] body) {
         try {
-            AioSession session = sessionMap.get(sessionId);
+            AioSession session = sessionMap.get(parseSessionId(clientId));
             WriteBuffer writeBuffer = session.writeBuffer();
             writeBuffer.writeAndFlush(body);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void closeClient(Integer clientId) {
+        try {
+            AioSession session = sessionMap.get(parseSessionId(clientId));
+            if (session != null){
+                session.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String parseSessionId(Integer clientId) {
+        return "aioSession-" + clientId;
     }
 
 }

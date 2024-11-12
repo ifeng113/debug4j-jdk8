@@ -4,10 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]新增标准server与透传server">
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]新增备注">
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/CommandTypeEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/message/CommandInfoMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/message/CommandLogMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/message/CommandProxyMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/HttpResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/exception/BaseException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/exception/abort/BusinessAbort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/exception/error/ParameterError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/exception/error/ValidateError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-core/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/SocketClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ExceptionAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/SocketServerConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/SocketServerProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/vo/ProxyReqVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/vo/ProxyRespVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/service/ProxyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/utils/PortScannerUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/## 协议文档.md" beforeDir="false" afterPath="$PROJECT_DIR$/## 协议文档.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/ProtocolTypeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/socket/ProtocolTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/socket/SocketProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocolDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/socket/SocketProtocolDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocolUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/utils/SocketProtocolUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/jwdp/TFProtocolDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/socket/TFProtocolDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-demo1/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Demo1Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Demo1Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ServerRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ServerRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/ServerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketTFProxyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/SocketTFProxyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketTFProxyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketTFProxyServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,13 +91,6 @@
                 <item name="debug4j" type="f1a62948:ProjectNode" />
                 <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="debug4j" type="f1a62948:ProjectNode" />
-                <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="shadow" type="c8890929:TasksNode$1" />
               </path>
             </expand>
@@ -70,12 +103,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="t1" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -87,67 +125,70 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.Build debug4j.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-agent [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-agent [jar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-agent [shadowJar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-demo1 [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-demo1 [classes].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-demo1 [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-demo1 [jar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.debug4j:debug4j-demo1 [shadowJar].executor&quot;: &quot;Run&quot;,
-    &quot;Remote JVM Debug.debug4j.executor&quot;: &quot;Debug&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.Debug4jServerApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/JavaSpace/24_java/dodo-authority&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Demo1Main.executor": "Debug",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.Build debug4j.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.debug4j:debug4j-agent [clean].executor": "Run",
+    "Gradle.debug4j:debug4j-agent [jar].executor": "Run",
+    "Gradle.debug4j:debug4j-agent [shadowJar].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor": "Debug",
+    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [build].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [classes].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [clean].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [jar].executor": "Run",
+    "Gradle.debug4j:debug4j-demo1 [shadowJar].executor": "Run",
+    "Remote JVM Debug.debug4j.executor": "Debug",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Debug4jServerApplication.executor": "Debug",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/JavaSpace/dengfeng/df-all",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "Console",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-common\src\main\java\com\k4ln\debug4j\response" />
+      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-common\src\main\java\com\k4ln\debug4j\protocol\socket" />
       <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-common\src\main\java\com\k4ln\debug4j" />
       <recent name="E:\JavaSpace\ksiu\debug4j" />
       <recent name="E:\JavaSpace\ksiu\debug4j\src\main\resources\md\static" />
-      <recent name="E:\JavaSpace\ksiu\debug4j\src\main\resources\md" />
-      <recent name="E:\JavaSpace\ksiu\debug4j\src\main\resources\image" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\JavaSpace\ksiu\debug4j\src\main\resources\md\static" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.k4ln.debug4j.socket" />
-      <recent name="com.k4ln.debug4j.protocol.jwdp" />
-      <recent name="com.k4ln.debug4j.controller" />
-      <recent name="com.k4ln.debug4j.socket.protocol" />
+      <recent name="com.k4ln.debug4j.protocol.command.message" />
+      <recent name="com.k4ln.debug4j.config" />
+      <recent name="com.k4ln.debug4j.controller.vo" />
+      <recent name="com.k4ln.debug4j.protocol.command" />
+      <recent name="com.k4ln.debug4j.core" />
     </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
+        <option value="Application" />
         <option value="JarApplication" />
         <option value="Remote" />
         <option value="SpringBootApplicationConfigurationType" />
@@ -155,27 +196,18 @@
     </option>
   </component>
   <component name="RunManager" selected="Gradle.debug4j:debug4j-demo1 [shadowJar]">
-    <configuration name="debug4j:debug4j-agent [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-agent" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
+    <configuration name="Demo1Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.k4ln.debug4j.Demo1Main" />
+      <module name="debug4j.debug4j-demo1.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.k4ln.debug4j.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="debug4j:debug4j-agent [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -265,30 +297,16 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="debug4j 2" type="Remote">
-      <module name="debug4j.debug4j-demo1.main" />
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" />
-      <option name="HOST" value="192.168.1.164" />
-      <option name="PORT" value="10002" />
-      <option name="AUTO_RESTART" value="false" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="10002" />
-        <option name="LOCAL" value="false" />
-      </RunnerSettings>
-      <method v="2" />
-    </configuration>
     <configuration name="debug4j" type="Remote">
       <module name="debug4j.debug4j-demo1.main" />
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" />
       <option name="HOST" value="192.168.1.164" />
-      <option name="PORT" value="10002" />
+      <option name="PORT" value="33000" />
       <option name="AUTO_RESTART" value="false" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="10002" />
+        <option name="DEBUG_PORT" value="33000" />
         <option name="LOCAL" value="false" />
       </RunnerSettings>
       <method v="2" />
@@ -301,22 +319,21 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.debug4j:debug4j-agent [jar]" />
+      <item itemvalue="Application.Demo1Main" />
       <item itemvalue="Gradle.debug4j:debug4j-demo1 [jar]" />
       <item itemvalue="Gradle.debug4j:debug4j-agent [shadowJar]" />
       <item itemvalue="Gradle.debug4j:debug4j-demo1 [clean]" />
       <item itemvalue="Gradle.debug4j:debug4j-demo1 [shadowJar]" />
-      <item itemvalue="Remote JVM Debug.debug4j 2" />
       <item itemvalue="Remote JVM Debug.debug4j" />
       <item itemvalue="Spring Boot.Debug4jServerApplication" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.debug4j:debug4j-demo1 [shadowJar]" />
-        <item itemvalue="Gradle.debug4j:debug4j-demo1 [jar]" />
-        <item itemvalue="Gradle.debug4j:debug4j-agent [jar]" />
-        <item itemvalue="Gradle.debug4j:debug4j-agent [shadowJar]" />
+        <item itemvalue="Application.Demo1Main" />
         <item itemvalue="Gradle.debug4j:debug4j-demo1 [clean]" />
+        <item itemvalue="Gradle.debug4j:debug4j-agent [shadowJar]" />
+        <item itemvalue="Gradle.debug4j:debug4j-demo1 [jar]" />
       </list>
     </recent_temporary>
   </component>
@@ -342,7 +359,10 @@
       <workItem from="1728438234145" duration="620000" />
       <workItem from="1728548719451" duration="598000" />
       <workItem from="1730943784720" duration="32931000" />
-      <workItem from="1731044280208" duration="12058000" />
+      <workItem from="1731044280208" duration="17253000" />
+      <workItem from="1731140442182" duration="26065000" />
+      <workItem from="1731308552075" duration="2092000" />
+      <workItem from="1731313226857" duration="29547000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -400,7 +420,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731044342033</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[-]新增备注">
+      <option name="closed" value="true" />
+      <created>1731123006801</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731123006801</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -422,7 +450,8 @@
     <MESSAGE value="[-]step2" />
     <MESSAGE value="[-]step3" />
     <MESSAGE value="[-]新增标准server与透传server" />
-    <option name="LAST_COMMIT_MESSAGE" value="[-]新增标准server与透传server" />
+    <MESSAGE value="[-]新增备注" />
+    <option name="LAST_COMMIT_MESSAGE" value="[-]新增备注" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -438,5 +467,9 @@
         <PinnedItemInfo parentTag="java.nio.HeapByteBuffer" memberName="hb" />
       </pinned-members>
     </pin-to-top-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

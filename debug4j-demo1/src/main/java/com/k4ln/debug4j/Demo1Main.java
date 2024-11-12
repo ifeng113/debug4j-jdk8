@@ -1,5 +1,6 @@
 package com.k4ln.debug4j;
 
+import com.k4ln.debug4j.core.Debugger;
 import com.sun.tools.attach.AgentInitializationException;
 import com.sun.tools.attach.AgentLoadException;
 import com.sun.tools.attach.AttachNotSupportedException;
@@ -20,6 +21,11 @@ public class Demo1Main {
 //                machine.loadAgent("E:\\JavaSpace\\ksiu\\debug4j\\debug4j-agent\\build\\libs\\debug4j-agent-1.0-SNAPSHOT-all.jar");
 //            }
 //        }
+
+
+
+        Debugger.start("demo1", "192.168.1.164", 7988, "k4ln");
+
         for (int i = 0; i < 1000; i++) {
             logNumber(i);
             if (i == 999){
@@ -31,7 +37,7 @@ public class Demo1Main {
     private static void logNumber(int i) {
         try {
             Thread.sleep(3000);
-            log.info("random pid:{} index:{}", ProcessHandle.current().pid(), i);
+//            log.info("random pid:{} index:{}", ProcessHandle.current().pid(), i);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

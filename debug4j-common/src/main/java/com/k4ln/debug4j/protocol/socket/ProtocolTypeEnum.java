@@ -1,4 +1,4 @@
-package com.k4ln.debug4j.protocol;
+package com.k4ln.debug4j.protocol.socket;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,10 +9,10 @@ public enum ProtocolTypeEnum {
 
     AUTH("0x0001", "鉴权"),
 
-    TEXT("0x0002", "文本"),
+    COMMAND("0x0002", "指令"),
 
 
-    PROXY("0x0010", "代理"),
+    PROXY("0x0010", "代理流"),
 
     ;
 

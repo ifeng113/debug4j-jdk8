@@ -1,10 +1,10 @@
+server:
+  port: 7987
+
 spring:
   application:
     name: debug4j-server
-ss:
+
+debug4j:
   key: k4ln
-  server-port: 10001
-  tfp-server-port: 10002
-  client:
-    tfp-host: 192.168.1.164
-    tfp-port: 5005
+  socket-port: 7988

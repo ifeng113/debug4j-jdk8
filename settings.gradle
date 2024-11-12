@@ -3,4 +3,6 @@ include 'debug4j-agent'
 include 'debug4j-common'
 include 'debug4j-server'
 include 'debug4j-demo1'
+include 'debug4j-core'
+include 'debug4j-spring-boot-starter'
 

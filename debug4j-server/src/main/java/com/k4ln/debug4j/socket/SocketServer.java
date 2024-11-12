@@ -1,10 +1,16 @@
 package com.k4ln.debug4j.socket;
 
 import cn.hutool.core.util.ArrayUtil;
-import com.k4ln.debug4j.protocol.ProtocolTypeEnum;
-import com.k4ln.debug4j.protocol.SocketProtocol;
-import com.k4ln.debug4j.protocol.SocketProtocolDecoder;
-import com.k4ln.debug4j.protocol.SocketProtocolUtil;
+import com.alibaba.fastjson2.JSON;
+import com.k4ln.debug4j.config.SocketServerProperties;
+import com.k4ln.debug4j.protocol.command.Command;
+import com.k4ln.debug4j.protocol.command.CommandTypeEnum;
+import com.k4ln.debug4j.protocol.command.message.CommandInfoMessage;
+import com.k4ln.debug4j.protocol.command.message.CommandLogMessage;
+import com.k4ln.debug4j.protocol.socket.ProtocolTypeEnum;
+import com.k4ln.debug4j.protocol.socket.SocketProtocol;
+import com.k4ln.debug4j.protocol.socket.SocketProtocolDecoder;
+import com.k4ln.debug4j.utils.SocketProtocolUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.smartboot.socket.StateMachineEnum;
@@ -12,45 +18,67 @@ import org.smartboot.socket.extension.plugins.HeartPlugin;
 import org.smartboot.socket.extension.processor.AbstractMessageProcessor;
 import org.smartboot.socket.transport.AioQuickServer;
 import org.smartboot.socket.transport.AioSession;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+
+import static com.k4ln.debug4j.socket.SocketTFProxyServer.callbackMessage;
+import static com.k4ln.debug4j.socket.SocketTFProxyServer.closeClient;
 
 /**
  * socket实现HTTP代理和HTTPS代理【透明代理】：https://www.jb51.net/program/3204924ux.htm
  * 代理分三种：
- *      TCP全流量（如OpenVPN，需要修改本地路由表、创建虚拟网卡等）
- *      TCP指定端口（SocketTFProxyServer + SocketTFProxyClient），指定端口代理
- *      HTTP全流量（Clash[透明代理]、笔记[http+https]：20220809/0825-pj/https-proxy + proxy-dm）
- *          - http 劫持代理（可篡改内容）
- *          - https
- *              - 劫持代理（可篡改内容，需要安装证书）
- *              - 透明代理（流量透明转发，获取到的是tcp流量包，篡改内容较为复杂，需对数据包处理）
+ * TCP全流量（如OpenVPN，需要修改本地路由表、创建虚拟网卡等）
+ * TCP指定端口（SocketTFProxyServer + SocketTFProxyClient | goproxy），指定端口代理（指定入端口与出端口，支持多用户单端口代理，简称正向代理）
+ * TCP穿透代理（【本程序】 | frp）
+ * HTTP全流量（Clash[透明代理]、笔记[http+https]：20220809/0825-pj/https-proxy + proxy-dm）
+ * - http 劫持代理（可篡改内容）
+ * - https
+ * - 劫持代理（可篡改内容，需要安装证书）
+ * - 透明代理（流量透明转发，获取到的是tcp流量包，篡改内容较为复杂，需对数据包处理）
  */
 @Slf4j
-@Component
 public class SocketServer {
 
-    @Value("${ss.server-port}")
-    Integer serverPort;
+    final SocketServerProperties serverProperties;
 
-    @Value("${ss.key}")
-    String key;
-
-    @Getter
     AioQuickServer server;
 
-    @Getter
     AbstractMessageProcessor<SocketProtocol> processor;
 
-    final Map<String, AioSession> sessionMap = new HashMap<>();
+    /**
+     * socketClient
+     */
+    @Getter
+    final Map<String, AioSession> sessionMap = new ConcurrentHashMap<>();
 
-    final Map<String, Integer> authSessionMap = new HashMap<>();
+    /**
+     * socketClient -> heartTimes
+     */
+    final Map<String, Integer> authSessionMap = new ConcurrentHashMap<>();
 
-    final Map<String, byte[]> sessionPackaging = new HashMap<>();
+    /**
+     * socketClient -> packagingData
+     */
+    final Map<String, byte[]> sessionPackaging = new ConcurrentHashMap<>();
+
+    /**
+     * socketClient -> CommandInfoMessage
+     */
+    final Map<String, CommandInfoMessage> infoMessageMap = new ConcurrentHashMap<>();
+
+    /**
+     * clientId -> socketClient
+     */
+    @Getter
+    final Map<Integer, String> clientIdSocketMap = new ConcurrentHashMap<>();
+
+    public SocketServer(SocketServerProperties serverProperties) {
+        this.serverProperties = serverProperties;
+    }
 
     public void start() throws Exception {
 
@@ -59,21 +87,20 @@ public class SocketServer {
             @Override
             public void process0(AioSession session, SocketProtocol protocol) {
                 // 鉴权
-                if (!checkAuth(session.getSessionID())) {
+                if (!protocol.getProtocolType().equals(ProtocolTypeEnum.AUTH) && !checkAuth(session.getSessionID())) {
                     return;
                 }
                 if (protocol.getSubcontract()) {
-                    sessionPackaging.put(getSessionPackagingKey(session, protocol.getProtocolType()),
-                            ArrayUtil.addAll(sessionPackaging.get(session.getSessionID()), protocol.getBody()));
+                    String sessionPackagingKey = getSessionPackagingKey(session, protocol);
+                    sessionPackaging.put(sessionPackagingKey, ArrayUtil.addAll(sessionPackaging.get(sessionPackagingKey), protocol.getBody()));
                     if (protocol.getSubcontractCount().equals(protocol.getSubcontractIndex())) {
-                        messageHandler(session, protocol.getProtocolType(),
-                                sessionPackaging.get(getSessionPackagingKey(session, protocol.getProtocolType())));
-                        sessionPackaging.remove(getSessionPackagingKey(session, protocol.getProtocolType()));
+                        messageHandler(session, protocol, sessionPackaging.get(sessionPackagingKey));
+                        sessionPackaging.remove(sessionPackagingKey);
                     } else {
-                        sessionPackaging.put(getSessionPackagingKey(session, protocol.getProtocolType()), protocol.getBody());
+                        sessionPackaging.put(sessionPackagingKey, protocol.getBody());
                     }
                 } else {
-                    messageHandler(session, protocol.getProtocolType(), protocol.getBody());
+                    messageHandler(session, protocol, protocol.getBody());
                 }
             }
 
@@ -82,22 +109,34 @@ public class SocketServer {
                 return heartTimes != null && heartTimes == -1;
             }
 
-            private void messageHandler(AioSession session, ProtocolTypeEnum protocolType, byte[] data) {
-                switch (protocolType) {
-                    case TEXT -> log.info(new String(data));
+            private void messageHandler(AioSession session, SocketProtocol protocol, byte[] data) {
+                switch (protocol.getProtocolType()) {
                     case AUTH -> {
-                        if (key.equals(new String(data))) {
+                        if (serverProperties.getKey().equals(new String(data))) {
                             authSessionMap.put(session.getSessionID(), -1);
+                            sendMessage(session.getSessionID(), 0, ProtocolTypeEnum.COMMAND,
+                                    CommandLogMessage.buildCommandLogMessage(session.getSessionID() + " auth successful"));
+                        } else {
+                            session.close();
                         }
                     }
-                    case PROXY -> {
-                        // TODO
+                    case COMMAND -> {
+                        Command command = JSON.parseObject(new String(data), Command.class);
+                        if (command.getCommand().equals(CommandTypeEnum.PROXY_CLOSE)) {
+                            closeClient(protocol.getClientId());
+                        } else if (command.getCommand().equals(CommandTypeEnum.INFO)) {
+                            String infoString = JSON.toJSONString(command.getData());
+                            log.warn("sessionId:{} with info:{}", session.getSessionID(), infoString);
+                            CommandInfoMessage infoMessage = JSON.parseObject(infoString, CommandInfoMessage.class);
+                            infoMessageMap.put(session.getSessionID(), infoMessage);
+                        }
                     }
+                    case PROXY -> callbackMessage(protocol.getClientId(), data);
                 }
             }
 
-            private static String getSessionPackagingKey(AioSession session, ProtocolTypeEnum proxyProtocol) {
-                return session.getSessionID() + "-" + proxyProtocol.name();
+            private static String getSessionPackagingKey(AioSession session, SocketProtocol protocol) {
+                return session.getSessionID() + "-" + protocol.getProtocolType().name() + "-" + protocol.getClientId();
             }
 
             @Override
@@ -105,14 +144,26 @@ public class SocketServer {
                 if (stateMachineEnum.equals(StateMachineEnum.NEW_SESSION)) {
                     sessionMap.put(session.getSessionID(), session);
                     authSessionMap.put(session.getSessionID(), 0);
-                    log.info("session:{} connected", session.getSessionID());
+                    log.info("socket server session:{} connected", session.getSessionID());
                 } else if (stateMachineEnum.equals(StateMachineEnum.SESSION_CLOSED)) {
                     sessionMap.remove(session.getSessionID());
                     authSessionMap.remove(session.getSessionID());
-                    log.info("session:{} disConnected", session.getSessionID());
+                    infoMessageMap.remove(session.getSessionID());
+                    clearSocketClientClientIds(session);
+                    log.info("socket server session:{} disConnected", session.getSessionID());
                 } else if (throwable != null) {
                     throwable.printStackTrace();
                 }
+            }
+
+            private void clearSocketClientClientIds(AioSession session) {
+                List<Integer> clientIds = new ArrayList<>();
+                for (Map.Entry<Integer, String> entry : clientIdSocketMap.entrySet()) {
+                    if (entry.getValue().equals(session.getSessionID())) {
+                        clientIds.add(entry.getKey());
+                    }
+                }
+                clientIds.forEach(SocketTFProxyServer::closeClient);
             }
         };
 
@@ -126,13 +177,13 @@ public class SocketServer {
                     return;
                 } else {
                     if (heartTimes > 3) {
-//                        session.close();
-//                        return;
+                        session.close();
+                        return;
                     } else if (heartTimes != -1) {
                         authSessionMap.put(session.getSessionID(), heartTimes + 1);
                     }
                 }
-                sendMessage(session.getSessionID(), ProtocolTypeEnum.HEART, null);
+                sendMessage(session.getSessionID(), 0, ProtocolTypeEnum.HEART, null);
             }
 
             @Override
@@ -141,11 +192,11 @@ public class SocketServer {
             }
         });
 
-        server = new AioQuickServer(serverPort, new SocketProtocolDecoder(), processor);
+        server = new AioQuickServer(serverProperties.getSocketPort(), new SocketProtocolDecoder(), processor);
         server.setReadBufferSize(SocketProtocolUtil.READ_BUFFER_SIZE);
         server.start();
 
-        log.info("socket server started at port {}", serverPort);
+        log.info("socket server started at port {}", serverProperties.getSocketPort());
     }
 
 
@@ -156,10 +207,17 @@ public class SocketServer {
      * @param protocolType
      * @param body
      */
-    public void sendMessage(String sessionId, ProtocolTypeEnum protocolType, byte[] body) {
+    public void sendMessage(String sessionId, Integer clientId, ProtocolTypeEnum protocolType, byte[] body) {
         AioSession session = sessionMap.get(sessionId);
-        if (session != null) {
-            SocketProtocolUtil.sendMessage(session, protocolType, body);
+        if (session != null && !session.isInvalid()) {
+            SocketProtocolUtil.sendMessage(session, clientId, protocolType, body);
+            if (clientId != 0) {
+                clientIdSocketMap.put(clientId, sessionId);
+            }
+        } else {
+            if (clientId != 0) {
+                closeClient(clientId);
+            }
         }
     }
 
