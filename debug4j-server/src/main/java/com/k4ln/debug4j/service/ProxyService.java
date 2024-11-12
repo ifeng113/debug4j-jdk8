@@ -45,6 +45,7 @@ public class ProxyService {
      * @return
      */
     public ProxyRespVO proxy(ProxyReqVO proxyReqVO) {
+        // fixme 通过 CommandInfoMessage 绑定 SocketClient
         if (!socketServer.getSessionMap().containsKey(proxyReqVO.getSocketClient())) {
             throw new BusinessAbort("not found remote client");
         }

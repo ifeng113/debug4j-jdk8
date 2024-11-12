@@ -4,50 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[-]新增备注">
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/Command.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/CommandTypeEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/message/CommandInfoMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/message/CommandLogMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/message/CommandProxyMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/HttpResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/Result.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/exception/BaseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/exception/abort/BusinessAbort.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/exception/error/ParameterError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/response/exception/error/ValidateError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-core/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/SocketClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ExceptionAdvice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/SocketServerConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/SocketServerProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/vo/ProxyReqVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/vo/ProxyRespVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/service/ProxyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/utils/PortScannerUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/## 协议文档.md" beforeDir="false" afterPath="$PROJECT_DIR$/## 协议文档.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1]穿透代理测试通过">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/ProtocolTypeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/socket/ProtocolTypeEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/socket/SocketProtocol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocolDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/socket/SocketProtocolDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/SocketProtocolUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/utils/SocketProtocolUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/jwdp/TFProtocolDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/socket/TFProtocolDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo1/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Demo1Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Demo1Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ServerRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ServerRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/controller/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketTFProxyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/SocketTFProxyClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketTFProxyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketTFProxyServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/service/ProxyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/service/ProxyService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -362,7 +322,7 @@
       <workItem from="1731044280208" duration="17253000" />
       <workItem from="1731140442182" duration="26065000" />
       <workItem from="1731308552075" duration="2092000" />
-      <workItem from="1731313226857" duration="29547000" />
+      <workItem from="1731313226857" duration="30565000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -428,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731123006801</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="[0.0.1]穿透代理测试通过">
+      <option name="closed" value="true" />
+      <created>1731404909796</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731404909796</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -451,7 +419,8 @@
     <MESSAGE value="[-]step3" />
     <MESSAGE value="[-]新增标准server与透传server" />
     <MESSAGE value="[-]新增备注" />
-    <option name="LAST_COMMIT_MESSAGE" value="[-]新增备注" />
+    <MESSAGE value="[0.0.1]穿透代理测试通过" />
+    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1]穿透代理测试通过" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

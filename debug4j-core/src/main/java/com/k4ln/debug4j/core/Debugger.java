@@ -25,7 +25,7 @@ public class Debugger {
                 .applicationName(application)
                 .socketClientHost(NetUtil.getLocalHostName())
                 .socketClientIp(NetUtil.getLocalhostStr())
-                .uniqueId(uniqueId)
+                .uniqueId(uniqueId == null ? UUID.fastUUID().toString(true) : uniqueId)
                 .build();
         ScheduledThreadPoolExecutor scheduledExecutor = ThreadUtil.createScheduledExecutor(10);
         scheduledExecutor.scheduleWithFixedDelay(buildKeepAliveRunnable(host, port, key), 0, 10, TimeUnit.SECONDS);
