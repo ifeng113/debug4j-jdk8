@@ -13,7 +13,7 @@ public class DebugAgentmain {
         log.info("agent agentmain run with hutool:{}", RandomUtil.randomNumbers(8));
         inst.addTransformer(new CusDefinedClass(), true);
         for (Class allLoadedClass : inst.getAllLoadedClasses()) {
-            if(allLoadedClass.getName().contains("com.k4ln")){
+            if(allLoadedClass.getName().contains("com.k4ln.demo")){
                 try {
                     inst.retransformClasses(allLoadedClass);
                 } catch (UnmodifiableClassException e) {

@@ -9,7 +9,7 @@ import java.lang.instrument.Instrumentation;
 public class DebugAgent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
-        log.info("agent premain run with agentArgs:{}", agentArgs);
+        log.info("agent premain run with agentArgs:{} inst:{}", agentArgs, inst);
 //        enableRemoteDebug();
     }
 
