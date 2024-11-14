@@ -8,6 +8,7 @@ import java.lang.instrument.Instrumentation;
 @Slf4j
 public class DebugAgent {
 
+    // 执行两次：https://blog.csdn.net/NEWCIH/article/details/129185402
     public static void premain(String agentArgs, Instrumentation inst) {
         log.info("agent premain run with agentArgs:{} inst:{}", agentArgs, inst);
 //        enableRemoteDebug();

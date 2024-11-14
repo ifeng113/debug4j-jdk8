@@ -1,5 +1,6 @@
 package com.k4ln.demo;
 
+import cn.hutool.core.util.RandomUtil;
 import com.sun.tools.attach.AgentInitializationException;
 import com.sun.tools.attach.AgentLoadException;
 import com.sun.tools.attach.AttachNotSupportedException;
@@ -33,10 +34,16 @@ public class Demo1Main {
 
     private static void logNumber(int i) {
         try {
+            Dog dog = Dog.builder().name(RandomUtil.randomNumbers(4)).age(i).build();
             Thread.sleep(3000);
-            log.info("random pid:{} index:{}", ProcessHandle.current().pid(), i);
+//            log.info("random tid:{} pid:{} index:{} dog:{}", Thread.currentThread().getId(), ProcessHandle.current().pid(), i, JSON.toJSONString(dog));
+            log.info("random tid:{} pid:{} index:{} dog:{}", Thread.currentThread().getId(), ProcessHandle.current().pid(), i, dog.toString());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
+
+//    public static String toJsonString(Dog dog){
+//        return JSON.toJSONString(dog);
+//    }
 }

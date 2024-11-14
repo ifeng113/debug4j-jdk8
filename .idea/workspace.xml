@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1]穿透代理测试通过#2">
-      <change afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/AgentMain.java" afterDir="false" />
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1]agent attach#1">
+      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ByteBuddyAgent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ByteBuddyAgentInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ByteBuddyAgentmain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ByteBuddyAgentmainInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/JavassistAgent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/JavassistAgentmain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/Dog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/DebugAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/DebugAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/DebugAgentmain.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/DebugAgentmain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo1/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/debug4j/Demo1Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/Demo1Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/md/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/md/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/AgentMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/AgentMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/Demo1Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/Demo1Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +61,13 @@
                 <item name="debug4j" type="f1a62948:ProjectNode" />
                 <item name="debug4j-agent" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="debug4j" type="f1a62948:ProjectNode" />
+                <item name="debug4j-agent" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="shadow" type="c8890929:TasksNode$1" />
               </path>
               <path>
@@ -73,7 +86,7 @@
                 <item name="debug4j" type="f1a62948:ProjectNode" />
                 <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="shadow" type="c8890929:TasksNode$1" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -107,48 +120,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Demo1Main.executor": "Debug",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Build debug4j.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.debug4j:debug4j-agent [clean].executor": "Run",
-    "Gradle.debug4j:debug4j-agent [jar].executor": "Run",
-    "Gradle.debug4j:debug4j-agent [shadowJar].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:AgentMain.main()].executor": "Debug",
-    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor": "Debug",
-    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [build].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [classes].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [clean].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [jar].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [shadowJar].executor": "Run",
-    "Remote JVM Debug.debug4j.executor": "Debug",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.Debug4jServerApplication.executor": "Debug",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/JavaSpace/dengfeng/df-all",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "Console",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AgentMain.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Demo1Main Agent.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Demo1Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build debug4j.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [shadowJar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:AgentMain.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [classes].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [shadowJar].executor&quot;: &quot;Run&quot;,
+    &quot;Remote JVM Debug.debug4j.executor&quot;: &quot;Debug&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Debug4jServerApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/JavaSpace/dengfeng/df-all&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-common\src\main\java\com\k4ln\debug4j\response" />
@@ -161,11 +176,11 @@
       <recent name="E:\JavaSpace\ksiu\debug4j\src\main\resources\md\static" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.k4ln.debug4j" />
       <recent name="com.k4ln.debug4j.protocol.command.message" />
       <recent name="com.k4ln.debug4j.config" />
       <recent name="com.k4ln.debug4j.controller.vo" />
       <recent name="com.k4ln.debug4j.protocol.command" />
-      <recent name="com.k4ln.debug4j.core" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -178,13 +193,14 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.AgentMain">
-    <configuration name="AgentMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.k4ln.demo.AgentMain" />
+  <component name="RunManager" selected="Gradle.debug4j:debug4j-agent [shadowJar]">
+    <configuration name="Demo1Main Agent" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.k4ln.demo.Demo1Main" />
       <module name="debug4j.debug4j-demo1.main" />
+      <option name="VM_PARAMETERS" value="-javaagent:E:\JavaSpace\ksiu\debug4j\debug4j-agent\build\libs\debug4j-agent-1.0-SNAPSHOT-all.jar" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.k4ln.demo.*" />
+          <option name="PATTERN" value="com.k4ln.debug4j.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -204,6 +220,28 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="debug4j:debug4j-agent [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-agent" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration name="debug4j:debug4j-agent [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -249,28 +287,6 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="debug4j:debug4j-demo1 [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-demo1" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="shadowJar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="debug4j" type="Remote">
       <module name="debug4j.debug4j-demo1.main" />
       <option name="USE_SOCKET_TRANSPORT" value="true" />
@@ -293,19 +309,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.AgentMain" />
+      <item itemvalue="Application.Demo1Main Agent" />
       <item itemvalue="Application.Demo1Main" />
-      <item itemvalue="Gradle.debug4j:debug4j-agent [shadowJar]" />
+      <item itemvalue="Gradle.debug4j:debug4j-agent [clean]" />
       <item itemvalue="Gradle.debug4j:debug4j-demo1 [clean]" />
-      <item itemvalue="Gradle.debug4j:debug4j-demo1 [shadowJar]" />
+      <item itemvalue="Gradle.debug4j:debug4j-agent [shadowJar]" />
       <item itemvalue="Remote JVM Debug.debug4j" />
       <item itemvalue="Spring Boot.Debug4jServerApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AgentMain" />
+        <item itemvalue="Application.Demo1Main Agent" />
         <item itemvalue="Gradle.debug4j:debug4j-agent [shadowJar]" />
-        <item itemvalue="Gradle.debug4j:debug4j-demo1 [shadowJar]" />
+        <item itemvalue="Gradle.debug4j:debug4j-agent [clean]" />
         <item itemvalue="Application.Demo1Main" />
         <item itemvalue="Gradle.debug4j:debug4j-demo1 [clean]" />
       </list>
@@ -336,7 +352,8 @@
       <workItem from="1731044280208" duration="17253000" />
       <workItem from="1731140442182" duration="26065000" />
       <workItem from="1731308552075" duration="2092000" />
-      <workItem from="1731313226857" duration="34684000" />
+      <workItem from="1731313226857" duration="59290000" />
+      <workItem from="1731547588951" duration="8031000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -418,7 +435,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731405875202</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="[0.0.1]agent attach#1">
+      <option name="closed" value="true" />
+      <created>1731461841553</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1731461841553</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -443,7 +468,8 @@
     <MESSAGE value="[-]新增备注" />
     <MESSAGE value="[0.0.1]穿透代理测试通过" />
     <MESSAGE value="[0.0.1]穿透代理测试通过#2" />
-    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1]穿透代理测试通过#2" />
+    <MESSAGE value="[0.0.1]agent attach#1" />
+    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1]agent attach#1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -451,6 +477,10 @@
         <breakpoint type="java-exception">
           <properties class="java.nio.InvalidMarkException" package="java.nio" />
           <option name="timeStamp" value="8" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="152" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

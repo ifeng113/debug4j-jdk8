@@ -20,5 +20,6 @@ public class AgentMain {
                 machine.loadAgent("E:\\JavaSpace\\ksiu\\debug4j\\debug4j-agent\\build\\libs\\debug4j-agent-1.0-SNAPSHOT-all.jar");
             }
         }
+//        System.in.read();
     }
 }
