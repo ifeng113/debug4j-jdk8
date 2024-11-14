@@ -30,6 +30,7 @@ public class JavassistAgentmain {
 
     }
 
+    // ByteBuddyAgentmain
     // 【无需重启-在线修改代码】: https://segmentfault.com/a/1190000040027690?sort=votes
     static class CusDefinedClass implements ClassFileTransformer {
         @Override

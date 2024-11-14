@@ -40,6 +40,8 @@ public class ByteBuddyAgentmain {
                 }
                 // java动态编译：CompilerUtil -> web3动态函数（web3sd[test]）
                 // jar动态加载：ClassLoaderUtil
+                // koTime | arthas retransform
+                // ByteBuddyAgentmain
                 return new ByteBuddy()
                         .redefine(classBeingRedefined)
                         .method(ElementMatchers.named("logNumber"))

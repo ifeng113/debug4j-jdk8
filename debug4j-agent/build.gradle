@@ -18,9 +18,10 @@ dependencies {
 shadowJar {
     manifest {
         attributes(
+                'Agent-Class': 'com.k4ln.debug4j.ReTransformAgentmain',
 //                'Premain-Class': 'com.k4ln.debug4j.ByteBuddyAgent',
 //                'Agent-Class': 'com.k4ln.debug4j.ByteBuddyAgentmain',
-                'Premain-Class': 'com.k4ln.debug4j.JavassistAgent',
+//                'Premain-Class': 'com.k4ln.debug4j.JavassistAgent',
 //                'Agent-Class': 'com.k4ln.debug4j.JavassistAgentmain',
 //                'Premain-Class': 'com.k4ln.debug4j.DebugAgent',
 //                'Agent-Class': 'com.k4ln.debug4j.DebugAgentmain',
