@@ -11,6 +11,10 @@ dependencies {
     implementation 'net.bytebuddy:byte-buddy:1.15.10'
     implementation 'org.javassist:javassist:3.30.2-GA'
 
+    // jadx
+    implementation 'io.github.skylot:jadx-core:1.5.1'
+    implementation 'io.github.skylot:jadx-java-input:1.5.1' // 一定要因此依赖【重要】
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

@@ -4,22 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1]agent attach premain|agentmain with Javassist And ByteBuddy #1">
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/compile/CompilerUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/compile/JavaClassFileManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/compile/JavaClassFileObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/compile/JavaSourceCompiler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/compile/JavaSourceFileObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/compile/ResourceClassLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/retransform/Demo1Main.class2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/retransform/Demo1Main.java2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1] ReTransformAgentmain class热更新 #1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ByteBuddyAgentmain.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ByteBuddyAgentmain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/JavassistAgentmain.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/JavassistAgentmain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +102,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -154,7 +146,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Debug4jServerApplication.executor": "Debug",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/JavaSpace/ksiu/debug4j/debug4j-agent/src/main/java/com/k4ln/debug4j/retransform",
+    "last_opened_file_path": "E:/JavaSpace/dengfeng/df-all",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -356,7 +348,7 @@
       <workItem from="1731140442182" duration="26065000" />
       <workItem from="1731308552075" duration="2092000" />
       <workItem from="1731313226857" duration="59290000" />
-      <workItem from="1731547588951" duration="25715000" />
+      <workItem from="1731547588951" duration="43963000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -454,7 +446,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731561794993</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="[0.0.1] ReTransformAgentmain class热更新 #1">
+      <option name="closed" value="true" />
+      <created>1731580925586</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731580925586</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +481,8 @@
     <MESSAGE value="[0.0.1]穿透代理测试通过#2" />
     <MESSAGE value="[0.0.1]agent attach#1" />
     <MESSAGE value="[0.0.1]agent attach premain|agentmain with Javassist And ByteBuddy #1" />
-    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1]agent attach premain|agentmain with Javassist And ByteBuddy #1" />
+    <MESSAGE value="[0.0.1] ReTransformAgentmain class热更新 #1" />
+    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1] ReTransformAgentmain class热更新 #1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -496,8 +497,13 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java</url>
-          <line>65</line>
+          <line>70</line>
           <option name="timeStamp" value="213" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="237" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

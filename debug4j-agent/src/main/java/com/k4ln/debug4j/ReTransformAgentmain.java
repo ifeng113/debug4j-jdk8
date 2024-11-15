@@ -2,15 +2,20 @@ package com.k4ln.debug4j;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.RandomUtil;
-import com.k4ln.debug4j.compile.CompilerUtil;
-import com.k4ln.debug4j.compile.JavaSourceCompiler;
-import com.k4ln.debug4j.compile.ResourceClassLoader;
+import cn.hutool.core.util.ZipUtil;
+import jadx.api.JadxArgs;
+import jadx.api.JadxDecompiler;
+import jadx.api.JavaClass;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
 import java.io.InputStream;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.ProtectionDomain;
 
 @Slf4j
@@ -77,6 +82,40 @@ public class ReTransformAgentmain {
 //                    return resourceAsStreamMain.readAllBytes();
 //                }
 
+                // 方式四：JavaCompiler：如果存在依赖Jar，可参考Hutool
+//                JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
+//                StandardJavaFileManager standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
+//                Iterable<? extends JavaFileObject> javaFileObjects = standardFileManager.getJavaFileObjectsFromStrings(List.of("E:\\Demo1Main.java"));
+//                JavaCompiler.CompilationTask task = javaCompiler.getTask(null, standardFileManager, null, null, null, javaFileObjects);
+//                task.call();
+//                return Files.readAllBytes(Paths.get("E:\\Demo1Main.class"));
+
+                // Java 反编译工具的使用与对比分析：https://www.cnblogs.com/niumoo/p/14784294.html
+                // https://github.com/skylot/jadx/wiki/Use-jadx-as-a-library
+
+                JadxArgs jadxArgs = new JadxArgs();
+
+//                File zip = ZipUtil.zip(FileUtil.file("dy.jar"), new String[]{"com/k4ln/demo/Demo1Main.class"}, new InputStream[]{FileUtil.getInputStream("E:\\Demo1Main.class")});
+//                jadxArgs.setInputFile(zip);
+
+//                jadxArgs.setInputFile(new File("E:\\Demo1Main.class"));
+
+                File file = new File("temp/Demo1Main.class");
+                Path path = Paths.get(file.getAbsolutePath());
+                Files.write(path, classfileBuffer);
+                jadxArgs.setInputFile(file);
+
+                jadxArgs.setOutDir(new File("E:\\Jadx"));
+                try (JadxDecompiler jadx = new JadxDecompiler(jadxArgs)) {
+                    jadx.load();
+                    for (JavaClass cls : jadx.getClasses()) {
+                        log.info(cls.getCode());
+                    }
+                    jadx.save();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                log.warn("jadx");
             } catch (Exception e) {
                 e.printStackTrace();
 //                throw new RuntimeException(e);
