@@ -3,6 +3,7 @@ package com.k4ln.debug4j.core;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.thread.ThreadUtil;
+import com.k4ln.debug4j.core.client.SocketClient;
 import com.k4ln.debug4j.protocol.command.message.CommandInfoMessage;
 import lombok.extern.slf4j.Slf4j;
 

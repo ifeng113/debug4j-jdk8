@@ -1,6 +1,7 @@
-package com.k4ln.debug4j.core;
+package com.k4ln.debug4j.core.client;
 
 import com.alibaba.fastjson2.JSON;
+import com.k4ln.debug4j.core.proxy.SocketTFProxyClient;
 import com.k4ln.debug4j.protocol.command.Command;
 import com.k4ln.debug4j.protocol.command.CommandTypeEnum;
 import com.k4ln.debug4j.protocol.command.message.CommandInfoMessage;

@@ -11,9 +11,13 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/debug4j-agent" />
+            <option value="$PROJECT_DIR$/debug4j-boot" />
             <option value="$PROJECT_DIR$/debug4j-common" />
             <option value="$PROJECT_DIR$/debug4j-core" />
+            <option value="$PROJECT_DIR$/debug4j-daemon" />
             <option value="$PROJECT_DIR$/debug4j-demo1" />
+            <option value="$PROJECT_DIR$/debug4j-demo2" />
+            <option value="$PROJECT_DIR$/debug4j-packing" />
             <option value="$PROJECT_DIR$/debug4j-server" />
             <option value="$PROJECT_DIR$/debug4j-spring-boot-starter" />
           </set>

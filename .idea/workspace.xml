@@ -4,11 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1] ReTransformAgentmain class热更新 #1">
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1] jadx 反编译成功">
+      <change afterPath="$PROJECT_DIR$/debug4j-boot/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-boot/src/main/java/com/k4ln/debug4j/boot/Debug4jBoot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-boot/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jArgs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemonThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/Demo1DaemonMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-demo2/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-demo2/src/main/java/com/k4ln/demo2/Demo2Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-demo2/src/main/java/com/k4ln/demo2/controller/Demo2Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-demo2/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-packing/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/java/com/k4ln/debug4j/boot/starter/Debug4jAutoConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/SocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/client/SocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/SocketTFProxyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/proxy/SocketTFProxyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-demo1/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-spring-boot-starter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +47,9 @@
         <task path="$PROJECT_DIR$/debug4j-agent">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/debug4j-boot">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -39,45 +60,20 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="debug4j" type="f1a62948:ProjectNode" />
-                <item name="debug4j-agent" type="2d1252cf:ModuleNode" />
+                <item name="debug4j-boot" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="debug4j" type="f1a62948:ProjectNode" />
-                <item name="debug4j-agent" type="2d1252cf:ModuleNode" />
+                <item name="debug4j-boot" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="debug4j" type="f1a62948:ProjectNode" />
-                <item name="debug4j-agent" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="debug4j" type="f1a62948:ProjectNode" />
-                <item name="debug4j-agent" type="2d1252cf:ModuleNode" />
+                <item name="debug4j-boot" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="shadow" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="debug4j" type="f1a62948:ProjectNode" />
-                <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="debug4j" type="f1a62948:ProjectNode" />
-                <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="debug4j" type="f1a62948:ProjectNode" />
-                <item name="debug4j-demo1" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -97,7 +93,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="t1" />
+        <entry key="$PROJECT_DIR$" value="t2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -117,6 +113,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.AgentMain.executor": "Debug",
+    "Application.Debug4jBoot.executor": "Run",
+    "Application.Demo1DaemonMain.executor": "Run",
     "Application.Demo1Main Agent.executor": "Debug",
     "Application.Demo1Main.executor": "Debug",
     "Downloaded.Files.Path.Enabled": "false",
@@ -126,6 +124,7 @@
     "Gradle.debug4j:debug4j-agent [jar].executor": "Run",
     "Gradle.debug4j:debug4j-agent [knows].executor": "Run",
     "Gradle.debug4j:debug4j-agent [shadowJar].executor": "Run",
+    "Gradle.debug4j:debug4j-boot [shadowJar].executor": "Run",
     "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:AgentMain.main()].executor": "Debug",
     "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor": "Debug",
     "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor": "Run",
@@ -145,8 +144,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Debug4jServerApplication.executor": "Debug",
+    "Spring Boot.Demo2Application.executor": "Debug",
+    "jdk.selected.JAVA_MODULE": "17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/JavaSpace/dengfeng/df-all",
+    "last_opened_file_path": "E:/JavaSpace/ksiu/debug4j/debug4j-boot/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -161,21 +162,21 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-boot\src\main\resources" />
+      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-spring-boot-starter\src\main\resources\META-INF\spring" />
+      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-spring-boot-starter\src\main\resources" />
+      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-demo2\src\main\resources" />
       <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-agent\src\main\java\com\k4ln\debug4j\retransform" />
-      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-agent\src\main\java\com\k4ln\debug4j" />
-      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-common\src\main\java\com\k4ln\debug4j\response" />
-      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-common\src\main\java\com\k4ln\debug4j\protocol\socket" />
-      <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-common\src\main\java\com\k4ln\debug4j" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\JavaSpace\ksiu\debug4j\src\main\resources\md\static" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.k4ln.demo" />
+      <recent name="com.k4ln.demo2" />
       <recent name="com.k4ln.debug4j.compile" />
       <recent name="com.k4ln.debug4j" />
       <recent name="com.k4ln.debug4j.protocol.command.message" />
-      <recent name="com.k4ln.debug4j.config" />
-      <recent name="com.k4ln.debug4j.controller.vo" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -188,14 +189,13 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.debug4j:debug4j-agent [shadowJar]">
-    <configuration name="Demo1Main Agent" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="com.k4ln.demo.Demo1Main" />
-      <module name="debug4j.debug4j-demo1.main" />
-      <option name="VM_PARAMETERS" value="-javaagent:E:\JavaSpace\ksiu\debug4j\debug4j-agent\build\libs\debug4j-agent-1.0-SNAPSHOT-all.jar" />
+  <component name="RunManager" selected="Gradle.debug4j:debug4j-boot [shadowJar]">
+    <configuration name="Debug4jBoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.k4ln.debug4j.boot.Debug4jBoot" />
+      <module name="debug4j.debug4j-boot.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.k4ln.debug4j.*" />
+          <option name="PATTERN" value="com.k4ln.debug4j.boot.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -203,67 +203,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Demo1Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.k4ln.demo.Demo1Main" />
+    <configuration name="Demo1DaemonMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.k4ln.demo.Demo1DaemonMain" />
       <module name="debug4j.debug4j-demo1.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.k4ln.debug4j.*" />
+          <option name="PATTERN" value="com.k4ln.demo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="debug4j:debug4j-agent [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-agent" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="clean" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="debug4j:debug4j-agent [knows]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-agent" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="knows" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
     </configuration>
     <configuration name="debug4j:debug4j-agent [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-agent" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="debug4j:debug4j-boot [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/debug4j-boot" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
         <option name="taskDescriptions">
@@ -303,22 +281,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Demo2Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="debug4j.debug4j-demo2.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.k4ln.demo2.Demo2Application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.k4ln.demo2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="Application.Demo1Main Agent" />
-      <item itemvalue="Application.Demo1Main" />
-      <item itemvalue="Gradle.debug4j:debug4j-agent [knows]" />
-      <item itemvalue="Gradle.debug4j:debug4j-agent [clean]" />
+      <item itemvalue="Application.Debug4jBoot" />
+      <item itemvalue="Application.Demo1DaemonMain" />
+      <item itemvalue="Gradle.debug4j:debug4j-boot [shadowJar]" />
       <item itemvalue="Gradle.debug4j:debug4j-agent [shadowJar]" />
       <item itemvalue="Remote JVM Debug.debug4j" />
       <item itemvalue="Spring Boot.Debug4jServerApplication" />
+      <item itemvalue="Spring Boot.Demo2Application" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Demo1Main" />
+        <item itemvalue="Application.Demo1DaemonMain" />
+        <item itemvalue="Gradle.debug4j:debug4j-boot [shadowJar]" />
+        <item itemvalue="Application.Debug4jBoot" />
+        <item itemvalue="Spring Boot.Demo2Application" />
         <item itemvalue="Gradle.debug4j:debug4j-agent [shadowJar]" />
-        <item itemvalue="Gradle.debug4j:debug4j-agent [knows]" />
-        <item itemvalue="Application.Demo1Main Agent" />
-        <item itemvalue="Gradle.debug4j:debug4j-agent [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -348,7 +339,7 @@
       <workItem from="1731140442182" duration="26065000" />
       <workItem from="1731308552075" duration="2092000" />
       <workItem from="1731313226857" duration="59290000" />
-      <workItem from="1731547588951" duration="43963000" />
+      <workItem from="1731547588951" duration="66151000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -454,7 +445,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731580925586</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="[0.0.1] jadx 反编译成功">
+      <option name="closed" value="true" />
+      <created>1731663576314</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1731663576314</updated>
+    </task>
+    <task id="LOCAL-00015" summary="[0.0.1] jadx 反编译成功">
+      <option name="closed" value="true" />
+      <created>1731737686703</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1731737686703</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +489,8 @@
     <MESSAGE value="[0.0.1]agent attach#1" />
     <MESSAGE value="[0.0.1]agent attach premain|agentmain with Javassist And ByteBuddy #1" />
     <MESSAGE value="[0.0.1] ReTransformAgentmain class热更新 #1" />
-    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1] ReTransformAgentmain class热更新 #1" />
+    <MESSAGE value="[0.0.1] jadx 反编译成功" />
+    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1] jadx 反编译成功" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -497,13 +505,33 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java</url>
-          <line>70</line>
-          <option name="timeStamp" value="213" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/debug4j-agent/src/main/java/com/k4ln/debug4j/ReTransformAgentmain.java</url>
           <line>104</line>
           <option name="timeStamp" value="237" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.taobao.arthas/arthas-agent-attach/4.0.3/f8e68423a32831ed249580e29cb3f7e7ac377465/arthas-agent-attach-4.0.3-sources.jar!/com/taobao/arthas/agent/attach/ArthasAgent.java</url>
+          <line>123</line>
+          <option name="timeStamp" value="240" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/config/ServerRunner.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="241" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.taobao.arthas/arthas-agent-attach/4.0.3/f8e68423a32831ed249580e29cb3f7e7ac377465/arthas-agent-attach-4.0.3-sources.jar!/com/taobao/arthas/agent/attach/ArthasAgent.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="242" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.taobao.arthas/arthas-agent-attach/4.0.3/f8e68423a32831ed249580e29cb3f7e7ac377465/arthas-agent-attach-4.0.3-sources.jar!/com/taobao/arthas/agent/attach/ArthasAgent.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="243" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://C:/Program Files/Java/jdk-17/lib/src.zip!/java.base/java/lang/ProcessImpl.java</url>
+          <line>606</line>
+          <option name="timeStamp" value="248" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

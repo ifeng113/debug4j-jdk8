@@ -1,4 +1,4 @@
-package com.k4ln.debug4j.core;
+package com.k4ln.debug4j.core.proxy;
 
 import com.k4ln.debug4j.protocol.socket.TFProtocolDecoder;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import org.smartboot.socket.transport.AioQuickClient;
 import org.smartboot.socket.transport.AioSession;
 import org.smartboot.socket.transport.WriteBuffer;
 
-import static com.k4ln.debug4j.core.SocketClient.callbackMessage;
-import static com.k4ln.debug4j.core.SocketClient.clientClose;
+import static com.k4ln.debug4j.core.client.SocketClient.callbackMessage;
+import static com.k4ln.debug4j.core.client.SocketClient.clientClose;
 
 /**
  * 透明转发客户端
