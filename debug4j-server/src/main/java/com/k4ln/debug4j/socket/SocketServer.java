@@ -196,7 +196,7 @@ public class SocketServer {
         server.setReadBufferSize(SocketProtocolUtil.READ_BUFFER_SIZE);
         server.start();
 
-        log.info("socket server started at port {}", serverProperties.getSocketPort());
+        log.info("socket server started at pid:{} port {}", ProcessHandle.current().pid(), serverProperties.getSocketPort());
     }
 
 

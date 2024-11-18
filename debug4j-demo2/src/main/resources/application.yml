@@ -4,3 +4,8 @@ server:
 spring:
   application:
     name: demo2
+
+debug4j:
+  host: 192.168.1.164
+  port: 7988
+  key: k4ln

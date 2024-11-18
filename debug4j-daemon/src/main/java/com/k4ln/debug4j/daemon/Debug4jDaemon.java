@@ -18,8 +18,8 @@ public class Debug4jDaemon {
     /**
      * 开启守护线程
      */
-    public static void start() {
-        Debug4jArgs debug4jArgs = loadDebug4jArgs();
+    public static void start(String application, String host, Integer port, String key) {
+        Debug4jArgs debug4jArgs = loadDebug4jArgs(application, host, port, key);
         Debug4jDaemonThread debug4jDaemonThread = new Debug4jDaemonThread(debug4jArgs);
         Thread thread = ThreadUtil.newThread(debug4jDaemonThread, DEBUG4J_THREAD_NAME, true);
         thread.start();
@@ -35,17 +35,22 @@ public class Debug4jDaemon {
      * 装载参数
      * @return
      */
-    private static Debug4jArgs loadDebug4jArgs() {
-        Debug4jArgs debug4jArgs = new Debug4jArgs();
+    private static Debug4jArgs loadDebug4jArgs(String application, String host, Integer port, String key) {
+        Debug4jArgs debug4jArgs = Debug4jArgs.builder()
+                .application(application)
+                .host(host)
+                .port(port)
+                .key(key)
+                .build();
         debug4jArgs.setPid(ProcessHandle.current().pid());
         RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
         List<String> jvmArguments = runtimeMXBean.getInputArguments();
         for (String arg : jvmArguments) {
             if (arg.startsWith("-agentlib:jdwp=transport=dt_socket")) {
-                String port = extractPort(arg);
-                if (port != null) {
+                String jdwpPort = extractPort(arg);
+                if (jdwpPort != null) {
                     try {
-                        debug4jArgs.setJdwpPort(Integer.parseInt(port));
+                        debug4jArgs.setJdwpPort(Integer.parseInt(jdwpPort));
                     } catch (Exception e){
                         log.warn("debug4j daemon match jdwp port error arg:{} exception:{}", arg, e.getMessage());
                     }

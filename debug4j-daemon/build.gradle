@@ -10,6 +10,10 @@ repositories {
 }
 
 dependencies {
+
+    implementation project(":debug4j-packing")
+    implementation project(":debug4j-common")
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'com.k4ln'
@@ -12,6 +13,17 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+shadowJar {
+    dependsOn "runJavaProgram"
+    manifest {
+    }
+}
+
+tasks.register('runJavaProgram', JavaExec) {
+    mainClass = 'com.k4ln.debug4j.packing.PackingMain'
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 test {

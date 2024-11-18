@@ -1,9 +1,5 @@
 package com.k4ln.debug4j.protocol.command.message;
 
-import cn.hutool.core.net.NetUtil;
-import com.alibaba.fastjson2.JSON;
-import com.k4ln.debug4j.protocol.command.Command;
-import com.k4ln.debug4j.protocol.command.CommandTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,5 +30,15 @@ public class CommandInfoMessage {
      * 唯一ID
      */
     private String uniqueId;
+
+    /**
+     * 进程ID
+     */
+    private Long pid;
+
+    /**
+     * 远程调试端口
+     */
+    private Integer jdwpPort;
 
 }

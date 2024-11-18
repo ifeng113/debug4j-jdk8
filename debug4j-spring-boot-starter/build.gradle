@@ -13,9 +13,10 @@ repositories {
 
 dependencies {
 
-    implementation project(":debug4j-core")
+    implementation project(":debug4j-daemon")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     testImplementation platform('org.junit:junit-bom:5.10.0')

@@ -57,6 +57,12 @@ public class SocketClient {
         return session != null && !session.isInvalid();
     }
 
+    public void shutdown(){
+        if (session != null) {
+            session.close();
+        }
+    }
+
     /**
      * 开启socket客户端
      * @throws IOException

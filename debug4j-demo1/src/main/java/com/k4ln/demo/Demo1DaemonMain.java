@@ -14,7 +14,7 @@ public class Demo1DaemonMain {
 
     public static void main(String[] args) throws IOException, AttachNotSupportedException, AgentLoadException, AgentInitializationException {
 
-        Debug4jDaemon.start();
+        Debug4jDaemon.start("demo1-daemon", "192.168.1.164", 7988, "k4ln");
 
         for (int i = 0; i < 1000; i++) {
             logNumber(i);

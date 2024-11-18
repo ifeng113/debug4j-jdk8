@@ -17,19 +17,30 @@ public class Debugger {
 
     private static CommandInfoMessage commandInfoMessage;
 
-    public static void start(String application, String host, Integer port, String key) {
-        start(application, UUID.fastUUID().toString(true), host, port, key);
+    private static ScheduledThreadPoolExecutor scheduledExecutor;
+
+    public static void start(String application, String host, Integer port, String key, Long pid, Integer jdwpPort) {
+        start(application, UUID.fastUUID().toString(true), host, port, key, pid, jdwpPort);
     }
 
-    public static void start(String application, String uniqueId, String host, Integer port, String key) {
+    public static void start(String application, String uniqueId, String host, Integer port, String key, Long pid, Integer jdwpPort) {
         commandInfoMessage = CommandInfoMessage.builder()
                 .applicationName(application)
                 .socketClientHost(NetUtil.getLocalHostName())
                 .socketClientIp(NetUtil.getLocalhostStr())
                 .uniqueId(uniqueId == null ? UUID.fastUUID().toString(true) : uniqueId)
+                .pid(pid)
+                .jdwpPort(jdwpPort)
                 .build();
-        ScheduledThreadPoolExecutor scheduledExecutor = ThreadUtil.createScheduledExecutor(10);
+        scheduledExecutor = ThreadUtil.createScheduledExecutor(10);
         scheduledExecutor.scheduleWithFixedDelay(buildKeepAliveRunnable(host, port, key), 0, 10, TimeUnit.SECONDS);
+    }
+
+    public static void shutdown() {
+        scheduledExecutor.shutdown();
+        if (socketClient != null){
+            socketClient.shutdown();
+        }
     }
 
     /**
