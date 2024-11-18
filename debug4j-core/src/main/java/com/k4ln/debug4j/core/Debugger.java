@@ -4,9 +4,12 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import com.k4ln.debug4j.core.client.SocketClient;
+import com.k4ln.debug4j.daemon.Debug4jMode;
 import com.k4ln.debug4j.protocol.command.message.CommandInfoMessage;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.agent.ByteBuddyAgent;
 
+import java.lang.instrument.Instrumentation;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -19,11 +22,18 @@ public class Debugger {
 
     private static ScheduledThreadPoolExecutor scheduledExecutor;
 
-    public static void start(String application, String host, Integer port, String key, Long pid, Integer jdwpPort) {
-        start(application, UUID.fastUUID().toString(true), host, port, key, pid, jdwpPort);
+    public static Instrumentation instrumentation;
+
+    public static void start(String application, String host, Integer port, String key, Long pid, Integer jdwpPort,
+                             Debug4jMode debug4jMode) {
+        start(application, UUID.fastUUID().toString(true), host, port, key, pid, jdwpPort, debug4jMode);
     }
 
-    public static void start(String application, String uniqueId, String host, Integer port, String key, Long pid, Integer jdwpPort) {
+    public static void start(String application, String uniqueId, String host, Integer port, String key, Long pid,
+                             Integer jdwpPort, Debug4jMode debug4jMode) {
+        if (debug4jMode.equals(Debug4jMode.thread)) {
+            instrumentation = ByteBuddyAgent.install();
+        }
         commandInfoMessage = CommandInfoMessage.builder()
                 .applicationName(application)
                 .socketClientHost(NetUtil.getLocalHostName())
@@ -38,7 +48,7 @@ public class Debugger {
 
     public static void shutdown() {
         scheduledExecutor.shutdown();
-        if (socketClient != null){
+        if (socketClient != null) {
             socketClient.shutdown();
         }
     }

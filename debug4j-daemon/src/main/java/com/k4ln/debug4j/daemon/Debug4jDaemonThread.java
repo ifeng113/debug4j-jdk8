@@ -26,7 +26,7 @@ public class Debug4jDaemonThread implements Runnable {
 
     @Override
     public void run() {
-        log.info("Daemon thread start pid:{} by:{}", ProcessHandle.current().pid(), debug4jArgs.getThreadName());
+        log.info("Daemon thread start pid:{} by:{}", debug4jArgs.getPid(), debug4jArgs.getThreadName());
         URL bootUrl = this.getClass().getClassLoader().getResource("debug4j-boot.zip");
         if (bootUrl != null) {
             try {

@@ -1,5 +1,6 @@
 package com.k4ln.debug4j.boot.starter;
 
+import com.k4ln.debug4j.daemon.Debug4jMode;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -13,6 +14,11 @@ public class Debug4jProperties {
      * 是否开启
      */
     private Boolean enabled = true;
+
+    /**
+     * 调试模式
+     */
+    private Debug4jMode debug4jMode = Debug4jMode.process;
 
     /**
      * 应用名称

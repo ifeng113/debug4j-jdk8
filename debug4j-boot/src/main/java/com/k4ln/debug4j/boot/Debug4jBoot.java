@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.k4ln.debug4j.core.Debugger;
 import com.k4ln.debug4j.daemon.Debug4jArgs;
+import com.k4ln.debug4j.daemon.Debug4jMode;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -67,7 +68,7 @@ public class Debug4jBoot {
         }
 
         Debugger.start(debug4jArgs.getApplication(), debug4jArgs.getHost(), debug4jArgs.getPort(), debug4jArgs.getKey(),
-                debug4jArgs.getPid(), debug4jArgs.getJdwpPort());
+                debug4jArgs.getPid(), debug4jArgs.getJdwpPort(), Debug4jMode.process);
 
         boolean bootRun = true;
         int times = 0;

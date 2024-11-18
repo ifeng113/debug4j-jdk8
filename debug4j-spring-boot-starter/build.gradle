@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
 
+    implementation project(":debug4j-common")
     implementation project(":debug4j-daemon")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'

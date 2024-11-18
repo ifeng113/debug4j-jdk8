@@ -2,6 +2,7 @@ package com.k4ln.debug4j.daemon;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.RuntimeUtil;
+import com.k4ln.debug4j.core.Debugger;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.management.ManagementFactory;
@@ -16,9 +17,35 @@ public class Debug4jDaemon {
     public static final String DEBUG4J_THREAD_NAME = "debug4j-daemon";
 
     /**
-     * 开启守护线程
+     * 开启调试器
+     * @param application
+     * @param host
+     * @param port
+     * @param key
      */
     public static void start(String application, String host, Integer port, String key) {
+        startWithProcessMode(application, host, port, key);
+    }
+
+    /**
+     * 开启调试器（带模式）
+     * @param application
+     * @param host
+     * @param port
+     * @param key
+     */
+    public static void start(String application, String host, Integer port, String key, Debug4jMode debug4jMode) {
+        if (debug4jMode != null && debug4jMode.equals(Debug4jMode.thread)){
+            Debugger.start(application, host, port, key, ProcessHandle.current().pid(), null, Debug4jMode.thread);
+        } else {
+            startWithProcessMode(application, host, port, key);
+        }
+    }
+
+    /**
+     * 开启进程模式
+     */
+    private static void startWithProcessMode(String application, String host, Integer port, String key) {
         Debug4jArgs debug4jArgs = loadDebug4jArgs(application, host, port, key);
         Debug4jDaemonThread debug4jDaemonThread = new Debug4jDaemonThread(debug4jArgs);
         Thread thread = ThreadUtil.newThread(debug4jDaemonThread, DEBUG4J_THREAD_NAME, true);
@@ -41,8 +68,8 @@ public class Debug4jDaemon {
                 .host(host)
                 .port(port)
                 .key(key)
+                .pid(ProcessHandle.current().pid())
                 .build();
-        debug4jArgs.setPid(ProcessHandle.current().pid());
         RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
         List<String> jvmArguments = runtimeMXBean.getInputArguments();
         for (String arg : jvmArguments) {

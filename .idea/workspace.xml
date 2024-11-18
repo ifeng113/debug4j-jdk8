@@ -4,27 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1] debug4j daemon+boot with process exchange #1">
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/daemon/Debug4jArgs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-packing/src/main/java/com/k4ln/debug4j/packing/PackingMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/java/com/k4ln/debug4j/boot/starter/Debug4jProperties.java" afterDir="false" />
+    <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1] debug4j boot-starter+daemon+packing+boot">
+      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/daemon/Debug4jMode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-boot/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-boot/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-boot/src/main/java/com/k4ln/debug4j/boot/Debug4jBoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-boot/src/main/java/com/k4ln/debug4j/boot/Debug4jBoot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/message/CommandInfoMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/protocol/command/message/CommandInfoMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/client/SocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/client/SocketClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-daemon/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-daemon/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jArgs.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemonThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemonThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/Demo1DaemonMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo1/src/main/java/com/k4ln/demo/Demo1DaemonMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-demo2/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-demo2/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-packing/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-packing/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-server/src/main/java/com/k4ln/debug4j/socket/SocketServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/debug4j-spring-boot-starter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/java/com/k4ln/debug4j/boot/starter/Debug4jAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/java/com/k4ln/debug4j/boot/starter/Debug4jAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/java/com/k4ln/debug4j/boot/starter/Debug4jProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/java/com/k4ln/debug4j/boot/starter/Debug4jProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/md/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/md/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,15 +96,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="t2" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -389,7 +381,7 @@
       <workItem from="1731140442182" duration="26065000" />
       <workItem from="1731308552075" duration="2092000" />
       <workItem from="1731313226857" duration="59290000" />
-      <workItem from="1731547588951" duration="85350000" />
+      <workItem from="1731547588951" duration="90913000" />
     </task>
     <task id="LOCAL-00001" summary="[-]初始化">
       <option name="closed" value="true" />
@@ -519,7 +511,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731747659068</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="[0.0.1] debug4j boot-starter+daemon+packing+boot">
+      <option name="closed" value="true" />
+      <created>1731918816392</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1731918816392</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -549,7 +549,8 @@
     <MESSAGE value="[0.0.1] ReTransformAgentmain class热更新 #1" />
     <MESSAGE value="[0.0.1] jadx 反编译成功" />
     <MESSAGE value="[0.0.1] debug4j daemon+boot with process exchange #1" />
-    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1] debug4j daemon+boot with process exchange #1" />
+    <MESSAGE value="[0.0.1] debug4j boot-starter+daemon+packing+boot" />
+    <option name="LAST_COMMIT_MESSAGE" value="[0.0.1] debug4j boot-starter+daemon+packing+boot" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

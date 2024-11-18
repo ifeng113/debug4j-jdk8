@@ -11,8 +11,10 @@ repositories {
 
 dependencies {
 
-    implementation project(":debug4j-packing")
     implementation project(":debug4j-common")
+
+    implementation project(":debug4j-packing") // process模式
+    implementation project(":debug4j-core") // thread模式
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

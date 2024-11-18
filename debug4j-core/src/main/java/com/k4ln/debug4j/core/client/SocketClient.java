@@ -20,8 +20,11 @@ import org.smartboot.socket.transport.AioQuickClient;
 import org.smartboot.socket.transport.AioSession;
 
 import java.io.IOException;
+import java.lang.instrument.UnmodifiableClassException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.k4ln.debug4j.core.Debugger.instrumentation;
 
 @Slf4j
 public class SocketClient {
@@ -113,6 +116,17 @@ public class SocketClient {
                     } else {
                         log.warn("socketClient command no clientId:{}", socketProtocol.getClientId());
                     }
+                } else {
+//                    instrumentation.addTransformer(new CusDefinedClass(), true);
+//                    for (Class allLoadedClass : inst.getAllLoadedClasses()) {
+//                        if(allLoadedClass.getName().contains("com.k4ln.demo.Demo1Main")){
+//                            try {
+//                                inst.retransformClasses(allLoadedClass);
+//                            } catch (UnmodifiableClassException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
                 }
             }
 
