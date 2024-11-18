@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="582e344d-baf3-438c-9106-9314b7ac5da4" name="Changes" comment="[0.0.1] debug4j boot-starter+daemon+packing+boot">
-      <change afterPath="$PROJECT_DIR$/debug4j-common/src/main/java/com/k4ln/debug4j/daemon/Debug4jMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-boot/src/main/java/com/k4ln/debug4j/boot/Debug4jBoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-boot/src/main/java/com/k4ln/debug4j/boot/Debug4jBoot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/Debugger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/client/SocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-core/src/main/java/com/k4ln/debug4j/core/client/SocketClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-daemon/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-daemon/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemonThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-daemon/src/main/java/com/k4ln/debug4j/daemon/Debug4jDaemonThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-spring-boot-starter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/java/com/k4ln/debug4j/boot/starter/Debug4jProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/debug4j-spring-boot-starter/src/main/java/com/k4ln/debug4j/boot/starter/Debug4jProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/md/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/md/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,61 +111,61 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.AgentMain.executor": "Debug",
-    "Application.Debug4jBoot.executor": "Debug",
-    "Application.Demo1DaemonMain.executor": "Debug",
-    "Application.Demo1Main Agent.executor": "Debug",
-    "Application.Demo1Main.executor": "Debug",
-    "Application.PackingMain.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Build debug4j.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.debug4j:debug4j-agent [clean].executor": "Run",
-    "Gradle.debug4j:debug4j-agent [jar].executor": "Run",
-    "Gradle.debug4j:debug4j-agent [knows].executor": "Run",
-    "Gradle.debug4j:debug4j-agent [shadowJar].executor": "Run",
-    "Gradle.debug4j:debug4j-boot [shadowJar].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:AgentMain.main()].executor": "Debug",
-    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor": "Debug",
-    "Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [build].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [classes].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [clean].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [jar].executor": "Run",
-    "Gradle.debug4j:debug4j-demo1 [shadowJar].executor": "Run",
-    "Gradle.debug4j:debug4j-packing [clean].executor": "Run",
-    "Gradle.debug4j:debug4j-packing [runShadow].executor": "Run",
-    "Gradle.debug4j:debug4j-packing [run].executor": "Run",
-    "Gradle.debug4j:debug4j-packing [shadowJar].executor": "Run",
-    "Remote JVM Debug.debug4j.executor": "Debug",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.Debug4jServerApplication.executor": "Debug",
-    "Spring Boot.Demo2Application.executor": "Debug",
-    "jdk.selected.JAVA_MODULE": "17",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/JavaSpace/24_java/dodo-authority",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AgentMain.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Debug4jBoot.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Demo1DaemonMain.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Demo1Main Agent.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Demo1Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.PackingMain.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Build debug4j.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [knows].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-agent [shadowJar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-boot [shadowJar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:AgentMain.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Demo1Main.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [:debug4j-demo1:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [classes].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-demo1 [shadowJar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-packing [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-packing [runShadow].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-packing [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.debug4j:debug4j-packing [shadowJar].executor&quot;: &quot;Run&quot;,
+    &quot;Remote JVM Debug.debug4j.executor&quot;: &quot;Debug&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Debug4jServerApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.Demo2Application.executor&quot;: &quot;Debug&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/JavaSpace/24_java/dodo-authority&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\JavaSpace\ksiu\debug4j\debug4j-boot\src\main\resources" />
