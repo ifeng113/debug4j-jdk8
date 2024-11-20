@@ -147,9 +147,6 @@ public class SocketClient {
                             }
                         }
                     }
-
-
-
                 } else if (command.getCommand().equals(CommandTypeEnum.PROXY_OPEN)){
                     CommandProxyMessage proxyMessage = JSON.parseObject(JSON.toJSONString(command.getData()), CommandProxyMessage.class);
                     try {
