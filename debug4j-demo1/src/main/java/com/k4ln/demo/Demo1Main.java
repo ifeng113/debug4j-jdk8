@@ -1,6 +1,8 @@
 package com.k4ln.demo;
 
 import cn.hutool.core.util.RandomUtil;
+import com.k4ln.debug4j.daemon.Debug4jDaemon;
+import com.k4ln.debug4j.daemon.Debug4jMode;
 import com.sun.tools.attach.AgentInitializationException;
 import com.sun.tools.attach.AgentLoadException;
 import com.sun.tools.attach.AttachNotSupportedException;
@@ -24,9 +26,11 @@ public class Demo1Main {
 
 //        Debugger.start("demo1", "192.168.1.164", 7988, "k4ln");
 
+        Debug4jDaemon.start("demo1", "192.168.1.164", 7988, "k4ln", Debug4jMode.thread);
+
         for (int i = 0; i < 1000; i++) {
             logNumber(i);
-            if (i == 999){
+            if (i == 999) {
                 i = 0;
             }
         }

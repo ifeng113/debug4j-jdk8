@@ -12,6 +12,8 @@ public enum CommandTypeEnum {
     PROXY_OPEN("0x0011", "开启代理"),
     PROXY_CLOSE("0x0012", "关闭代理"),
 
+    ATTACH_("0x0030", "关闭代理"),
+
     ;
 
     @Setter

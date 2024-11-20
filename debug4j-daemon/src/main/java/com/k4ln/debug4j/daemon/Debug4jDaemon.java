@@ -17,7 +17,7 @@ public class Debug4jDaemon {
     public static final String DEBUG4J_THREAD_NAME = "debug4j-daemon";
 
     /**
-     * 开启调试器
+     * 开启调试调度器
      * @param application
      * @param host
      * @param port
@@ -28,7 +28,7 @@ public class Debug4jDaemon {
     }
 
     /**
-     * 开启调试器（带模式）
+     * 开启调试调度器（带模式）
      * @param application
      * @param host
      * @param port

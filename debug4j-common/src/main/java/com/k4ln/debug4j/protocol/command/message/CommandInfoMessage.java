@@ -1,5 +1,6 @@
 package com.k4ln.debug4j.protocol.command.message;
 
+import com.k4ln.debug4j.daemon.Debug4jMode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,5 +41,10 @@ public class CommandInfoMessage {
      * 远程调试端口
      */
     private Integer jdwpPort;
+
+    /**
+     * 调试模式
+     */
+    private Debug4jMode debug4jMode;
 
 }

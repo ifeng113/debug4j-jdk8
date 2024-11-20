@@ -16,6 +16,10 @@ SocketServer发送Attach命令后，在core模块需要进行以下4步操作：
 - process模式需要通过虚拟机attach的方式进行agent加载，并在agent中获取用户进程的Instrumentation，然后再执行attach逻辑，而要实现这一套逻辑，需要packing+boot+agent三个额外模块的支持
 - thread模式可以在启动时直接获取Instrumentation，当收到执行后可直接获取并执行attach逻辑，但由于jdwp会阻塞进程，因此线程模式不支持jdwp【注意】
 
+
+__【混合模式】：仅使用jdwp远程调试功能时，新开进程接管jdwp代理__
+
+
 ---
 
 ### step1

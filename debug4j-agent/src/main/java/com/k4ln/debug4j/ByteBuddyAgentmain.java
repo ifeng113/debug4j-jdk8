@@ -48,6 +48,28 @@ public class ByteBuddyAgentmain {
                         .intercept(MethodDelegation.to(ByteBuddyAgentmainInterceptor.class))
                         .make()
                         .getBytes();
+
+                // 委托给动态类【未测试】
+                // 确保目标类已加载
+//                Class<?> targetClass = Class.forName("com.example.ByteBuddyAgentmainInterceptor");
+//
+//                return new ByteBuddy()
+//                        .redefine(classBeingRedefined)
+//                        .method(ElementMatchers.named("logNumber"))
+//                        .intercept(MethodDelegation.to(targetClass))
+//                        .make()
+//                        .getBytes();
+
+//                TypePool typePool = TypePool.Default.of(classLoader);
+//                TypeDescription interceptorType = typePool.describe("com.example.ByteBuddyAgentmainInterceptor").resolve();
+//
+//                return new ByteBuddy()
+//                        .redefine(classBeingRedefined)
+//                        .method(ElementMatchers.named("logNumber"))
+//                        .intercept(MethodDelegation.to(interceptorType))
+//                        .make()
+//                        .getBytes();
+
             } catch (Exception e) {
                 e.printStackTrace();
 //                throw new RuntimeException(e);

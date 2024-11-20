@@ -11,6 +11,10 @@ import com.k4ln.debug4j.protocol.socket.ProtocolTypeEnum;
 import com.k4ln.debug4j.protocol.socket.SocketProtocol;
 import com.k4ln.debug4j.protocol.socket.SocketProtocolDecoder;
 import com.k4ln.debug4j.utils.SocketProtocolUtil;
+import javassist.ClassPool;
+import javassist.CtBehavior;
+import javassist.CtClass;
+import javassist.LoaderClassPath;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.smartboot.socket.MessageProcessor;
@@ -20,7 +24,10 @@ import org.smartboot.socket.transport.AioQuickClient;
 import org.smartboot.socket.transport.AioSession;
 
 import java.io.IOException;
+import java.lang.instrument.ClassFileTransformer;
+import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.UnmodifiableClassException;
+import java.security.ProtectionDomain;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -95,6 +102,54 @@ public class SocketClient {
                 Command command = JSON.parseObject(new String(socketProtocol.getBody()), Command.class);
                 if (command.getCommand().equals(CommandTypeEnum.LOG)){
                     log.info(JSON.parseObject(JSON.toJSONString(command.getData()), CommandLogMessage.class).getContent());
+
+                    // 延迟5秒
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    instrumentation.addTransformer(new ClassFileTransformer() {
+                        @Override
+                        public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
+                                                ProtectionDomain protectionDomain, byte[] classfileBuffer) {
+                            try {
+                                ClassPool pool = ClassPool.getDefault();
+                                pool.insertClassPath(new LoaderClassPath(loader));
+                                if (!className.contains("com/k4ln/demo/Demo1Main")) {
+                                    return classfileBuffer;
+                                }
+                                CtClass cc = pool.get(className.replace("/", "."));
+                                CtBehavior[] methods = cc.getDeclaredBehaviors();
+                                for (CtBehavior method : methods) {
+                                    if (!method.isEmpty()){
+                                        String methodName = method.getName();
+                                        method.addLocalVariable("start", CtClass.longType);
+                                        method.insertBefore("start = System.currentTimeMillis();");
+                                        method.insertAfter( String.format("System.out.println(\"%s cost: \" + (System.currentTimeMillis() - start) + \"ms\");", methodName) );
+                                    }
+                                }
+                                return cc.toBytecode();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return classfileBuffer;
+                        }
+                    }, true);
+                    for (Class allLoadedClass : instrumentation.getAllLoadedClasses()) {
+                        if (allLoadedClass.getName().startsWith("com.k4ln.demo")){
+                            if (allLoadedClass.getName().equals("com.k4ln.demo.Demo1Main")){
+                                try {
+                                    instrumentation.retransformClasses(allLoadedClass);
+                                } catch (UnmodifiableClassException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+
+
+
                 } else if (command.getCommand().equals(CommandTypeEnum.PROXY_OPEN)){
                     CommandProxyMessage proxyMessage = JSON.parseObject(JSON.toJSONString(command.getData()), CommandProxyMessage.class);
                     try {
@@ -116,17 +171,6 @@ public class SocketClient {
                     } else {
                         log.warn("socketClient command no clientId:{}", socketProtocol.getClientId());
                     }
-                } else {
-//                    instrumentation.addTransformer(new CusDefinedClass(), true);
-//                    for (Class allLoadedClass : inst.getAllLoadedClasses()) {
-//                        if(allLoadedClass.getName().contains("com.k4ln.demo.Demo1Main")){
-//                            try {
-//                                inst.retransformClasses(allLoadedClass);
-//                            } catch (UnmodifiableClassException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
                 }
             }
 

@@ -20,4 +20,13 @@ public class ByteBuddyAgentInterceptor {
         }
     }
 
+    // 获取原方法信息和参数
+//    public static Object intercept(@This Object instance, @AllArguments Object[] args, @Origin Method method) {
+//        System.out.println("原方法: " + method.getName());
+//        System.out.println("原方法所在类的实例: " + instance);
+//        System.out.println("原方法参数: " + Arrays.toString(args));
+//
+//        return null; // 或者调用原方法的逻辑
+//    }
+
 }

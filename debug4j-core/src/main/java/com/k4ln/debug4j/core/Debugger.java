@@ -24,11 +24,32 @@ public class Debugger {
 
     public static Instrumentation instrumentation;
 
+    /**
+     * 开启调试器
+     * @param application
+     * @param host
+     * @param port
+     * @param key
+     * @param pid
+     * @param jdwpPort
+     * @param debug4jMode
+     */
     public static void start(String application, String host, Integer port, String key, Long pid, Integer jdwpPort,
                              Debug4jMode debug4jMode) {
         start(application, UUID.fastUUID().toString(true), host, port, key, pid, jdwpPort, debug4jMode);
     }
 
+    /**
+     * 开启调试器
+     * @param application
+     * @param uniqueId
+     * @param host
+     * @param port
+     * @param key
+     * @param pid
+     * @param jdwpPort
+     * @param debug4jMode
+     */
     public static void start(String application, String uniqueId, String host, Integer port, String key, Long pid,
                              Integer jdwpPort, Debug4jMode debug4jMode) {
         if (debug4jMode.equals(Debug4jMode.thread)) {
@@ -41,6 +62,7 @@ public class Debugger {
                 .uniqueId(uniqueId == null ? UUID.fastUUID().toString(true) : uniqueId)
                 .pid(pid)
                 .jdwpPort(jdwpPort)
+                .debug4jMode(debug4jMode)
                 .build();
         scheduledExecutor = ThreadUtil.createScheduledExecutor(10);
         scheduledExecutor.scheduleWithFixedDelay(buildKeepAliveRunnable(host, port, key), 0, 10, TimeUnit.SECONDS);

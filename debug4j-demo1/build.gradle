@@ -8,6 +8,7 @@ version = '1.0-SNAPSHOT'
 
 dependencies {
     implementation project(":debug4j-core")
+    implementation project(":debug4j-common")
     implementation project(":debug4j-daemon")
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
