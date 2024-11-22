@@ -26,10 +26,10 @@ public class ProxyReqVO {
     private Integer serverPort;
 
     /**
-     * 远程客户端
+     * 客户端sessionId
      */
     @NotBlank
-    private String socketClient;
+    private String clientSessionId;
 
     /**
      * 远程主机

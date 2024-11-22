@@ -1,12 +1,16 @@
 package com.k4ln.debug4j.service;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.extra.servlet.JakartaServletUtil;
+import com.k4ln.debug4j.common.daemon.Debug4jMode;
+import com.k4ln.debug4j.common.protocol.command.message.CommandInfoMessage;
+import com.k4ln.debug4j.common.response.exception.BaseException;
+import com.k4ln.debug4j.common.response.exception.abort.BusinessAbort;
 import com.k4ln.debug4j.config.SocketServerProperties;
 import com.k4ln.debug4j.controller.vo.ProxyReqVO;
 import com.k4ln.debug4j.controller.vo.ProxyRespVO;
-import com.k4ln.debug4j.response.exception.BaseException;
-import com.k4ln.debug4j.response.exception.abort.BusinessAbort;
+import com.k4ln.debug4j.controller.vo.ProxyDetailsRespVO;
 import com.k4ln.debug4j.socket.SocketServer;
 import com.k4ln.debug4j.socket.SocketTFProxyServer;
 import jakarta.annotation.Resource;
@@ -36,19 +40,32 @@ public class ProxyService {
     /**
      * ProxyReqVO -> SocketTFProxyServer
      */
-    private final Map<String, SocketTFProxyServer> proxyServers = new ConcurrentHashMap<>();
+    private static final Map<String, SocketTFProxyServer> proxyServers = new ConcurrentHashMap<>();
+
+    /**
+     * 获取代理服务
+     * @param clientSessionId
+     * @return
+     */
+    public List<ProxyDetailsRespVO> getProxyServer(String clientSessionId) {
+        List<ProxyDetailsRespVO> proxyDetailsRespVOS = new ArrayList<>();
+        for (Map.Entry<String, SocketTFProxyServer> entry : proxyServers.entrySet()) {
+            if (entry.getKey().startsWith(clientSessionId)) {
+                ProxyDetailsRespVO serverRespVO = BeanUtil.toBean(entry.getValue().getProxyReqVO(), ProxyDetailsRespVO.class);
+                serverRespVO.setClientOutletIps(entry.getValue().getClientOutletIps());
+                proxyDetailsRespVOS.add(serverRespVO);
+            }
+        }
+        return proxyDetailsRespVOS;
+    }
 
     /**
      * 创建代理
-     *
      * @param proxyReqVO
      * @return
      */
     public ProxyRespVO proxy(ProxyReqVO proxyReqVO) {
-        // fixme 通过 CommandInfoMessage 绑定 SocketClient
-        if (!socketServer.getSessionMap().containsKey(proxyReqVO.getSocketClient())) {
-            throw new BusinessAbort("not found remote client");
-        }
+        clientSessionCheck(proxyReqVO);
         String proxyKey = getProxyKey(proxyReqVO);
         if (proxyServers.containsKey(proxyKey)) {
             SocketTFProxyServer proxyServer = proxyServers.get(proxyKey);
@@ -78,12 +95,18 @@ public class ProxyService {
     }
 
     /**
-     * 获取
+     * 客户端sessionId检查
      * @param proxyReqVO
-     * @return
      */
-    private static String getRemoteKey(ProxyReqVO proxyReqVO) {
-        return proxyReqVO.getRemoteHost() + ":" + proxyReqVO.getRemotePort();
+    private void clientSessionCheck(ProxyReqVO proxyReqVO) {
+        if (!socketServer.getSessionMap().containsKey(proxyReqVO.getClientSessionId())) {
+            throw new BusinessAbort("not found remote client");
+        } else {
+            CommandInfoMessage commandInfoMessage = socketServer.getInfoMessageMap().get(proxyReqVO.getClientSessionId());
+            if (commandInfoMessage == null || commandInfoMessage.getDebug4jMode().equals(Debug4jMode.thread)){
+                throw new BusinessAbort("not found proxy client");
+            }
+        }
     }
 
     /**
@@ -93,6 +116,22 @@ public class ProxyService {
      * @return
      */
     public static String getProxyKey(ProxyReqVO proxyReqVO) {
-        return proxyReqVO.getSocketClient() + "#" + proxyReqVO.getRemoteHost() + "#" + proxyReqVO.getRemotePort();
+        return proxyReqVO.getClientSessionId() + "#" + proxyReqVO.getRemoteHost() + "#" + proxyReqVO.getRemotePort();
     }
+
+    /**
+     * 删除代理服务
+     * @param clientSessionId
+     */
+    public static void removeProxyServer(String clientSessionId) {
+        List<String> removeKeys = new ArrayList<>();
+        proxyServers.keySet().forEach(e -> {
+            if (e.startsWith(clientSessionId)) {
+                removeKeys.add(e);
+            }
+        });
+        removeKeys.forEach(proxyServers::remove);
+    }
+
+
 }

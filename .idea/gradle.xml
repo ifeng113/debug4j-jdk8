@@ -10,7 +10,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/debug4j-agent" />
             <option value="$PROJECT_DIR$/debug4j-boot" />
             <option value="$PROJECT_DIR$/debug4j-common" />
             <option value="$PROJECT_DIR$/debug4j-core" />

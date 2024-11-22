@@ -3,10 +3,11 @@ package com.k4ln.debug4j.boot;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
+import com.k4ln.debug4j.common.daemon.Debug4jArgs;
+import com.k4ln.debug4j.common.daemon.Debug4jMode;
 import com.k4ln.debug4j.core.Debugger;
-import com.k4ln.debug4j.daemon.Debug4jArgs;
-import com.k4ln.debug4j.daemon.Debug4jMode;
 import lombok.extern.slf4j.Slf4j;
+
 
 @Slf4j
 public class Debug4jBoot {
@@ -43,6 +44,10 @@ public class Debug4jBoot {
                     debug4jArgs.setJdwpPort(Integer.parseInt(entry[1]));
                 } else if (entry[0].equals("application")){
                     debug4jArgs.setApplication(entry[1].replace("'", ""));
+                } else if (entry[0].equals("packageName")){
+                    debug4jArgs.setPackageName(entry[1].replace("'", ""));
+                } else if (entry[0].equals("uniqueId")){
+                    debug4jArgs.setUniqueId(entry[1].replace("'", ""));
                 } else if (entry[0].equals("host")){
                     debug4jArgs.setHost(entry[1].replace("'", ""));
                 } else if (entry[0].equals("port") && !"null".equals(entry[1])){
@@ -67,31 +72,38 @@ public class Debug4jBoot {
             return;
         }
 
-        Debugger.start(debug4jArgs.getApplication(), debug4jArgs.getHost(), debug4jArgs.getPort(), debug4jArgs.getKey(),
-                debug4jArgs.getPid(), debug4jArgs.getJdwpPort(), Debug4jMode.process);
+        Debugger.start(debug4jArgs.getApplication(), debug4jArgs.getUniqueId(), debug4jArgs.getPackageName(),
+                debug4jArgs.getHost(), debug4jArgs.getPort(), debug4jArgs.getKey(), debug4jArgs.getPid(),
+                debug4jArgs.getJdwpPort(), Debug4jMode.process);
 
         boolean bootRun = true;
         int times = 0;
         while (bootRun){
-            Boolean isAlive = ProcessHandle.of(debug4jArgs.getPid())
-                    .map(ProcessHandle::isAlive)
-                    .orElse(false);
-            if ((times % LOG_FREQUENCY) == 0){
-                log.info("checkAppProcess pid:{} appProcessId:{} isAlive:{}", ProcessHandle.current().pid(), debug4jArgs.getPid(), isAlive);
-            }
-            times ++;
-            if (times >= Integer.MAX_VALUE - 1){
-                times = 0;
-            }
-
-            if (!isAlive){
-                bootRun = false;
-            } else {
-                try {
-                    Thread.sleep(LOG_INTERVAL);
-                } catch (Exception e){
-                    e.printStackTrace();
+            try {
+                boolean isAlive = ProcessHandle.of(debug4jArgs.getPid())
+                        .map(ProcessHandle::isAlive)
+                        .orElse(false);
+                if ((times % LOG_FREQUENCY) == 0){
+                    log.info("checkAppProcess pid:{} appProcessId:{} isAlive:{}", ProcessHandle.current().pid(), debug4jArgs.getPid(), isAlive);
                 }
+
+                times ++;
+                if (times >= Integer.MAX_VALUE - 1){
+                    times = 0;
+                }
+                if (!isAlive){
+                    bootRun = false;
+                } else {
+                    try {
+                        Thread.sleep(LOG_INTERVAL);
+                    } catch (Exception e){
+                        log.info("checkAppProcess sleep error:{}", e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e){
+                log.error("checkAppProcess while error:{}", e.getMessage());
+                e.printStackTrace();
             }
         }
 

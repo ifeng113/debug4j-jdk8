@@ -1,11 +1,12 @@
 package com.k4ln.debug4j.core;
 
-import cn.hutool.core.lang.UUID;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.thread.ThreadUtil;
+import com.k4ln.debug4j.common.daemon.Debug4jMode;
+import com.k4ln.debug4j.common.protocol.command.message.CommandInfoMessage;
+import com.k4ln.debug4j.core.attach.Debug4jClassFileTransformer;
 import com.k4ln.debug4j.core.client.SocketClient;
-import com.k4ln.debug4j.daemon.Debug4jMode;
-import com.k4ln.debug4j.protocol.command.message.CommandInfoMessage;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.agent.ByteBuddyAgent;
 
@@ -22,27 +23,14 @@ public class Debugger {
 
     private static ScheduledThreadPoolExecutor scheduledExecutor;
 
-    public static Instrumentation instrumentation;
-
-    /**
-     * 开启调试器
-     * @param application
-     * @param host
-     * @param port
-     * @param key
-     * @param pid
-     * @param jdwpPort
-     * @param debug4jMode
-     */
-    public static void start(String application, String host, Integer port, String key, Long pid, Integer jdwpPort,
-                             Debug4jMode debug4jMode) {
-        start(application, UUID.fastUUID().toString(true), host, port, key, pid, jdwpPort, debug4jMode);
-    }
+    @Getter
+    private static Instrumentation instrumentation;
 
     /**
      * 开启调试器
      * @param application
      * @param uniqueId
+     * @param packageName
      * @param host
      * @param port
      * @param key
@@ -50,16 +38,17 @@ public class Debugger {
      * @param jdwpPort
      * @param debug4jMode
      */
-    public static void start(String application, String uniqueId, String host, Integer port, String key, Long pid,
-                             Integer jdwpPort, Debug4jMode debug4jMode) {
+    public static void start(String application, String uniqueId, String packageName, String host, Integer port, String key,
+                             Long pid, Integer jdwpPort, Debug4jMode debug4jMode) {
         if (debug4jMode.equals(Debug4jMode.thread)) {
             instrumentation = ByteBuddyAgent.install();
         }
         commandInfoMessage = CommandInfoMessage.builder()
                 .applicationName(application)
+                .packageName(packageName)
                 .socketClientHost(NetUtil.getLocalHostName())
                 .socketClientIp(NetUtil.getLocalhostStr())
-                .uniqueId(uniqueId == null ? UUID.fastUUID().toString(true) : uniqueId)
+                .uniqueId(uniqueId)
                 .pid(pid)
                 .jdwpPort(jdwpPort)
                 .debug4jMode(debug4jMode)

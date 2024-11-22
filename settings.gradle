@@ -1,5 +1,4 @@
 rootProject.name = 'debug4j'
-include 'debug4j-agent'
 include 'debug4j-common'
 include 'debug4j-server'
 include 'debug4j-demo1'

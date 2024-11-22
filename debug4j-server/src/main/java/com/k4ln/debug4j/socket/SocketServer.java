@@ -2,15 +2,18 @@ package com.k4ln.debug4j.socket;
 
 import cn.hutool.core.util.ArrayUtil;
 import com.alibaba.fastjson2.JSON;
+import com.k4ln.debug4j.common.protocol.command.Command;
+import com.k4ln.debug4j.common.protocol.command.CommandTypeEnum;
+import com.k4ln.debug4j.common.protocol.command.message.CommandAttachRespMessage;
+import com.k4ln.debug4j.common.protocol.command.message.CommandInfoMessage;
+import com.k4ln.debug4j.common.protocol.command.message.CommandLogMessage;
+import com.k4ln.debug4j.common.protocol.socket.ProtocolTypeEnum;
+import com.k4ln.debug4j.common.protocol.socket.SocketProtocol;
+import com.k4ln.debug4j.common.protocol.socket.SocketProtocolDecoder;
+import com.k4ln.debug4j.common.utils.SocketProtocolUtil;
 import com.k4ln.debug4j.config.SocketServerProperties;
-import com.k4ln.debug4j.protocol.command.Command;
-import com.k4ln.debug4j.protocol.command.CommandTypeEnum;
-import com.k4ln.debug4j.protocol.command.message.CommandInfoMessage;
-import com.k4ln.debug4j.protocol.command.message.CommandLogMessage;
-import com.k4ln.debug4j.protocol.socket.ProtocolTypeEnum;
-import com.k4ln.debug4j.protocol.socket.SocketProtocol;
-import com.k4ln.debug4j.protocol.socket.SocketProtocolDecoder;
-import com.k4ln.debug4j.utils.SocketProtocolUtil;
+import com.k4ln.debug4j.service.AttachHub;
+import com.k4ln.debug4j.service.ProxyService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.smartboot.socket.StateMachineEnum;
@@ -45,6 +48,8 @@ public class SocketServer {
 
     final SocketServerProperties serverProperties;
 
+    final AttachHub attachHub;
+
     AioQuickServer server;
 
     AbstractMessageProcessor<SocketProtocol> processor;
@@ -68,6 +73,7 @@ public class SocketServer {
     /**
      * socketClient -> CommandInfoMessage
      */
+    @Getter
     final Map<String, CommandInfoMessage> infoMessageMap = new ConcurrentHashMap<>();
 
     /**
@@ -76,8 +82,9 @@ public class SocketServer {
     @Getter
     final Map<Integer, String> clientIdSocketMap = new ConcurrentHashMap<>();
 
-    public SocketServer(SocketServerProperties serverProperties) {
+    public SocketServer(SocketServerProperties serverProperties, AttachHub attachHub) {
         this.serverProperties = serverProperties;
+        this.attachHub = attachHub;
     }
 
     public void start() throws Exception {
@@ -96,8 +103,6 @@ public class SocketServer {
                     if (protocol.getSubcontractCount().equals(protocol.getSubcontractIndex())) {
                         messageHandler(session, protocol, sessionPackaging.get(sessionPackagingKey));
                         sessionPackaging.remove(sessionPackagingKey);
-                    } else {
-                        sessionPackaging.put(sessionPackagingKey, protocol.getBody());
                     }
                 } else {
                     messageHandler(session, protocol, protocol.getBody());
@@ -128,7 +133,21 @@ public class SocketServer {
                             String infoString = JSON.toJSONString(command.getData());
                             log.warn("sessionId:{} with info:{}", session.getSessionID(), infoString);
                             CommandInfoMessage infoMessage = JSON.parseObject(infoString, CommandInfoMessage.class);
+                            try {
+                                infoMessage.setSocketClientOutletIp(session.getRemoteAddress().getAddress().getHostAddress());
+                            } catch (Exception e) {
+                                log.warn("sessionId:{} fail to get outlet ip", session.getSessionID());
+                            }
+                            infoMessage.setClientSessionId(session.getSessionID());
                             infoMessageMap.put(session.getSessionID(), infoMessage);
+                        } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_ALL)) {
+                            String jsonString = JSON.toJSONString(command.getData());
+                            CommandAttachRespMessage attachResp = JSON.parseObject(jsonString, CommandAttachRespMessage.class);
+                            attachHub.pushResult(attachResp.getReqId(), jsonString);
+                        } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_SOURCE)) {
+
+                        } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_TASK)) {
+
                         }
                     }
                     case PROXY -> callbackMessage(protocol.getClientId(), data);
@@ -164,6 +183,7 @@ public class SocketServer {
                     }
                 }
                 clientIds.forEach(SocketTFProxyServer::closeClient);
+                ProxyService.removeProxyServer(session.getSessionID());
             }
         };
 
@@ -202,8 +222,8 @@ public class SocketServer {
 
     /**
      * 根据sessionId发送消息
-     *
      * @param sessionId
+     * @param clientId
      * @param protocolType
      * @param body
      */

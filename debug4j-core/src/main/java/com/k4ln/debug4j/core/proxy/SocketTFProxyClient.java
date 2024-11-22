@@ -1,6 +1,6 @@
 package com.k4ln.debug4j.core.proxy;
 
-import com.k4ln.debug4j.protocol.socket.TFProtocolDecoder;
+import com.k4ln.debug4j.common.protocol.socket.TFProtocolDecoder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.smartboot.socket.StateMachineEnum;

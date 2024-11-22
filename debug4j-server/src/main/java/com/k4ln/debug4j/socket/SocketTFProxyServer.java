@@ -1,11 +1,11 @@
 package com.k4ln.debug4j.socket;
 
 import cn.hutool.core.net.NetUtil;
+import com.k4ln.debug4j.common.protocol.command.CommandTypeEnum;
+import com.k4ln.debug4j.common.protocol.command.message.CommandProxyMessage;
+import com.k4ln.debug4j.common.protocol.socket.ProtocolTypeEnum;
+import com.k4ln.debug4j.common.protocol.socket.TFProtocolDecoder;
 import com.k4ln.debug4j.controller.vo.ProxyReqVO;
-import com.k4ln.debug4j.protocol.command.CommandTypeEnum;
-import com.k4ln.debug4j.protocol.command.message.CommandProxyMessage;
-import com.k4ln.debug4j.protocol.socket.ProtocolTypeEnum;
-import com.k4ln.debug4j.protocol.socket.TFProtocolDecoder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.smartboot.socket.StateMachineEnum;
@@ -14,8 +14,10 @@ import org.smartboot.socket.transport.AioQuickServer;
 import org.smartboot.socket.transport.AioSession;
 import org.smartboot.socket.transport.WriteBuffer;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -45,7 +47,14 @@ public class SocketTFProxyServer {
     /**
      * sourceClientId -> sourceClient
      */
-    static final Map<String, AioSession> sessionMap = new ConcurrentHashMap<>();
+    @Getter
+    private static final Map<String, AioSession> sessionMap = new ConcurrentHashMap<>();
+
+    /**
+     * clientOutletIps
+     */
+    @Getter
+    private Set<String> clientOutletIps = new HashSet<>();
 
     public void start() throws Exception {
 
@@ -55,7 +64,7 @@ public class SocketTFProxyServer {
             @Override
             public void process0(AioSession session, byte[] body) {
                 //  TFPServer -> socketServer
-                socketServer.sendMessage(proxyReqVO.getSocketClient(), getSessionClientId(session), ProtocolTypeEnum.PROXY, body);
+                socketServer.sendMessage(proxyReqVO.getClientSessionId(), getSessionClientId(session), ProtocolTypeEnum.PROXY, body);
             }
 
             private static Integer getSessionClientId(AioSession session) {
@@ -69,9 +78,10 @@ public class SocketTFProxyServer {
                     log.info("TFProxy server clientId:{} connected", getSessionClientId(session));
                     try {
                         if (allowNetworks(session.getRemoteAddress().getAddress().getHostAddress())){
-                            socketServer.sendMessage(proxyReqVO.getSocketClient(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
+                            socketServer.sendMessage(proxyReqVO.getClientSessionId(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
                                     CommandProxyMessage.buildCommandProxyMessage(CommandTypeEnum.PROXY_OPEN, proxyReqVO.getRemoteHost(),
                                             proxyReqVO.getRemotePort()));
+                            clientOutletIps.add(session.getRemoteAddress().getAddress().getHostAddress());
                             return;
                         }
                     } catch (Exception e){
@@ -83,9 +93,14 @@ public class SocketTFProxyServer {
                     sessionMap.remove(session.getSessionID());
                     socketServer.getClientIdSocketMap().remove(getSessionClientId(session));
                     log.info("TFProxy server clientId:{} disConnected", getSessionClientId(session));
-                    socketServer.sendMessage(proxyReqVO.getSocketClient(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
+                    socketServer.sendMessage(proxyReqVO.getClientSessionId(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
                             CommandProxyMessage.buildCommandProxyMessage(CommandTypeEnum.PROXY_CLOSE, proxyReqVO.getRemoteHost(),
                                     proxyReqVO.getRemotePort()));
+                    try {
+                        clientOutletIps.remove(session.getRemoteAddress().getAddress().getHostAddress());
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 } else if (throwable != null) {
                     throwable.printStackTrace();
                 }

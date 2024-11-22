@@ -1,7 +1,10 @@
 package com.k4ln.debug4j.daemon;
 
+import cn.hutool.core.lang.UUID;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.RuntimeUtil;
+import com.k4ln.debug4j.common.daemon.Debug4jArgs;
+import com.k4ln.debug4j.common.daemon.Debug4jMode;
 import com.k4ln.debug4j.core.Debugger;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,35 +21,32 @@ public class Debug4jDaemon {
 
     /**
      * 开启调试调度器
+     * @param proxyMode
      * @param application
+     * @param packageName
      * @param host
      * @param port
      * @param key
      */
-    public static void start(String application, String host, Integer port, String key) {
-        startWithProcessMode(application, host, port, key);
-    }
-
-    /**
-     * 开启调试调度器（带模式）
-     * @param application
-     * @param host
-     * @param port
-     * @param key
-     */
-    public static void start(String application, String host, Integer port, String key, Debug4jMode debug4jMode) {
-        if (debug4jMode != null && debug4jMode.equals(Debug4jMode.thread)){
-            Debugger.start(application, host, port, key, ProcessHandle.current().pid(), null, Debug4jMode.thread);
-        } else {
-            startWithProcessMode(application, host, port, key);
+    public static void start(Boolean proxyMode, String application, String packageName, String host, Integer port, String key) {
+        String uniqueId = UUID.fastUUID().toString(true);
+        Debugger.start(application, uniqueId, packageName, host, port, key, ProcessHandle.current().pid(), null, Debug4jMode.thread);
+        if (proxyMode != null && proxyMode) {
+            startProxyProcess(application, uniqueId, packageName, host, port, key);
         }
     }
 
     /**
-     * 开启进程模式
+     * 开启代理进程
+     * @param application
+     * @param uniqueId
+     * @param packageName
+     * @param host
+     * @param port
+     * @param key
      */
-    private static void startWithProcessMode(String application, String host, Integer port, String key) {
-        Debug4jArgs debug4jArgs = loadDebug4jArgs(application, host, port, key);
+    private static void startProxyProcess(String application, String uniqueId, String packageName, String host, Integer port, String key) {
+        Debug4jArgs debug4jArgs = loadDebug4jArgs(application, uniqueId, packageName, host, port, key);
         Debug4jDaemonThread debug4jDaemonThread = new Debug4jDaemonThread(debug4jArgs);
         Thread thread = ThreadUtil.newThread(debug4jDaemonThread, DEBUG4J_THREAD_NAME, true);
         thread.start();
@@ -62,9 +62,11 @@ public class Debug4jDaemon {
      * 装载参数
      * @return
      */
-    private static Debug4jArgs loadDebug4jArgs(String application, String host, Integer port, String key) {
+    private static Debug4jArgs loadDebug4jArgs(String application, String uniqueId, String packageName, String host, Integer port, String key) {
         Debug4jArgs debug4jArgs = Debug4jArgs.builder()
                 .application(application)
+                .packageName(packageName)
+                .uniqueId(uniqueId)
                 .host(host)
                 .port(port)
                 .key(key)

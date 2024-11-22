@@ -8,3 +8,8 @@ spring:
 debug4j:
   key: k4ln
   socket-port: 7988
+
+sa-token:
+  max-login-count: -1
+  is-write-header: true
+  http-basic: 'k4ln:123456'

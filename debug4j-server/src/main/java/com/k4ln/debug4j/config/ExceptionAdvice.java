@@ -1,9 +1,10 @@
 package com.k4ln.debug4j.config;
 
-import com.k4ln.debug4j.response.Result;
-import com.k4ln.debug4j.response.exception.BaseException;
-import com.k4ln.debug4j.response.exception.error.ParameterError;
-import com.k4ln.debug4j.response.exception.error.ValidateError;
+import cn.dev33.satoken.exception.NotHttpBasicAuthException;
+import com.k4ln.debug4j.common.response.Result;
+import com.k4ln.debug4j.common.response.exception.BaseException;
+import com.k4ln.debug4j.common.response.exception.error.ParameterError;
+import com.k4ln.debug4j.common.response.exception.error.ValidateError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  *  异常拦截器
  *
- * @author lv
+ * @author k4ln
  * @since 2024-04-22
  */
 @Slf4j

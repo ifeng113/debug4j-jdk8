@@ -1,21 +1,25 @@
 package com.k4ln.debug4j.daemon;
 
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.RuntimeUtil;
-import cn.hutool.core.util.ZipUtil;
+import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.core.text.StrBuilder;
+import cn.hutool.core.util.*;
+import com.k4ln.debug4j.common.daemon.Debug4jArgs;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import static com.k4ln.debug4j.common.utils.FileUtils.createTempDir;
 
 @Slf4j
 public class Debug4jDaemonThread implements Runnable {
 
-    private static final int TEMP_DIR_ATTEMPTS = 10000;
-
-    private Debug4jArgs debug4jArgs;
+    private final Debug4jArgs debug4jArgs;
 
     @Getter
     private Process process;
@@ -36,28 +40,108 @@ public class Debug4jDaemonThread implements Runnable {
                 if (!debug4jBootJarFile.exists()) {
                     throw new IllegalStateException("can not find debug4j-boot.jar under tempDebug4jDir: " + tempDebug4jDir);
                 }
-                process = RuntimeUtil.exec("java", "-jar", debug4jBootJarFile.getAbsolutePath(), debug4jArgs.toString());
+                process = exec("java", "-Dfile.encoding=UTF-8","-jar", debug4jBootJarFile.getAbsolutePath(), debug4jArgs.toString());
                 log.info("Debug4j Boot start with pid:{}", process.pid());
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
             }
         } else {
-            throw new IllegalArgumentException("can not getResources debug4j-boot.zip from classloader: "
-                    + this.getClass().getClassLoader());
+            throw new IllegalArgumentException("can not getResources debug4j-boot.zip");
         }
     }
 
-    private static File createTempDir() {
-        File baseDir = new File(System.getProperty("java.io.tmpdir"));
-        String baseName = "debug4j-" + System.currentTimeMillis() + "-";
-        for (int counter = 0; counter < TEMP_DIR_ATTEMPTS; counter++) {
-            File tempDir = new File(baseDir, baseName + counter);
-            if (tempDir.mkdir()) {
-                return tempDir;
+    /**
+     * 执行命令
+     * @param cmds
+     * @return
+     */
+    public static Process exec(String... cmds) {
+        Process process;
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder(handleCmds(cmds)).redirectErrorStream(true);
+            // 避免子进程阻塞，支持日志回显【更改logback.xml的配置：<discardingThreshold>100</discardingThreshold>】
+            processBuilder.inheritIO();
+            process = processBuilder.start();
+        } catch (IOException e) {
+            throw new IORuntimeException(e);
+        }
+        return process;
+    }
+
+    /**
+     * 处理命令
+     * @param cmds
+     * @return
+     */
+    private static String[] handleCmds(String... cmds) {
+        if (ArrayUtil.isEmpty(cmds)) {
+            throw new NullPointerException("Command is empty !");
+        }
+
+        // 单条命令的情况
+        if (1 == cmds.length) {
+            final String cmd = cmds[0];
+            if (StrUtil.isBlank(cmd)) {
+                throw new NullPointerException("Command is blank !");
+            }
+            cmds = cmdSplit(cmd);
+        }
+        return cmds;
+    }
+
+    /**
+     * 命令拆分
+     * @param cmd
+     * @return
+     */
+    private static String[] cmdSplit(String cmd) {
+        final List<String> cmds = new ArrayList<>();
+
+        final int length = cmd.length();
+        final Stack<Character> stack = new Stack<>();
+        boolean inWrap = false;
+        final StrBuilder cache = StrUtil.strBuilder();
+
+        char c;
+        for (int i = 0; i < length; i++) {
+            c = cmd.charAt(i);
+            switch (c) {
+                case CharUtil.SINGLE_QUOTE:
+                case CharUtil.DOUBLE_QUOTES:
+                    if (inWrap) {
+                        if (c == stack.peek()) {
+                            //结束包装
+                            stack.pop();
+                            inWrap = false;
+                        }
+                        cache.append(c);
+                    } else {
+                        stack.push(c);
+                        cache.append(c);
+                        inWrap = true;
+                    }
+                    break;
+                case CharUtil.SPACE:
+                    if (inWrap) {
+                        // 处于包装内
+                        cache.append(c);
+                    } else {
+                        cmds.add(cache.toString());
+                        cache.reset();
+                    }
+                    break;
+                default:
+                    cache.append(c);
+                    break;
             }
         }
-        throw new IllegalStateException("Failed to create directory within " + TEMP_DIR_ATTEMPTS + " attempts (tried "
-                + baseName + "0 to " + baseName + (TEMP_DIR_ATTEMPTS - 1) + ')');
+
+        if (cache.hasContent()) {
+            cmds.add(cache.toString());
+        }
+
+        return cmds.toArray(new String[0]);
     }
+
 }
