@@ -26,6 +26,13 @@ __【混合模式】：主体采用线程模式，使用proxy（含jdwp远程调
 > _远程调试本地有日志，因此无需单独代理，因此线程模式下阻塞也无所谓_
 
 
+> 项目执行顺序：
+>- boot -> shadowJar
+>- packing -> shadowJar
+>- server -> run
+>- demo1Daemon/deme2 -> run
+
+
 ---
 
 ### step1
