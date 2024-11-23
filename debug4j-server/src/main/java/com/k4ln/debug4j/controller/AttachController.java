@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
  * @description
  */
 @Slf4j
+@Validated
 @RestController
 @RequestMapping("/attach")
 public class AttachController {
@@ -38,7 +40,6 @@ public class AttachController {
      *
      * @return
      */
-    @Validated
     @PostMapping("/class")
     public Result<List<String>> getClassNames(@RequestBody @Valid AttachClassAllReqVO attachClassAllReqVO) {
         return Result.ok(attachService.getClassNames(attachClassAllReqVO));
@@ -50,11 +51,37 @@ public class AttachController {
      * @param attachClassSourceReqVO
      * @return
      */
-    @Validated
     @PostMapping("/source")
     public Result<String> getClassSource(@RequestBody @Valid AttachClassSourceReqVO attachClassSourceReqVO) {
         return Result.ok(attachService.getClassSource(attachClassSourceReqVO));
     }
+
+    /**
+     * 源码热更新
+     *
+     * @param sourceReloadReqVO
+     * @return
+     */
+    @PostMapping("/reload/source")
+    public Result<String> sourceReload(@RequestBody @Valid AttachSourceReloadReqVO sourceReloadReqVO) {
+        return Result.ok(attachService.sourceReload(sourceReloadReqVO));
+    }
+
+    /**
+     * 字节码热更新
+     *
+     * @param classFile
+     * @param clientSessionId
+     * @param className
+     * @return
+     */
+    @PostMapping(value = "/reload/class", consumes = "multipart/form-data")
+    public Result<String> classReload(@RequestParam("file") MultipartFile classFile,
+                                      @RequestParam("clientSessionId") String clientSessionId,
+                                      @RequestParam("className") String className) {
+        return Result.ok(attachService.classReload(classFile, clientSessionId, className));
+    }
+
 
     /**
      * 获取任务列表
@@ -62,7 +89,6 @@ public class AttachController {
      * @param attachTaskReqVO
      * @return
      */
-    @Validated
     @PostMapping("/task")
     public Result<List<AttachTaskRespVO>> getTask(@RequestBody @Valid AttachTaskReqVO attachTaskReqVO) {
         return Result.ok(attachService.getTask(attachTaskReqVO));
@@ -74,7 +100,6 @@ public class AttachController {
      * @param openReqVO
      * @return
      */
-    @Validated
     @PostMapping("/task/open")
     public Result<List<AttachTaskRespVO>> openTask(@RequestBody @Valid AttachTaskOpenReqVO openReqVO) {
         return Result.ok(attachService.openTask(openReqVO));
@@ -86,7 +111,6 @@ public class AttachController {
      * @param closeReqVO
      * @return
      */
-    @Validated
     @PostMapping("/task/close")
     public Result<List<AttachTaskRespVO>> closeTask(@RequestBody @Valid AttachTaskCloseReqVO closeReqVO) {
         return Result.ok(attachService.closeTask(closeReqVO));

@@ -27,8 +27,8 @@ public class Demo1DaemonMain {
     private static void logNumber(int i) {
         try {
             Dog dog = Dog.builder().name(RandomUtil.randomNumbers(4)).age(i).build();
-            Thread.sleep(3000);
-//            log.info("random tid:{} pid:{} index:{} dog:{}", Thread.currentThread().getId(), ProcessHandle.current().pid(), i, dog.toString());
+            Thread.sleep(5000);
+            log.info("random tid:{} pid:{} index:{} dog:{}", Thread.currentThread().getId(), ProcessHandle.current().pid(), i, dog.toString());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

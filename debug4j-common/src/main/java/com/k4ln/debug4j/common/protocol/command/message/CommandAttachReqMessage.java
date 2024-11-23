@@ -61,4 +61,27 @@ public class CommandAttachReqMessage {
         ).getBytes();
     }
 
+    public static byte[] buildSourceReloadMessage(String reqId, String className, String sourceCode) {
+        return (JSON.toJSONString(Command.builder()
+                .command(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA)
+                .data(CommandAttachReqMessage.builder()
+                        .reqId(reqId)
+                        .className(className)
+                        .sourceCode(sourceCode)
+                        .build())
+                .build())
+        ).getBytes();
+    }
+
+    public static byte[] buildClassReloadMessage(String reqId, String className, String byteCode) {
+        return (JSON.toJSONString(Command.builder()
+                .command(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD)
+                .data(CommandAttachReqMessage.builder()
+                        .reqId(reqId)
+                        .className(className)
+                        .byteCode(byteCode)
+                        .build())
+                .build())
+        ).getBytes();
+    }
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -64,7 +65,8 @@ public class ExceptionAdvice {
             HttpMediaTypeNotSupportedException.class,
             HttpMessageNotReadableException.class,
             MethodArgumentTypeMismatchException.class,
-            MissingServletRequestParameterException.class})
+            MissingServletRequestParameterException.class,
+            MissingServletRequestPartException.class})
     public <T> Result<T> httpRequestException(Exception exception) {
         return Result.fail(new ParameterError(exception.getMessage()));
     }

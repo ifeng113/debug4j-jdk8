@@ -163,6 +163,20 @@ public class SocketClient {
                         CommandTaskReqMessage taskReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandTaskReqMessage.class);
                         List<CommandTaskReqMessage> reqMessages = Debug4jWatcher.closeTask(taskReq);
                         SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(taskReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandTaskRespMessage.buildTaskRespMessage(taskReq.getReqId(), reqMessages));
+                    } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA)) {
+                        CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
+                        Debug4jAttachOperator.sourceReload(Debugger.getInstrumentation(), attachReq.getClassName(), attachReq.getSourceCode());
+                        // TODO 源码更新
+                        String classSource = Debug4jAttachOperator.getClassSource(attachReq.getClassName());
+//                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceRespMessage(attachReq.getReqId(), classSource));
+                        log.info(classSource);
+                    } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD)) {
+                        CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
+                        Debug4jAttachOperator.classReload(Debugger.getInstrumentation(), attachReq.getClassName(), attachReq.getByteCode());
+                        // TODO 字节码更新
+                        String classSource = Debug4jAttachOperator.getClassSource(attachReq.getClassName());
+//                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceRespMessage(attachReq.getReqId(), classSource));
+                        log.info(classSource);
                     }
                 }
             }
