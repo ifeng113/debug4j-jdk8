@@ -40,7 +40,7 @@ public class Debug4jDaemonThread implements Runnable {
                 if (!debug4jBootJarFile.exists()) {
                     throw new IllegalStateException("can not find debug4j-boot.jar under tempDebug4jDir: " + tempDebug4jDir);
                 }
-                process = exec("java", "-Dfile.encoding=UTF-8","-jar", debug4jBootJarFile.getAbsolutePath(), debug4jArgs.toString());
+                process = exec("java", "-Dfile.encoding=UTF-8", "-jar", debug4jBootJarFile.getAbsolutePath(), debug4jArgs.toString());
                 log.info("Debug4j Boot start with pid:{}", process.pid());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -53,6 +53,7 @@ public class Debug4jDaemonThread implements Runnable {
 
     /**
      * 执行命令
+     *
      * @param cmds
      * @return
      */
@@ -71,6 +72,7 @@ public class Debug4jDaemonThread implements Runnable {
 
     /**
      * 处理命令
+     *
      * @param cmds
      * @return
      */
@@ -92,6 +94,7 @@ public class Debug4jDaemonThread implements Runnable {
 
     /**
      * 命令拆分
+     *
      * @param cmd
      * @return
      */

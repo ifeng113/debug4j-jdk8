@@ -14,24 +14,24 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommandTaskRespMessage {
+public class CommandTaskTailRespMessage {
 
     /**
      * 请求ID
      */
-    private String reqId;
+    private String filePath;
 
     /**
-     * 任务列表
+     * 内容行
      */
-    private List<CommandTaskReqMessage> commandTaskReqMessages;
+    private String line;
 
-    public static byte[] buildTaskRespMessage(String reqId, List<CommandTaskReqMessage> commandTaskReqMessages) {
+    public static byte[] buildTaskTailRespMessage(String filePath, String line) {
         return (JSON.toJSONString(Command.builder()
-                .command(CommandTypeEnum.ATTACH_RESP_TASK)
-                .data(CommandTaskRespMessage.builder()
-                        .reqId(reqId)
-                        .commandTaskReqMessages(commandTaskReqMessages)
+                .command(CommandTypeEnum.ATTACH_RESP_TASK_DETAILS)
+                .data(CommandTaskTailRespMessage.builder()
+                        .filePath(filePath)
+                        .line(line)
                         .build())
                 .build())
         ).getBytes();

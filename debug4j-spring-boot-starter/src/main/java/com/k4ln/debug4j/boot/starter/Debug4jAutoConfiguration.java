@@ -22,7 +22,7 @@ public class Debug4jAutoConfiguration {
         if (StrUtil.isBlank(debug4jProperties.getApplication())) {
             debug4jProperties.setApplication(applicationName);
         }
-        Debug4jDaemon.start(debug4jProperties.getProxy(), debug4jProperties.getApplication(), debug4jProperties .getPackageName(),
+        Debug4jDaemon.start(debug4jProperties.getProxy(), debug4jProperties.getApplication(), debug4jProperties.getPackageName(),
                 debug4jProperties.getHost(), debug4jProperties.getPort(), debug4jProperties.getKey());
     }
 }

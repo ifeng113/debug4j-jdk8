@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- *  业务中断异常
+ * 业务中断异常
  *
  * @author k4ln
  * @since 2024-04-22

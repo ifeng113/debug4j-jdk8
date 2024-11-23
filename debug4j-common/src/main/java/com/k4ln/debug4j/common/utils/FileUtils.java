@@ -6,6 +6,10 @@ public class FileUtils {
 
     private static final int TEMP_DIR_ATTEMPTS = 10000;
 
+    /**
+     * 创建临时目录
+     * @return
+     */
     public static File createTempDir() {
         File baseDir = new File(System.getProperty("java.io.tmpdir"));
         String baseName = "debug4j-" + System.currentTimeMillis() + "-";

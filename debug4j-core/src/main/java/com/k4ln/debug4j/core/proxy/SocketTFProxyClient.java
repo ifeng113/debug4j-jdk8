@@ -26,11 +26,12 @@ public class SocketTFProxyClient {
 
     /**
      * 连接客户端
+     *
      * @throws Exception
      */
     public void start(Integer clientId, String host, Integer port) throws Exception {
 
-        processor = new AbstractMessageProcessor<>(){
+        processor = new AbstractMessageProcessor<>() {
 
             // Target -> Client
             @Override
@@ -58,13 +59,14 @@ public class SocketTFProxyClient {
 
     /**
      * 发送消息
+     *
      * @param body
      */
     public void sendMessage(byte[] body) {
         try {
             WriteBuffer writeBuffer = session.writeBuffer();
             writeBuffer.writeAndFlush(body);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

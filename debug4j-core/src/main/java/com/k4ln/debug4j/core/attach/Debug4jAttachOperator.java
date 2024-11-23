@@ -19,15 +19,17 @@ public class Debug4jAttachOperator {
 
     /**
      * 获取所有class名称
+     *
      * @param instrumentation
      * @param configPackageName
      * @param packageName
      * @return
      */
-    public static List<String> getAllClass(Instrumentation instrumentation, String configPackageName, String packageName){
+    public static List<String> getAllClass(Instrumentation instrumentation, String configPackageName, String packageName) {
         List<String> classes = new ArrayList<>();
         for (Class allLoadedClass : instrumentation.getAllLoadedClasses()) {
-            if(StrUtil.isBlank(packageName) ? allLoadedClass.getName().startsWith(configPackageName) : allLoadedClass.getName().startsWith(packageName)){
+            if (!allLoadedClass.getName().contains("$")
+                    && (StrUtil.isBlank(packageName) ? allLoadedClass.getName().startsWith(configPackageName) : allLoadedClass.getName().startsWith(packageName))) {
                 classes.add(allLoadedClass.getName());
             }
         }
@@ -36,6 +38,7 @@ public class Debug4jAttachOperator {
 
     /**
      * 获取源码
+     *
      * @param className
      * @return
      */
@@ -59,8 +62,8 @@ public class Debug4jAttachOperator {
                 return cls.getCode();
             }
             jadx.close();
-            file.delete();
-        } catch (Exception e){
+            file.deleteOnExit();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";

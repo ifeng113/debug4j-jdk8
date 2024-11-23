@@ -10,6 +10,7 @@ debug4j:
   socket-port: 7988
 
 sa-token:
-  max-login-count: -1
-  is-write-header: true
   http-basic: 'k4ln:123456'
+  is-write-header: true
+  max-login-count: -1
+

@@ -44,6 +44,7 @@ public class ProxyService {
 
     /**
      * 获取代理服务
+     *
      * @param clientSessionId
      * @return
      */
@@ -61,6 +62,7 @@ public class ProxyService {
 
     /**
      * 创建代理
+     *
      * @param proxyReqVO
      * @return
      */
@@ -72,7 +74,7 @@ public class ProxyService {
             return ProxyRespVO.builder().proxyPort(proxyServer.getTfpServerPort()).build();
         } else {
             try {
-                if (proxyReqVO.getServerPort() == null){
+                if (proxyReqVO.getServerPort() == null) {
                     proxyReqVO.setServerPort(NetUtil.getUsableLocalPort(serverProperties.getMinProxyPort(), serverProperties.getMaxProxyPort()));
                 }
                 if (proxyReqVO.getAllowNetworks() == null || proxyReqVO.getAllowNetworks().isEmpty()) {
@@ -96,6 +98,7 @@ public class ProxyService {
 
     /**
      * 客户端sessionId检查
+     *
      * @param proxyReqVO
      */
     private void clientSessionCheck(ProxyReqVO proxyReqVO) {
@@ -103,7 +106,7 @@ public class ProxyService {
             throw new BusinessAbort("not found remote client");
         } else {
             CommandInfoMessage commandInfoMessage = socketServer.getInfoMessageMap().get(proxyReqVO.getClientSessionId());
-            if (commandInfoMessage == null || commandInfoMessage.getDebug4jMode().equals(Debug4jMode.thread)){
+            if (commandInfoMessage == null || commandInfoMessage.getDebug4jMode().equals(Debug4jMode.thread)) {
                 throw new BusinessAbort("not found proxy client");
             }
         }
@@ -121,6 +124,7 @@ public class ProxyService {
 
     /**
      * 删除代理服务
+     *
      * @param clientSessionId
      */
     public static void removeProxyServer(String clientSessionId) {

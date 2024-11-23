@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * 代理接口类
+ *
  * @author k4ln
  * @date 2022/4/20 16:49
  * @description
@@ -31,6 +32,7 @@ public class ProxyController {
 
     /**
      * 获取代理详情
+     *
      * @return
      */
     @GetMapping("/details")
@@ -40,6 +42,7 @@ public class ProxyController {
 
     /**
      * 创建代理
+     *
      * @param proxyReqVO
      * @return
      */

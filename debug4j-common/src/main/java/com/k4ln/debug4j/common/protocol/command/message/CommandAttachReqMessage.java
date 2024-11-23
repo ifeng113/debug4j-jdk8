@@ -30,11 +30,6 @@ public class CommandAttachReqMessage {
     private String className;
 
     /**
-     * 行号
-     */
-    private Integer lineNumber;
-
-    /**
      * 源码
      */
     private String sourceCode;

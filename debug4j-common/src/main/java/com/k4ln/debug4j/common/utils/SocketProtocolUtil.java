@@ -16,9 +16,10 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
+ * 协议工具方法
+ *
  * @author k4ln
- * @date 2022/11/11 12:29
- * @description
+ * @since 2024-04-22
  */
 @Slf4j
 public class SocketProtocolUtil {
@@ -31,6 +32,7 @@ public class SocketProtocolUtil {
 
     /**
      * 解析代理协议
+     *
      * @param readBuffer
      * @return
      */
@@ -78,16 +80,18 @@ public class SocketProtocolUtil {
 
     /**
      * 构建代理协议
+     *
      * @param socketProtocol
      * @return
      */
-    private static byte[] buildProxyProtocol(SocketProtocol socketProtocol){
+    private static byte[] buildProxyProtocol(SocketProtocol socketProtocol) {
         return buildProxyProtocol(socketProtocol.getVersion(), socketProtocol.getProtocolType(), socketProtocol.getSubcontract(),
                 socketProtocol.getSubcontractCount(), socketProtocol.getSubcontractIndex(), socketProtocol.getClientId(), socketProtocol.getBody());
     }
 
     /**
      * 发送数据
+     *
      * @param session
      * @param clientId
      * @param protocolType
@@ -126,6 +130,7 @@ public class SocketProtocolUtil {
 
     /**
      * 发送数据
+     *
      * @param session
      * @param socketProtocol
      */
@@ -141,6 +146,7 @@ public class SocketProtocolUtil {
 
     /**
      * 构建代理协议
+     *
      * @param version
      * @param protocolType
      * @param subcontract
@@ -150,7 +156,7 @@ public class SocketProtocolUtil {
      * @return
      */
     public static byte[] buildProxyProtocol(Integer version, ProtocolTypeEnum protocolType, Boolean subcontract,
-                                            Integer subcontractCount, Integer subcontractIndex, Integer clientId, byte[] body){
+                                            Integer subcontractCount, Integer subcontractIndex, Integer clientId, byte[] body) {
         byte[] header = new byte[BUFFER_HEADER];
         byte[] versionBytes = Convert.shortToBytes(version.shortValue());
         System.arraycopy(versionBytes, 0, header, 0, 1);

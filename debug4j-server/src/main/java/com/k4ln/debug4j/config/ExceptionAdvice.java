@@ -14,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +25,7 @@ import java.io.StringWriter;
 import java.util.List;
 
 /**
- *  异常拦截器
+ * 异常拦截器
  *
  * @author k4ln
  * @since 2024-04-22
@@ -35,13 +36,14 @@ public class ExceptionAdvice {
 
     /**
      * 全局异常
+     *
      * @param exception
-     * @return
      * @param <T>
+     * @return
      */
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public <T> Result<T> exception(Exception exception){
+    public <T> Result<T> exception(Exception exception) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         exception.printStackTrace(pw);
@@ -51,29 +53,32 @@ public class ExceptionAdvice {
 
     /**
      * 请求或参数异常
+     *
      * @param exception
-     * @return
      * @param <T>
+     * @return
      */
     @ResponseBody
     @ExceptionHandler({BindException.class,
             HttpRequestMethodNotSupportedException.class,
             HttpMediaTypeNotSupportedException.class,
             HttpMessageNotReadableException.class,
-            MethodArgumentTypeMismatchException.class})
-    public <T>Result<T> httpRequestException(Exception exception){
+            MethodArgumentTypeMismatchException.class,
+            MissingServletRequestParameterException.class})
+    public <T> Result<T> httpRequestException(Exception exception) {
         return Result.fail(new ParameterError(exception.getMessage()));
     }
 
     /**
      * 参数验证异常
+     *
      * @param exception
-     * @return
      * @param <T>
+     * @return
      */
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public <T>Result<T> methodArgumentNotValidException(MethodArgumentNotValidException exception){
+    public <T> Result<T> methodArgumentNotValidException(MethodArgumentNotValidException exception) {
         BindingResult result = exception.getBindingResult();
         StringBuilder stringBuilder = new StringBuilder();
         if (result.hasErrors()) {
@@ -91,13 +96,14 @@ public class ExceptionAdvice {
 
     /**
      * 捕获自定义异常
+     *
      * @param baseException
-     * @return
      * @param <T>
+     * @return
      */
     @ResponseBody
     @ExceptionHandler(BaseException.class)
-    public <T>Result<T> baseException(BaseException baseException){
+    public <T> Result<T> baseException(BaseException baseException) {
         return Result.fail(baseException);
     }
 

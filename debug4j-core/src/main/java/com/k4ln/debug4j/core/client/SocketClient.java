@@ -13,6 +13,7 @@ import com.k4ln.debug4j.common.protocol.socket.SocketProtocolDecoder;
 import com.k4ln.debug4j.common.utils.SocketProtocolUtil;
 import com.k4ln.debug4j.core.Debugger;
 import com.k4ln.debug4j.core.attach.Debug4jAttachOperator;
+import com.k4ln.debug4j.core.attach.Debug4jWatcher;
 import com.k4ln.debug4j.core.proxy.SocketTFProxyClient;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -141,7 +142,7 @@ public class SocketClient {
                             log.warn("socketClient command no clientId:{}", socketProtocol.getClientId());
                         }
                     }
-                } else if (commandInfoMessage.getDebug4jMode().equals(Debug4jMode.thread)){
+                } else if (commandInfoMessage.getDebug4jMode().equals(Debug4jMode.thread)) {
                     if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_ALL)) {
                         CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
                         List<String> allClass = Debug4jAttachOperator.getAllClass(Debugger.getInstrumentation(), commandInfoMessage.getPackageName(), attachReq.getPackageName());
@@ -150,6 +151,18 @@ public class SocketClient {
                         CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
                         String classSource = Debug4jAttachOperator.getClassSource(attachReq.getClassName());
                         SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceRespMessage(attachReq.getReqId(), classSource));
+                    } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_TASK)) {
+                        CommandTaskReqMessage taskReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandTaskReqMessage.class);
+                        List<CommandTaskReqMessage> reqMessages = Debug4jWatcher.getTask();
+                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(taskReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandTaskRespMessage.buildTaskRespMessage(taskReq.getReqId(), reqMessages));
+                    } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_TASK_OPEN)) {
+                        CommandTaskReqMessage taskReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandTaskReqMessage.class);
+                        List<CommandTaskReqMessage> reqMessages = Debug4jWatcher.openTask(taskReq);
+                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(taskReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandTaskRespMessage.buildTaskRespMessage(taskReq.getReqId(), reqMessages));
+                    } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_TASK_CLOSE)) {
+                        CommandTaskReqMessage taskReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandTaskReqMessage.class);
+                        List<CommandTaskReqMessage> reqMessages = Debug4jWatcher.closeTask(taskReq);
+                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(taskReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandTaskRespMessage.buildTaskRespMessage(taskReq.getReqId(), reqMessages));
                     }
                 }
             }
@@ -163,6 +176,7 @@ public class SocketClient {
                     log.info("socket client connected");
                 } else if (stateMachineEnum.equals(StateMachineEnum.SESSION_CLOSED)) {
                     log.info("socket client disConnected");
+                    Debug4jWatcher.clear();
                 } else if (throwable != null) {
                     throwable.printStackTrace();
                 }
@@ -175,6 +189,10 @@ public class SocketClient {
 
     public static void callbackMessage(Integer clientId, byte[] body) {
         SocketProtocolUtil.sendMessage(session, clientId, ProtocolTypeEnum.PROXY, body);
+    }
+
+    public static void callbackMessage(Integer clientId, ProtocolTypeEnum protocolType, byte[] body) {
+        SocketProtocolUtil.sendMessage(session, clientId, protocolType, body);
     }
 
     public static void clientClose(Integer clientId) {

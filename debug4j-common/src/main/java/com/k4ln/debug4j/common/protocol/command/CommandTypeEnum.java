@@ -15,7 +15,6 @@ public enum CommandTypeEnum {
     // server -> client
     ATTACH_REQ_CLASS_ALL("0x0101", "请求所有类"),
     ATTACH_REQ_CLASS_SOURCE("0x0102", "请求类源码"),
-    ATTACH_REQ_CLASS_LINE_ADD("0x0103", "请求类行新增代码"),
     ATTACH_REQ_CLASS_RELOAD("0x0104", "请求类重载"),
     ATTACH_REQ_CLASS_RELOAD_JAVA("0x0105", "请求类编译重载"),
     ATTACH_REQ_CLASS_RESTORE("0x0106", "请求类还原"),
@@ -28,6 +27,7 @@ public enum CommandTypeEnum {
     ATTACH_RESP_CLASS_ALL("0x0901", "响应所有类"),
     ATTACH_RESP_CLASS_SOURCE("0x0902", "响应类源码"),
     ATTACH_RESP_TASK("0x0903", "响应任务列表"),
+    ATTACH_RESP_TASK_DETAILS("0x094", "响应任务详情"),
 
     ;
 

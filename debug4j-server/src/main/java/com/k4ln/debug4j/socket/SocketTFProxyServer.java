@@ -77,14 +77,14 @@ public class SocketTFProxyServer {
                     sessionMap.put(session.getSessionID(), session);
                     log.info("TFProxy server clientId:{} connected", getSessionClientId(session));
                     try {
-                        if (allowNetworks(session.getRemoteAddress().getAddress().getHostAddress())){
+                        if (allowNetworks(session.getRemoteAddress().getAddress().getHostAddress())) {
                             socketServer.sendMessage(proxyReqVO.getClientSessionId(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
                                     CommandProxyMessage.buildCommandProxyMessage(CommandTypeEnum.PROXY_OPEN, proxyReqVO.getRemoteHost(),
                                             proxyReqVO.getRemotePort()));
                             clientOutletIps.add(session.getRemoteAddress().getAddress().getHostAddress());
                             return;
                         }
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     // 关闭客户端
@@ -98,7 +98,7 @@ public class SocketTFProxyServer {
                                     proxyReqVO.getRemotePort()));
                     try {
                         clientOutletIps.remove(session.getRemoteAddress().getAddress().getHostAddress());
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else if (throwable != null) {
@@ -109,7 +109,7 @@ public class SocketTFProxyServer {
             private boolean allowNetworks(String hostAddress) {
                 List<String> allowNetworks = proxyReqVO.getAllowNetworks();
                 for (String allowNetwork : allowNetworks) {
-                    if (NetUtil.isInRange(hostAddress, allowNetwork)){
+                    if (NetUtil.isInRange(hostAddress, allowNetwork)) {
                         return true;
                     }
                 }
@@ -136,7 +136,7 @@ public class SocketTFProxyServer {
     public static void closeClient(Integer clientId) {
         try {
             AioSession session = sessionMap.get(parseSessionId(clientId));
-            if (session != null){
+            if (session != null) {
                 session.close();
             }
         } catch (Exception e) {

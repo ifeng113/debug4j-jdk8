@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- *  自定义异常父类
+ * 自定义异常父类
  *
  * @author k4ln
  * @since 2024-04-22

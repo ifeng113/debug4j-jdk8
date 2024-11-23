@@ -21,6 +21,7 @@ public class Debug4jDaemon {
 
     /**
      * 开启调试调度器
+     *
      * @param proxyMode
      * @param application
      * @param packageName
@@ -38,6 +39,7 @@ public class Debug4jDaemon {
 
     /**
      * 开启代理进程
+     *
      * @param application
      * @param uniqueId
      * @param packageName
@@ -60,6 +62,13 @@ public class Debug4jDaemon {
 
     /**
      * 装载参数
+     *
+     * @param application
+     * @param uniqueId
+     * @param packageName
+     * @param host
+     * @param port
+     * @param key
      * @return
      */
     private static Debug4jArgs loadDebug4jArgs(String application, String uniqueId, String packageName, String host, Integer port, String key) {
@@ -80,7 +89,7 @@ public class Debug4jDaemon {
                 if (jdwpPort != null) {
                     try {
                         debug4jArgs.setJdwpPort(Integer.parseInt(jdwpPort));
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         log.warn("debug4j daemon match jdwp port error arg:{} exception:{}", arg, e.getMessage());
                     }
                 }

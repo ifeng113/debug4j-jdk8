@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *  响应码
+ * 响应码
  *
  * @author k4ln
  * @since 2024-04-22

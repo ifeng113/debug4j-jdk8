@@ -44,7 +44,7 @@ public class CommandAttachRespMessage {
 
     public static byte[] buildClassSourceRespMessage(String reqId, String sourceCode) {
         return (JSON.toJSONString(Command.builder()
-                .command(CommandTypeEnum.ATTACH_RESP_CLASS_ALL)
+                .command(CommandTypeEnum.ATTACH_RESP_CLASS_SOURCE)
                 .data(CommandAttachRespMessage.builder()
                         .reqId(reqId)
                         .sourceCode(sourceCode)

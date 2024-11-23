@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- *  参数异常类
+ * 参数异常类
  *
  * @author k4ln
  * @since 2024-04-22

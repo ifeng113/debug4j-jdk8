@@ -4,9 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import com.alibaba.fastjson2.JSON;
 import com.k4ln.debug4j.common.protocol.command.Command;
 import com.k4ln.debug4j.common.protocol.command.CommandTypeEnum;
-import com.k4ln.debug4j.common.protocol.command.message.CommandAttachRespMessage;
-import com.k4ln.debug4j.common.protocol.command.message.CommandInfoMessage;
-import com.k4ln.debug4j.common.protocol.command.message.CommandLogMessage;
+import com.k4ln.debug4j.common.protocol.command.message.*;
 import com.k4ln.debug4j.common.protocol.socket.ProtocolTypeEnum;
 import com.k4ln.debug4j.common.protocol.socket.SocketProtocol;
 import com.k4ln.debug4j.common.protocol.socket.SocketProtocolDecoder;
@@ -140,14 +138,19 @@ public class SocketServer {
                             }
                             infoMessage.setClientSessionId(session.getSessionID());
                             infoMessageMap.put(session.getSessionID(), infoMessage);
-                        } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_ALL)) {
+                        } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_ALL)
+                                || command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_SOURCE)) {
                             String jsonString = JSON.toJSONString(command.getData());
                             CommandAttachRespMessage attachResp = JSON.parseObject(jsonString, CommandAttachRespMessage.class);
                             attachHub.pushResult(attachResp.getReqId(), jsonString);
-                        } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_SOURCE)) {
-
                         } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_TASK)) {
-
+                            String jsonString = JSON.toJSONString(command.getData());
+                            CommandTaskRespMessage taskResp = JSON.parseObject(jsonString, CommandTaskRespMessage.class);
+                            attachHub.pushResult(taskResp.getReqId(), jsonString);
+                        } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_TASK_DETAILS)) {
+                            String jsonString = JSON.toJSONString(command.getData());
+                            CommandTaskTailRespMessage taskResp = JSON.parseObject(jsonString, CommandTaskTailRespMessage.class);
+                            attachHub.pushSseEmitter(session.getSessionID() + "@" + taskResp.getFilePath(), taskResp.getLine());
                         }
                     }
                     case PROXY -> callbackMessage(protocol.getClientId(), data);
@@ -222,6 +225,7 @@ public class SocketServer {
 
     /**
      * 根据sessionId发送消息
+     *
      * @param sessionId
      * @param clientId
      * @param protocolType

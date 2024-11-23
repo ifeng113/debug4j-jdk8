@@ -8,6 +8,11 @@ import java.io.File;
 @Slf4j
 public class PackingMain {
 
+    /**
+     * 打包 debug4j-boot.zip
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         String bootPath = System.getProperty("user.dir").replace("\\debug4j-packing", "") +
                 "\\debug4j-boot\\build\\libs\\debug4j-boot.jar";
