@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "310ce39d-4400-437f-835b-22c3d996bc96",
+		"name": "Debug4j",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23165050"
+	},
+	"item": [
+		{
+			"name": "查询所有客户端",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.1.164:7987/manage/clients",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"manage",
+						"clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "创建客户端代理",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serverPort\":33000,\r\n    \"clientSessionId\":\"aioSession-1575378401\",\r\n    \"remoteHost\":\"192.168.1.164\",\r\n    \"remotePort\":61113\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/proxy",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"proxy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查询客户端代理详情",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.1.164:7987/proxy/details?clientSessionId=aioSession-605743627",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"proxy",
+						"details"
+					],
+					"query": [
+						{
+							"key": "clientSessionId",
+							"value": "aioSession-605743627"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取所有类",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1384498269\",\r\n    \"packageName\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/class",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取类源码",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1764662825\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/source",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"source"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取任务列表",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-896598862\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/task",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "开启任务",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1960720060\",\r\n    \"filePath\": \"/DLogs/debug4j-boot.log\",\r\n    \"expire\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/task/open",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"task",
+						"open"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "关闭任务",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-739081342\",\r\n    \"filePath\": \"/log/2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/task/close",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"task",
+						"close"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取任务详情",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/task?path=/DLogs/debug4j-boot.log&sessionId=aioSession-1960720060",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"task"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "/DLogs/debug4j-boot.log"
+						},
+						{
+							"key": "sessionId",
+							"value": "aioSession-1960720060"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
