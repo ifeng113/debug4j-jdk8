@@ -4,7 +4,6 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import com.k4ln.debug4j.common.daemon.Debug4jMode;
 import com.k4ln.debug4j.common.protocol.command.message.CommandInfoMessage;
-import com.k4ln.debug4j.core.attach.Debug4jClassFileTransformer;
 import com.k4ln.debug4j.core.client.SocketClient;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

@@ -26,12 +26,14 @@ public class Demo1DaemonMain {
 
     private static void logNumber(int i) {
         try {
-            Dog dog = Dog.builder().name(RandomUtil.randomNumbers(4)).age(i).build();
-            Thread.sleep(5000);
-            log.info("random tid:{} pid:{} index:{} dog:{}", Thread.currentThread().getId(), ProcessHandle.current().pid(), i, dog.toString());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+            Dog dog = Dog.builder().name(RandomUtil.randomNumbers(4)).age(i).build(); // 29
+            // kkkkk
+            Thread.sleep(5000); // 31
+            // kkkkk
+            log.info("random tid:{} pid:{} index:{} dog:{}", Thread.currentThread().getId(), ProcessHandle.current().pid(), i, dog.toString()); // 33
+        } catch (InterruptedException e) {  // 34
+            throw new RuntimeException(e);  // 35
+        }  // 36
+    } // 37
 
 }

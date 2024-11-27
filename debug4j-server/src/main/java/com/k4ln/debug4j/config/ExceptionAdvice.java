@@ -1,6 +1,5 @@
 package com.k4ln.debug4j.config;
 
-import cn.dev33.satoken.exception.NotHttpBasicAuthException;
 import com.k4ln.debug4j.common.response.Result;
 import com.k4ln.debug4j.common.response.exception.BaseException;
 import com.k4ln.debug4j.common.response.exception.error.ParameterError;

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttachClassAllReqVO {
+public class AttachClassRestoreReqVO {
 
     /**
      * 客户端sessionId
@@ -19,8 +19,9 @@ public class AttachClassAllReqVO {
     private String clientSessionId;
 
     /**
-     * 过滤包名
+     * 类名
      */
-    private String packageName;
+    @NotBlank
+    private String className;
 
 }

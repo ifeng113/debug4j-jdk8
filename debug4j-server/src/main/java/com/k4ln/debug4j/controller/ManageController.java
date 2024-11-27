@@ -3,14 +3,12 @@ package com.k4ln.debug4j.controller;
 
 import com.k4ln.debug4j.common.response.Result;
 import com.k4ln.debug4j.controller.vo.ManageClientRespVO;
-import com.k4ln.debug4j.controller.vo.ProxyReqVO;
-import com.k4ln.debug4j.controller.vo.ProxyRespVO;
 import com.k4ln.debug4j.service.ManageService;
 import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

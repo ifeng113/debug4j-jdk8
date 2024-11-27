@@ -52,7 +52,7 @@ public class AttachController {
      * @return
      */
     @PostMapping("/source")
-    public Result<String> getClassSource(@RequestBody @Valid AttachClassSourceReqVO attachClassSourceReqVO) {
+    public Result<AttachClassSourceRespVO> getClassSource(@RequestBody @Valid AttachClassSourceReqVO attachClassSourceReqVO) {
         return Result.ok(attachService.getClassSource(attachClassSourceReqVO));
     }
 
@@ -82,6 +82,16 @@ public class AttachController {
         return Result.ok(attachService.classReload(classFile, clientSessionId, className));
     }
 
+    /**
+     * 代码还原
+     *
+     * @param classRestoreReqVO
+     * @return
+     */
+    @PostMapping("/restore")
+    public Result<String> classRestore(@RequestBody @Valid AttachClassRestoreReqVO classRestoreReqVO) {
+        return Result.ok(attachService.classRestore(classRestoreReqVO));
+    }
 
     /**
      * 获取任务列表

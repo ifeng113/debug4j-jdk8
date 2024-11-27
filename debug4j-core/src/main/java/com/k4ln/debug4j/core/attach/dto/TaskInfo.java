@@ -1,10 +1,6 @@
-package com.k4ln.debug4j.core.attach.task;
+package com.k4ln.debug4j.core.attach.dto;
 
 import cn.hutool.core.io.file.Tailer;
-import cn.hutool.core.io.watch.WatchMonitor;
-import com.alibaba.fastjson2.JSON;
-import com.k4ln.debug4j.common.protocol.command.Command;
-import com.k4ln.debug4j.common.protocol.command.CommandTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

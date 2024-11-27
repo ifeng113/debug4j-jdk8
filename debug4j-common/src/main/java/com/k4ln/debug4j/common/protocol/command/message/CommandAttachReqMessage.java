@@ -3,6 +3,7 @@ package com.k4ln.debug4j.common.protocol.command.message;
 import com.alibaba.fastjson2.JSON;
 import com.k4ln.debug4j.common.protocol.command.Command;
 import com.k4ln.debug4j.common.protocol.command.CommandTypeEnum;
+import com.k4ln.debug4j.common.protocol.command.message.enums.SourceCodeTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,11 @@ public class CommandAttachReqMessage {
     private String className;
 
     /**
+     * 源码类型
+     */
+    private SourceCodeTypeEnum sourceCodeType;
+
+    /**
      * 源码
      */
     private String sourceCode;
@@ -50,12 +56,13 @@ public class CommandAttachReqMessage {
         ).getBytes();
     }
 
-    public static byte[] buildClassSourceMessage(String reqId, String className) {
+    public static byte[] buildClassSourceMessage(String reqId, String className, SourceCodeTypeEnum sourceCodeType) {
         return (JSON.toJSONString(Command.builder()
                 .command(CommandTypeEnum.ATTACH_REQ_CLASS_SOURCE)
                 .data(CommandAttachReqMessage.builder()
                         .reqId(reqId)
                         .className(className)
+                        .sourceCodeType(sourceCodeType)
                         .build())
                 .build())
         ).getBytes();
@@ -80,6 +87,17 @@ public class CommandAttachReqMessage {
                         .reqId(reqId)
                         .className(className)
                         .byteCode(byteCode)
+                        .build())
+                .build())
+        ).getBytes();
+    }
+
+    public static byte[] buildClassRestoreMessage(String reqId, String className) {
+        return (JSON.toJSONString(Command.builder()
+                .command(CommandTypeEnum.ATTACH_REQ_CLASS_RESTORE)
+                .data(CommandAttachReqMessage.builder()
+                        .reqId(reqId)
+                        .className(className)
                         .build())
                 .build())
         ).getBytes();

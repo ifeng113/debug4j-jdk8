@@ -1,10 +1,10 @@
 package com.k4ln.debug4j.controller;
 
 
-import com.k4ln.debug4j.controller.vo.ProxyReqVO;
-import com.k4ln.debug4j.controller.vo.ProxyRespVO;
 import com.k4ln.debug4j.common.response.Result;
 import com.k4ln.debug4j.controller.vo.ProxyDetailsRespVO;
+import com.k4ln.debug4j.controller.vo.ProxyReqVO;
+import com.k4ln.debug4j.controller.vo.ProxyRespVO;
 import com.k4ln.debug4j.service.ProxyService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;

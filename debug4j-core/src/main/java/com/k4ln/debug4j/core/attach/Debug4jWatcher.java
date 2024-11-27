@@ -10,7 +10,7 @@ import cn.hutool.core.util.StrUtil;
 import com.k4ln.debug4j.common.protocol.command.message.CommandTaskReqMessage;
 import com.k4ln.debug4j.common.protocol.command.message.CommandTaskTailRespMessage;
 import com.k4ln.debug4j.common.protocol.socket.ProtocolTypeEnum;
-import com.k4ln.debug4j.core.attach.task.TaskInfo;
+import com.k4ln.debug4j.core.attach.dto.TaskInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -38,9 +38,8 @@ public class Debug4jWatcher {
 
     /**
      * 清理所有监听器
-     *
      */
-    public static void clear(){
+    public static void clear() {
         watcher.keySet().forEach(e -> {
             watcher.get(e).getTailer().stop();
             watcher.remove(e);

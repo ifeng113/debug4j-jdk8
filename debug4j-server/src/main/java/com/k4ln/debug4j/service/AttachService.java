@@ -1,20 +1,17 @@
 package com.k4ln.debug4j.service;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.io.file.FileReader;
+import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.HashUtil;
 import cn.hutool.core.util.StrUtil;
 import com.k4ln.debug4j.common.daemon.Debug4jMode;
-import com.k4ln.debug4j.common.protocol.command.message.CommandAttachReqMessage;
-import com.k4ln.debug4j.common.protocol.command.message.CommandAttachRespMessage;
-import com.k4ln.debug4j.common.protocol.command.message.CommandInfoMessage;
-import com.k4ln.debug4j.common.protocol.command.message.CommandTaskRespMessage;
-import com.k4ln.debug4j.common.protocol.command.message.CommandTaskReqMessage;
+import com.k4ln.debug4j.common.protocol.command.message.*;
 import com.k4ln.debug4j.common.protocol.socket.ProtocolTypeEnum;
 import com.k4ln.debug4j.common.response.exception.abort.BusinessAbort;
 import com.k4ln.debug4j.common.utils.FileUtils;
 import com.k4ln.debug4j.controller.vo.*;
+import com.k4ln.debug4j.service.aop.CodeLock;
 import com.k4ln.debug4j.socket.SocketServer;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,17 +74,20 @@ public class AttachService {
      * @param attachClassSourceReqVO
      * @return
      */
-    public String getClassSource(AttachClassSourceReqVO attachClassSourceReqVO) {
+    public AttachClassSourceRespVO getClassSource(AttachClassSourceReqVO attachClassSourceReqVO) {
         clientSessionCheck(attachClassSourceReqVO.getClientSessionId());
         String reqId = UUID.fastUUID().toString(true);
         CommandAttachRespMessage attachResp = attachHub.syncResult(reqId, () ->
                         socketServer.sendMessage(attachClassSourceReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
-                                CommandAttachReqMessage.buildClassSourceMessage(reqId, attachClassSourceReqVO.getClassName())),
+                                CommandAttachReqMessage.buildClassSourceMessage(reqId, attachClassSourceReqVO.getClassName(), attachClassSourceReqVO.getSourceCodeType())),
                 CommandAttachRespMessage.class);
         if (attachResp != null) {
-            return attachResp.getSourceCode();
+            return AttachClassSourceRespVO.builder()
+                    .byteCodeType(attachResp.getByteCodeType())
+                    .classSource(attachResp.getSourceCode())
+                    .build();
         }
-        return "";
+        return null;
     }
 
     /**
@@ -152,12 +153,12 @@ public class AttachService {
      * @param sourceReloadReqVO
      * @return
      */
+    @CodeLock(clientSessionId = "#sourceReloadReqVO.clientSessionId", className = "#sourceReloadReqVO.className")
     public String sourceReload(AttachSourceReloadReqVO sourceReloadReqVO) {
         clientSessionCheck(sourceReloadReqVO.getClientSessionId());
         String reqId = UUID.fastUUID().toString(true);
         socketServer.sendMessage(sourceReloadReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
                 CommandAttachReqMessage.buildSourceReloadMessage(reqId, sourceReloadReqVO.getClassName(), sourceReloadReqVO.getSourceCode()));
-         // todo 后续处理
         return null;
     }
 
@@ -169,22 +170,38 @@ public class AttachService {
      * @param className
      * @return
      */
+    @CodeLock(clientSessionId = "#clientSessionId", className = "#className")
     public String classReload(MultipartFile classFile, String clientSessionId, String className) {
         clientSessionCheck(clientSessionId);
-        if (classFile != null && StrUtil.isNotBlank(classFile.getOriginalFilename())){
+        if (classFile != null && StrUtil.isNotBlank(classFile.getOriginalFilename())) {
             try {
                 File file = new File(FileUtils.createTempDir(), classFile.getOriginalFilename());
                 classFile.transferTo(file);
-                String byteCode = FileReader.create(file).readString();
+                byte[] bytes = Files.readAllBytes(file.toPath());
+                String byteCode = Base64Encoder.encode(bytes);
                 String reqId = UUID.fastUUID().toString(true);
                 socketServer.sendMessage(clientSessionId, HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
-                        CommandAttachReqMessage.buildSourceReloadMessage(reqId, className, byteCode));
+                        CommandAttachReqMessage.buildClassReloadMessage(reqId, className, byteCode));
                 file.deleteOnExit();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        // todo 后续处理
+        return null;
+    }
+
+    /**
+     * 代码还原
+     *
+     * @param classRestoreReqVO
+     * @return
+     */
+    @CodeLock(clientSessionId = "#classRestoreReqVO.clientSessionId", className = "#classRestoreReqVO.className")
+    public String classRestore(AttachClassRestoreReqVO classRestoreReqVO) {
+        clientSessionCheck(classRestoreReqVO.getClientSessionId());
+        String reqId = UUID.fastUUID().toString(true);
+        socketServer.sendMessage(classRestoreReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
+                CommandAttachReqMessage.buildClassRestoreMessage(reqId, classRestoreReqVO.getClassName()));
         return null;
     }
 }

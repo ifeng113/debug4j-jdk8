@@ -14,6 +14,7 @@ import com.k4ln.debug4j.common.utils.SocketProtocolUtil;
 import com.k4ln.debug4j.core.Debugger;
 import com.k4ln.debug4j.core.attach.Debug4jAttachOperator;
 import com.k4ln.debug4j.core.attach.Debug4jWatcher;
+import com.k4ln.debug4j.core.attach.dto.SourceCodeInfo;
 import com.k4ln.debug4j.core.proxy.SocketTFProxyClient;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -149,8 +150,8 @@ public class SocketClient {
                         SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassAllRespMessage(attachReq.getReqId(), allClass));
                     } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_SOURCE)) {
                         CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
-                        String classSource = Debug4jAttachOperator.getClassSource(attachReq.getClassName());
-                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceRespMessage(attachReq.getReqId(), classSource));
+                        SourceCodeInfo sourceCodeInfo = Debug4jAttachOperator.getClassSource(Debugger.getInstrumentation(), attachReq.getClassName(), attachReq.getSourceCodeType());
+                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceRespMessage(attachReq.getReqId(), sourceCodeInfo.getClassSource(), sourceCodeInfo.getByteCodeType()));
                     } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_TASK)) {
                         CommandTaskReqMessage taskReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandTaskReqMessage.class);
                         List<CommandTaskReqMessage> reqMessages = Debug4jWatcher.getTask();
@@ -166,17 +167,12 @@ public class SocketClient {
                     } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA)) {
                         CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
                         Debug4jAttachOperator.sourceReload(Debugger.getInstrumentation(), attachReq.getClassName(), attachReq.getSourceCode());
-                        // TODO 源码更新
-                        String classSource = Debug4jAttachOperator.getClassSource(attachReq.getClassName());
-//                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceRespMessage(attachReq.getReqId(), classSource));
-                        log.info(classSource);
                     } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD)) {
                         CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
                         Debug4jAttachOperator.classReload(Debugger.getInstrumentation(), attachReq.getClassName(), attachReq.getByteCode());
-                        // TODO 字节码更新
-                        String classSource = Debug4jAttachOperator.getClassSource(attachReq.getClassName());
-//                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceRespMessage(attachReq.getReqId(), classSource));
-                        log.info(classSource);
+                    } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_RESTORE)) {
+                        CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
+                        Debug4jAttachOperator.classRestore(Debugger.getInstrumentation(), attachReq.getClassName());
                     }
                 }
             }

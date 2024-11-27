@@ -1,5 +1,6 @@
 package com.k4ln.debug4j.controller.vo;
 
+import com.k4ln.debug4j.common.protocol.command.message.enums.ByteCodeTypeEnum;
 import com.k4ln.debug4j.common.protocol.command.message.enums.SourceCodeTypeEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,24 +13,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttachClassSourceReqVO {
+public class AttachClassSourceRespVO {
 
     /**
-     * 客户端sessionId
+     * 源码
      */
-    @NotBlank
-    private String clientSessionId;
+    private String classSource;
 
     /**
-     * 类名
+     * 字节码类型
      */
-    @NotBlank
-    private String className;
-
-    /**
-     * 源码类型
-     */
-    @NotNull
-    private SourceCodeTypeEnum sourceCodeType;
+    private ByteCodeTypeEnum byteCodeType;
 
 }
