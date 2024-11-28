@@ -578,6 +578,102 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "获取源码带行号",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-628738833\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"lineMethodName\": \"logNumber$original$GgYBt5Ir\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/source/method-line",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"source",
+						"method-line"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "行代码补丁",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-628738833\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"lineMethodName\": \"logNumber$original$GgYBt5Ir\",\r\n    \"lineNumber\": 31,\r\n    \"sourceCode\": \"log.info(\\\"patch13\\\");\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/patch/method-line",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"patch",
+						"method-line"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
