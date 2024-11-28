@@ -63,7 +63,7 @@ public class AttachController {
      * @return
      */
     @PostMapping("/reload/source")
-    public Result<String> sourceReload(@RequestBody @Valid AttachSourceReloadReqVO sourceReloadReqVO) {
+    public Result<AttachClassSourceRespVO> sourceReload(@RequestBody @Valid AttachSourceReloadReqVO sourceReloadReqVO) {
         return Result.ok(attachService.sourceReload(sourceReloadReqVO));
     }
 
@@ -76,7 +76,7 @@ public class AttachController {
      * @return
      */
     @PostMapping(value = "/reload/class", consumes = "multipart/form-data")
-    public Result<String> classReload(@RequestParam("file") MultipartFile classFile,
+    public Result<AttachClassSourceRespVO> classReload(@RequestParam("file") MultipartFile classFile,
                                       @RequestParam("clientSessionId") String clientSessionId,
                                       @RequestParam("className") String className) {
         return Result.ok(attachService.classReload(classFile, clientSessionId, className));
@@ -89,7 +89,7 @@ public class AttachController {
      * @return
      */
     @PostMapping("/restore")
-    public Result<String> classRestore(@RequestBody @Valid AttachClassRestoreReqVO classRestoreReqVO) {
+    public Result<AttachClassSourceRespVO> classRestore(@RequestBody @Valid AttachClassRestoreReqVO classRestoreReqVO) {
         return Result.ok(attachService.classRestore(classRestoreReqVO));
     }
 

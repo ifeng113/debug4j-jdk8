@@ -203,7 +203,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1764662825\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1114357627\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"sourceCodeType\": \"attachClassByteCode\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -414,6 +414,166 @@
 							"key": "sessionId",
 							"value": "aioSession-1960720060"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "源码热更新",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1114357627\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"sourceCode\": \"package com.k4ln.demo;\\r\\n\\r\\nimport cn.hutool.core.util.RandomUtil;\\r\\nimport com.k4ln.debug4j.daemon.Debug4jDaemon;\\r\\nimport com.sun.tools.attach.AgentInitializationException;\\r\\nimport com.sun.tools.attach.AgentLoadException;\\r\\nimport com.sun.tools.attach.AttachNotSupportedException;\\r\\nimport java.io.IOException;\\r\\nimport org.slf4j.Logger;\\r\\nimport org.slf4j.LoggerFactory;\\r\\n\\r\\n/* loaded from: com.k4ln.demo.Demo1DaemonMain.class */\\r\\npublic class Demo1DaemonMain {\\r\\n    private static final Logger log = LoggerFactory.getLogger(Demo1DaemonMain.class);\\r\\n\\r\\n    public static void main(String[] strArr) throws IOException, AttachNotSupportedException, AgentLoadException, AgentInitializationException {\\r\\n        Debug4jDaemon.start(true, \\\"demo1-daemon\\\", \\\"com.k4ln\\\", \\\"192.168.1.164\\\", 7988, \\\"k4ln\\\");\\r\\n        int i = 0;\\r\\n        while (i < 1000) {\\r\\n            logNumber(i);\\r\\n            if (i == 999) {\\r\\n                i = 0;\\r\\n            }\\r\\n            i++;\\r\\n        }\\r\\n    }\\r\\n\\r\\n    private static void logNumber(int i) {\\r\\n        try {\\r\\n            Dog build = Dog.builder().name(RandomUtil.randomNumbers(4)).age(i).build();\\r\\n            Thread.sleep(5000L);\\r\\n            log.info(\\\"7987 random tid:{} pid:{} index:{} dog:{}\\\", new Object[]{Long.valueOf(Thread.currentThread().getId()), Long.valueOf(ProcessHandle.current().pid()), Integer.valueOf(i), build.toString()});\\r\\n        } catch (InterruptedException e) {\\r\\n            throw new RuntimeException(e);\\r\\n        }\\r\\n    }\\r\\n}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/reload/source",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"reload",
+						"source"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "字节码热更新",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/T14s/Desktop/Demo1DaemonMain.class"
+						},
+						{
+							"key": "clientSessionId",
+							"value": "aioSession-1114357627",
+							"type": "text"
+						},
+						{
+							"key": "className",
+							"value": "com.k4ln.demo.Demo1DaemonMain",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/reload/class",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"reload",
+						"class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "代码还原",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "k4ln",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1114357627\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.164:7987/attach/restore",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"164"
+					],
+					"port": "7987",
+					"path": [
+						"attach",
+						"restore"
 					]
 				}
 			},

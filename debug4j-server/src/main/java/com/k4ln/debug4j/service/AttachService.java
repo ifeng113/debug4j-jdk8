@@ -154,11 +154,19 @@ public class AttachService {
      * @return
      */
     @CodeLock(clientSessionId = "#sourceReloadReqVO.clientSessionId", className = "#sourceReloadReqVO.className")
-    public String sourceReload(AttachSourceReloadReqVO sourceReloadReqVO) {
+    public AttachClassSourceRespVO sourceReload(AttachSourceReloadReqVO sourceReloadReqVO) {
         clientSessionCheck(sourceReloadReqVO.getClientSessionId());
         String reqId = UUID.fastUUID().toString(true);
-        socketServer.sendMessage(sourceReloadReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
-                CommandAttachReqMessage.buildSourceReloadMessage(reqId, sourceReloadReqVO.getClassName(), sourceReloadReqVO.getSourceCode()));
+        CommandAttachRespMessage attachResp = attachHub.syncResult(reqId, () ->
+                        socketServer.sendMessage(sourceReloadReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
+                                CommandAttachReqMessage.buildSourceReloadMessage(reqId, sourceReloadReqVO.getClassName(), sourceReloadReqVO.getSourceCode())),
+                CommandAttachRespMessage.class);
+        if (attachResp != null) {
+            return AttachClassSourceRespVO.builder()
+                    .byteCodeType(attachResp.getByteCodeType())
+                    .classSource(attachResp.getSourceCode())
+                    .build();
+        }
         return null;
     }
 
@@ -171,7 +179,7 @@ public class AttachService {
      * @return
      */
     @CodeLock(clientSessionId = "#clientSessionId", className = "#className")
-    public String classReload(MultipartFile classFile, String clientSessionId, String className) {
+    public AttachClassSourceRespVO classReload(MultipartFile classFile, String clientSessionId, String className) {
         clientSessionCheck(clientSessionId);
         if (classFile != null && StrUtil.isNotBlank(classFile.getOriginalFilename())) {
             try {
@@ -180,9 +188,17 @@ public class AttachService {
                 byte[] bytes = Files.readAllBytes(file.toPath());
                 String byteCode = Base64Encoder.encode(bytes);
                 String reqId = UUID.fastUUID().toString(true);
-                socketServer.sendMessage(clientSessionId, HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
-                        CommandAttachReqMessage.buildClassReloadMessage(reqId, className, byteCode));
+                CommandAttachRespMessage attachResp = attachHub.syncResult(reqId, () ->
+                                socketServer.sendMessage(clientSessionId, HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
+                                        CommandAttachReqMessage.buildClassReloadMessage(reqId, className, byteCode)),
+                        CommandAttachRespMessage.class);
                 file.deleteOnExit();
+                if (attachResp != null) {
+                    return AttachClassSourceRespVO.builder()
+                            .byteCodeType(attachResp.getByteCodeType())
+                            .classSource(attachResp.getSourceCode())
+                            .build();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -197,11 +213,19 @@ public class AttachService {
      * @return
      */
     @CodeLock(clientSessionId = "#classRestoreReqVO.clientSessionId", className = "#classRestoreReqVO.className")
-    public String classRestore(AttachClassRestoreReqVO classRestoreReqVO) {
+    public AttachClassSourceRespVO classRestore(AttachClassRestoreReqVO classRestoreReqVO) {
         clientSessionCheck(classRestoreReqVO.getClientSessionId());
         String reqId = UUID.fastUUID().toString(true);
-        socketServer.sendMessage(classRestoreReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
-                CommandAttachReqMessage.buildClassRestoreMessage(reqId, classRestoreReqVO.getClassName()));
+        CommandAttachRespMessage attachResp = attachHub.syncResult(reqId, () ->
+                        socketServer.sendMessage(classRestoreReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
+                                CommandAttachReqMessage.buildClassRestoreMessage(reqId, classRestoreReqVO.getClassName())),
+                CommandAttachRespMessage.class);
+        if (attachResp != null) {
+            return AttachClassSourceRespVO.builder()
+                    .byteCodeType(attachResp.getByteCodeType())
+                    .classSource(attachResp.getSourceCode())
+                    .build();
+        }
         return null;
     }
 }

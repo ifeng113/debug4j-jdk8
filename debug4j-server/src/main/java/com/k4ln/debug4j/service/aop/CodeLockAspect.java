@@ -46,6 +46,12 @@ public class CodeLockAspect<T> {
 
     /**
      * 代码锁切面
+     * <p>
+     *     Build,Execution,Deployment -> Build Tools -> Gradle -> Build and run using(Run test using)
+     *         如果修改为 IDEA，可避免调试agent时执行两次premain方法，但会导致在aop中无法获取参数名，从而导致无法使用EvaluationContext动态获取方法参数
+     *         如果修改为 Gradle，能够正常获取参数名，但会导致agent的premain方法执行两次
+     * </p>
+     *
      * @param pjp
      * @return
      */
@@ -111,6 +117,7 @@ public class CodeLockAspect<T> {
 
     /**
      * 获取方法参数名
+     * 或使用#{DefaultParameterNameDiscoverer}
      * @param method
      * @return
      */
