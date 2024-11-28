@@ -33,6 +33,11 @@ public class CommandAttachRespMessage {
     private ByteCodeTypeEnum byteCodeType;
 
     /**
+     * 行号
+     */
+    private List<Integer> lineNumbers;
+
+    /**
      * 所有类
      */
     private List<String> classNames;
@@ -55,6 +60,18 @@ public class CommandAttachRespMessage {
                         .reqId(reqId)
                         .sourceCode(sourceCode)
                         .byteCodeType(byteCodeType)
+                        .build())
+                .build())
+        ).getBytes();
+    }
+
+    public static byte[] buildClassSourceLineRespMessage(String reqId, String sourceCode, List<Integer> lineNumbers) {
+        return (JSON.toJSONString(Command.builder()
+                .command(CommandTypeEnum.ATTACH_RESP_CLASS_SOURCE_LINE)
+                .data(CommandAttachRespMessage.builder()
+                        .reqId(reqId)
+                        .sourceCode(sourceCode)
+                        .lineNumbers(lineNumbers)
                         .build())
                 .build())
         ).getBytes();

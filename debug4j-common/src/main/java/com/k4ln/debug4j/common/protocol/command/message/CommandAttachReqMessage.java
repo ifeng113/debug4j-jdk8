@@ -31,9 +31,19 @@ public class CommandAttachReqMessage {
     private String className;
 
     /**
+     * 行号所在方法名
+     */
+    private String lineMethodName;
+
+    /**
      * 源码类型
      */
     private SourceCodeTypeEnum sourceCodeType;
+
+    /**
+     * 行号
+     */
+    private Integer lingNumber;
 
     /**
      * 源码
@@ -98,6 +108,32 @@ public class CommandAttachReqMessage {
                 .data(CommandAttachReqMessage.builder()
                         .reqId(reqId)
                         .className(className)
+                        .build())
+                .build())
+        ).getBytes();
+    }
+
+    public static byte[] buildClassSourceMethodLineMessage(String reqId, String className, String lineMethodName) {
+        return (JSON.toJSONString(Command.builder()
+                .command(CommandTypeEnum.ATTACH_REQ_CLASS_SOURCE_LINE)
+                .data(CommandAttachReqMessage.builder()
+                        .reqId(reqId)
+                        .className(className)
+                        .lineMethodName(lineMethodName)
+                        .build())
+                .build())
+        ).getBytes();
+    }
+
+    public static byte[] buildClassPatchMethodLineMessage(String reqId, String className, String lineMethodName, String sourceCode, Integer lingNumber) {
+        return (JSON.toJSONString(Command.builder()
+                .command(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA_LINE)
+                .data(CommandAttachReqMessage.builder()
+                        .reqId(reqId)
+                        .className(className)
+                        .lineMethodName(lineMethodName)
+                        .sourceCode(sourceCode)
+                        .lingNumber(lingNumber)
                         .build())
                 .build())
         ).getBytes();

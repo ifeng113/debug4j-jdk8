@@ -11,8 +11,12 @@ import com.k4ln.debug4j.core.attach.compile.CompilerUtil;
 import com.k4ln.debug4j.core.attach.compile.JavaSourceCompiler;
 import com.k4ln.debug4j.core.attach.compile.ResourceClassLoader;
 import com.k4ln.debug4j.core.attach.dto.ByteCodeInfo;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
@@ -36,6 +40,10 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
 
     private final ByteCodeInfo byteCodeInfo;
 
+    private final String lineMethodName;
+
+    private final Integer lineNumber;
+
     public Debug4jClassFileTransformer(String transformerClassName, CommandTypeEnum commandType, String sourceCode,
                                        String byteCode, CompletableFuture<ByteCodeInfo> future, ByteCodeInfo byteCodeInfo) {
         this.transformerClassName = transformerClassName;
@@ -44,6 +52,21 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
         this.byteCode = byteCode;
         this.future = future;
         this.byteCodeInfo = byteCodeInfo;
+        this.lineMethodName = StrUtil.EMPTY;
+        this.lineNumber = Integer.MIN_VALUE;
+    }
+
+    public Debug4jClassFileTransformer(String transformerClassName, CommandTypeEnum commandType, String sourceCode,
+                                       String byteCode, CompletableFuture<ByteCodeInfo> future, ByteCodeInfo byteCodeInfo,
+                                       String lineMethodName, Integer lineNumber) {
+        this.transformerClassName = transformerClassName;
+        this.commandType = commandType;
+        this.sourceCode = sourceCode;
+        this.byteCode = byteCode;
+        this.future = future;
+        this.byteCodeInfo = byteCodeInfo;
+        this.lineMethodName = lineMethodName;
+        this.lineNumber = lineNumber;
     }
 
     @Override
@@ -53,58 +76,8 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
                 byte[] bytes = Base64Decoder.decode(byteCode);
                 byteCodeInfo.setAttachClassByteCode(bytes);
                 future.complete(byteCodeInfo);
-                return bytes;
+                return byteCodeInfo.getAttachClassByteCode();
             } else if (commandType.equals(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA)) {
-//                try {
-//                    ClassPool pool = ClassPool.getDefault();
-////                    pool.makeClass(new ByteArrayInputStream(classfileBuffer));
-//                    CtClass cc = pool.get(transformerClassName);
-//
-////                    CtBehavior[] declaredBehaviors = cc.getDeclaredBehaviors();
-////                    for (CtBehavior declaredBehavior : declaredBehaviors) {
-////                        log.info("declaredBehavior: {}", declaredBehavior.getName());
-////                        if (declaredBehavior.getName().startsWith("logNumber")) {
-////
-////                            int lineNumber = declaredBehavior.getMethodInfo().getLineNumber(28);
-////                            if (lineNumber != -1) {
-////
-////                                CodeIterator iterator = declaredBehavior.getMethodInfo().getCodeAttribute().iterator();
-////                                Set<Integer> set = new HashSet<>();
-////                                while (iterator.hasNext()) {
-////                                    int next = iterator.next();
-////                                    int lineNumber1 = declaredBehavior.getMethodInfo().getLineNumber(next);
-////                                    log.info("next: {} lineNumber:{}", next, declaredBehavior.getMethodInfo().getLineNumber(next));
-////                                    set.add(lineNumber1);
-////                                }
-//////                                for (Integer line : set) {
-//////                                    declaredBehavior.insertAt(line, "{ log.info(" + line + " +\" ccc\"); }");
-//////                                }
-////
-////                                declaredBehavior.insertBefore("{ log.info(i +\" ccc\"); }");
-////
-////////                                LineNumberAttribute lineNumberAttribute = (LineNumberAttribute) declaredBehavior.getMethodInfo().getCodeAttribute().getAttribute(LineNumberAttribute.tag);
-////////                                for (int i = 0; i < lineNumberAttribute.getConstPool().getSize(); i++) {
-////////                                    lineNumberAttribute.getConstPool().print();
-////////                                }
-////
-//////                                declaredBehavior.insertAt(15, "{ log.info(\" ccc15\"); }");
-//////                                declaredBehavior.insertAt(lineNumber, "{ log.info(com.alibaba.fastjson2.JSON.toJSONString(dog)+\" ccc\"); }");
-////
-//////                                CtMethod declaredMethod = cc.getDeclaredMethod(declaredBehavior.getName());
-//////                                declaredMethod.insertAt()
-////                            }
-////                        }
-////                    }
-//                    // todo insert lineCode
-//                    log.info("declaredBehaviors");
-//
-//                    byte[] bytecode = cc.toBytecode();
-////                    String s = jadxByteCodeToSource(transformerClassName, bytecode);
-//                    return bytecode;
-//                } catch (Exception e){
-//                    e.printStackTrace();
-//                }
-
                 File file = new File(FileUtils.createTempDir(), transformerClassName.substring(transformerClassName.lastIndexOf('.') + 1) + ".java");
                 FileWriter.create(file).write(sourceCode);
                 JavaSourceCompiler javaSourceCompiler = CompilerUtil.getCompiler(loader)
@@ -116,7 +89,7 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
                 byte[] bytes = resource.readBytes();
                 byteCodeInfo.setAttachClassByteCode(bytes);
                 future.complete(byteCodeInfo);
-                return bytes;
+                return byteCodeInfo.getAttachClassByteCode();
             } else if (commandType.equals(CommandTypeEnum.ATTACH_REQ_CLASS_SOURCE)) {
                 byteCodeInfo.setAgentTransformClassBufferByteCode(classfileBuffer);
                 String classFileSourceCode = jadxByteCodeToSource(transformerClassName, byteCodeInfo.getOriginalClassFileByteCode());
@@ -141,6 +114,27 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
                 byte[] defaultByteCode = getDefaultByteCode(byteCodeInfo);
                 byteCodeInfo.setAttachClassByteCode(defaultByteCode);
                 future.complete(byteCodeInfo);
+                return byteCodeInfo.getAttachClassByteCode();
+            } else if (commandType.equals(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA_LINE)) {
+                try {
+                    ClassPool pool = ClassPool.getDefault();
+                    CtClass cc = pool.get(transformerClassName);
+                    if (cc.isFrozen()) {
+                        cc.defrost();
+                    }
+                    pool.makeClass(new ByteArrayInputStream(byteCodeInfo.getAttachClassByteCode()));
+                    cc = pool.get(transformerClassName);
+                    CtMethod declaredMethod = cc.getDeclaredMethod(lineMethodName);
+                    declaredMethod.insertAt(lineNumber, sourceCode);
+                    byte[] bytecode = cc.toBytecode();
+                    byteCodeInfo.setAttachClassByteCode(bytecode);
+                    future.complete(byteCodeInfo);
+                    return byteCodeInfo.getAttachClassByteCode();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    future.complete(byteCodeInfo);
+                    return byteCodeInfo.getAttachClassByteCode();
+                }
             }
         }
         return classfileBuffer;

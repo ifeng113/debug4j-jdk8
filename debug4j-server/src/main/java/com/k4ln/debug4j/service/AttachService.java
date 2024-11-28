@@ -228,4 +228,52 @@ public class AttachService {
         }
         return null;
     }
+
+    /**
+     * 获取源码带行号
+     *
+     * @param sourceLineReqVO
+     * @return
+     */
+    @CodeLock(clientSessionId = "#sourceLineReqVO.clientSessionId", className = "#sourceLineReqVO.className")
+    public AttachClassSourceLineRespVO getClassSourceMethodLine(AttachClassSourceLineReqVO sourceLineReqVO) {
+        clientSessionCheck(sourceLineReqVO.getClientSessionId());
+        String reqId = UUID.fastUUID().toString(true);
+        CommandAttachRespMessage attachResp = attachHub.syncResult(reqId, () ->
+                        socketServer.sendMessage(sourceLineReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
+                                CommandAttachReqMessage.buildClassSourceMethodLineMessage(reqId, sourceLineReqVO.getClassName(), sourceLineReqVO.getLineMethodName())),
+                CommandAttachRespMessage.class);
+        if (attachResp != null) {
+            return AttachClassSourceLineRespVO.builder()
+                    .classSource(attachResp.getSourceCode())
+                    .lineNumbers(attachResp.getLineNumbers())
+                    .build();
+        }
+        return null;
+    }
+
+    /**
+     * 行代码补丁
+     *
+     * @param pathLineReqVO
+     * @return
+     */
+    public AttachClassSourceLineRespVO patchMethodLine(AttachClassPathLineReqVO pathLineReqVO) {
+        clientSessionCheck(pathLineReqVO.getClientSessionId());
+        String reqId = UUID.fastUUID().toString(true);
+        String sourceCode = "{" + pathLineReqVO.getSourceCode() + ";" +
+                "com.k4ln.debug4j.common.daemon.Debug4jLine.tag(" + pathLineReqVO.getLineNumber() + ");}";
+        CommandAttachRespMessage attachResp = attachHub.syncResult(reqId, () ->
+                        socketServer.sendMessage(pathLineReqVO.getClientSessionId(), HashUtil.fnvHash(reqId), ProtocolTypeEnum.COMMAND,
+                                CommandAttachReqMessage.buildClassPatchMethodLineMessage(reqId, pathLineReqVO.getClassName(),
+                                        pathLineReqVO.getLineMethodName(), sourceCode, pathLineReqVO.getLineNumber())),
+                CommandAttachRespMessage.class);
+        if (attachResp != null) {
+            return AttachClassSourceLineRespVO.builder()
+                    .classSource(attachResp.getSourceCode())
+                    .lineNumbers(attachResp.getLineNumbers())
+                    .build();
+        }
+        return null;
+    }
 }

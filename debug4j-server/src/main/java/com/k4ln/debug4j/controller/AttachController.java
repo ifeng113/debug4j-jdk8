@@ -94,6 +94,28 @@ public class AttachController {
     }
 
     /**
+     * 获取源码带行号
+     *
+     * @param sourceLineReqVO
+     * @return
+     */
+    @PostMapping("/source/method-line")
+    public Result<AttachClassSourceLineRespVO> getClassSourceMethodLine(@RequestBody @Valid AttachClassSourceLineReqVO sourceLineReqVO) {
+        return Result.ok(attachService.getClassSourceMethodLine(sourceLineReqVO));
+    }
+
+    /**
+     * 行代码补丁
+     *
+     * @param pathLineReqVO
+     * @return
+     */
+    @PostMapping("/patch/method-line")
+    public Result<AttachClassSourceLineRespVO> patchMethodLine(@RequestBody @Valid AttachClassPathLineReqVO pathLineReqVO) {
+        return Result.ok(attachService.patchMethodLine(pathLineReqVO));
+    }
+
+    /**
      * 获取任务列表
      *
      * @param attachTaskReqVO

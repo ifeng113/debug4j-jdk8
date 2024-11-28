@@ -15,6 +15,7 @@ import com.k4ln.debug4j.common.utils.SocketProtocolUtil;
 import com.k4ln.debug4j.core.Debugger;
 import com.k4ln.debug4j.core.attach.Debug4jAttachOperator;
 import com.k4ln.debug4j.core.attach.Debug4jWatcher;
+import com.k4ln.debug4j.core.attach.dto.MethodLineInfo;
 import com.k4ln.debug4j.core.attach.dto.SourceCodeInfo;
 import com.k4ln.debug4j.core.proxy.SocketTFProxyClient;
 import lombok.Getter;
@@ -180,6 +181,15 @@ public class SocketClient {
                         Debug4jAttachOperator.classRestore(Debugger.getInstrumentation(), attachReq.getClassName());
                         SourceCodeInfo sourceCodeInfo = Debug4jAttachOperator.getClassSource(Debugger.getInstrumentation(), attachReq.getClassName(), SourceCodeTypeEnum.attachClassByteCode);
                         SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceRespMessage(attachReq.getReqId(), sourceCodeInfo.getClassSource(), sourceCodeInfo.getByteCodeType()));
+                    } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_SOURCE_LINE)) {
+                        CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
+                        MethodLineInfo methodLineInfo = Debug4jAttachOperator.methodLine(Debugger.getInstrumentation(), attachReq.getClassName(), attachReq.getLineMethodName());
+                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceLineRespMessage(attachReq.getReqId(), methodLineInfo.getSourceCode(), methodLineInfo.getLineNumbers()));
+                    } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA_LINE)) {
+                        CommandAttachReqMessage attachReq = JSON.parseObject(JSON.toJSONString(command.getData()), CommandAttachReqMessage.class);
+                        Debug4jAttachOperator.patchLine(Debugger.getInstrumentation(), attachReq.getClassName(), attachReq.getLineMethodName(), attachReq.getSourceCode(), attachReq.getLingNumber());
+                        MethodLineInfo methodLineInfo = Debug4jAttachOperator.methodLine(Debugger.getInstrumentation(), attachReq.getClassName(), attachReq.getLineMethodName());
+                        SocketProtocolUtil.sendMessage(session, HashUtil.fnvHash(attachReq.getReqId()), ProtocolTypeEnum.COMMAND, CommandAttachRespMessage.buildClassSourceLineRespMessage(attachReq.getReqId(), methodLineInfo.getSourceCode(), methodLineInfo.getLineNumbers()));
                     }
                 }
             }

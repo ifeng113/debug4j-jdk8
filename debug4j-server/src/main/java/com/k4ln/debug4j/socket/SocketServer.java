@@ -139,7 +139,8 @@ public class SocketServer {
                             infoMessage.setClientSessionId(session.getSessionID());
                             infoMessageMap.put(session.getSessionID(), infoMessage);
                         } else if (command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_ALL)
-                                || command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_SOURCE)) {
+                                || command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_SOURCE)
+                                || command.getCommand().equals(CommandTypeEnum.ATTACH_RESP_CLASS_SOURCE_LINE)) {
                             String jsonString = JSON.toJSONString(command.getData());
                             CommandAttachRespMessage attachResp = JSON.parseObject(jsonString, CommandAttachRespMessage.class);
                             attachHub.pushResult(attachResp.getReqId(), jsonString);

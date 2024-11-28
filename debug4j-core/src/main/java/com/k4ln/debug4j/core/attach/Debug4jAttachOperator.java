@@ -6,27 +6,33 @@ import com.k4ln.debug4j.common.protocol.command.message.enums.ByteCodeTypeEnum;
 import com.k4ln.debug4j.common.protocol.command.message.enums.SourceCodeTypeEnum;
 import com.k4ln.debug4j.common.utils.FileUtils;
 import com.k4ln.debug4j.core.attach.dto.ByteCodeInfo;
+import com.k4ln.debug4j.core.attach.dto.MethodLineInfo;
 import com.k4ln.debug4j.core.attach.dto.SourceCodeInfo;
 import jadx.api.JadxArgs;
 import jadx.api.JadxDecompiler;
 import jadx.api.JavaClass;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.CtMethod;
+import javassist.bytecode.CodeIterator;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+@Slf4j
 public class Debug4jAttachOperator {
 
     /**
@@ -259,4 +265,100 @@ public class Debug4jAttachOperator {
         instrumentation.removeTransformer(debug4jClassFileTransformer);
     }
 
+    /**
+     * 获取源码代行号
+     *
+     * @param instrumentation
+     * @param className
+     * @param lineMethodName
+     */
+    public static MethodLineInfo methodLine(Instrumentation instrumentation, String className, String lineMethodName) {
+        ByteCodeInfo byteCodeInfo = getClassByteCodeInfo(instrumentation, className);
+        byte[] classByteCodeByCache = getClassByteCodeByCache(SourceCodeTypeEnum.attachClassByteCode, byteCodeInfo);
+        if (classByteCodeByCache != null) {
+            try {
+                ClassPool pool = ClassPool.getDefault();
+                CtClass cc = pool.get(className);
+                if (cc.isFrozen()) {
+                    cc.defrost();
+                }
+                pool.makeClass(new ByteArrayInputStream(classByteCodeByCache));
+                cc = pool.get(className);
+                SortedSet<Integer> set = new TreeSet<>();
+                if (StrUtil.isNotBlank(lineMethodName)){
+                    CtMethod declaredMethod = cc.getDeclaredMethod(lineMethodName);
+                    CodeIterator iterator = declaredMethod.getMethodInfo().getCodeAttribute().iterator();
+                    while (iterator.hasNext()) {
+                        set.add(declaredMethod.getMethodInfo().getLineNumber(iterator.next()));
+                    }
+                    Integer first = set.first();
+                    declaredMethod.insertAt(first, "{com.k4ln.debug4j.common.daemon.Debug4jLine.tag(" + first + ");}");
+                }
+                byte[] bytecode = cc.toBytecode();
+                String sourceCode = jadxByteCodeToSource(className, bytecode);
+                String flagSourceCode = sourceLineFlag(sourceCode);
+                return MethodLineInfo.builder().sourceCode(flagSourceCode).lineNumbers(set.stream().toList()).build();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return MethodLineInfo.builder().build();
+    }
+
+    /**
+     * 源码行标记
+     *
+     * @param sourceCode
+     * @return
+     */
+    private static String sourceLineFlag(String sourceCode){
+        if (StrUtil.isNotBlank(sourceCode)){
+            String lineSeparator = System.lineSeparator();
+            String[] split = sourceCode.split(lineSeparator);
+            Map<String, String> lineMap = new LinkedHashMap<>();
+            for (int i = 0; i < split.length; i++) {
+                String str = split[i];
+                String regex = "Debug4jLine\\.tag\\((\\d+)\\);";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(str);
+                if (matcher.find()){
+                    String group = matcher.group();
+                    String newLine = str.replace(group, "/* next line number is: " + matcher.group(1) + " */");
+                    lineMap.remove(newLine);
+                    lineMap.put(newLine, newLine + lineSeparator);
+                } else {
+                    lineMap.put(str + ":" + i, str + lineSeparator);
+                }
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+            lineMap.values().forEach(stringBuilder::append);
+            return stringBuilder.toString();
+        } else {
+            return sourceCode;
+        }
+    }
+
+    /**
+     * 原代码行补丁
+     *
+     * @param instrumentation
+     * @param className
+     * @param lineMethodName
+     * @param sourceCode
+     * @param lineNumber
+     */
+    public static void patchLine(Instrumentation instrumentation, String className, String lineMethodName, String sourceCode, Integer lineNumber) {
+        try {
+            ByteCodeInfo byteCodeInfo = getClassByteCodeInfo(instrumentation, className);
+            if (byteCodeInfo != null) {
+                CompletableFuture<ByteCodeInfo> future = new CompletableFuture<>();
+                Debug4jClassFileTransformer debug4jClassFileTransformer = new Debug4jClassFileTransformer(className,
+                        CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA_LINE, sourceCode, null, future, byteCodeInfo, lineMethodName, lineNumber);
+                reTransformer(instrumentation, className, debug4jClassFileTransformer);
+                realByteCodeMap.put(className, future.get(30, TimeUnit.SECONDS));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
