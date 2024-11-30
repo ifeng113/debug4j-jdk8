@@ -142,6 +142,7 @@ public class AttachService {
                                 CommandTaskReqMessage.buildTaskCloseMessage(reqId, closeReqVO.getFilePath())),
                 CommandTaskRespMessage.class);
         if (attachResp != null) {
+            attachHub.removeSseEmitter(closeReqVO.getClientSessionId() + "@" + closeReqVO.getFilePath(), null);
             return BeanUtil.copyToList(attachResp.getCommandTaskReqMessages(), AttachTaskRespVO.class);
         }
         return new ArrayList<>();

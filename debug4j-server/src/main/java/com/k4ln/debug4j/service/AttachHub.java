@@ -124,15 +124,23 @@ public class AttachHub {
      * @param key
      * @param loginId
      */
-    private void removeSseEmitter(String key, String loginId) {
+    public void removeSseEmitter(String key, String loginId) {
         List<AttachTaskEmitter> taskEmitters = attachTaskEmitters.get(key);
         if (taskEmitters != null) {
-            for (AttachTaskEmitter emitter : taskEmitters) {
-                if (emitter.getLoginID().equals(loginId)) {
-                    emitter.getSseEmitter().complete();
-                    taskEmitters.remove(emitter);
-                    return;
+            if (loginId != null){
+                for (AttachTaskEmitter emitter : taskEmitters) {
+                    if (emitter.getLoginID().equals(loginId)) {
+                        emitter.getSseEmitter().complete();
+                        taskEmitters.remove(emitter);
+                        return;
+                    }
                 }
+            } else {
+                for (AttachTaskEmitter emitter : taskEmitters) {
+                    emitter.getSseEmitter().complete();
+                }
+                taskEmitters.clear();
+                attachTaskEmitters.remove(key);
             }
         }
     }

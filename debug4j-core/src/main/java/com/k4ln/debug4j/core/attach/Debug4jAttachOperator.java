@@ -285,7 +285,7 @@ public class Debug4jAttachOperator {
                 pool.makeClass(new ByteArrayInputStream(classByteCodeByCache));
                 cc = pool.get(className);
                 SortedSet<Integer> set = new TreeSet<>();
-                if (StrUtil.isNotBlank(lineMethodName)){
+                if (StrUtil.isNotBlank(lineMethodName)) {
                     CtMethod declaredMethod = cc.getDeclaredMethod(lineMethodName);
                     CodeIterator iterator = declaredMethod.getMethodInfo().getCodeAttribute().iterator();
                     while (iterator.hasNext()) {
@@ -311,8 +311,8 @@ public class Debug4jAttachOperator {
      * @param sourceCode
      * @return
      */
-    private static String sourceLineFlag(String sourceCode){
-        if (StrUtil.isNotBlank(sourceCode)){
+    private static String sourceLineFlag(String sourceCode) {
+        if (StrUtil.isNotBlank(sourceCode)) {
             String lineSeparator = System.lineSeparator();
             String[] split = sourceCode.split(lineSeparator);
             Map<String, String> lineMap = new LinkedHashMap<>();
@@ -321,7 +321,7 @@ public class Debug4jAttachOperator {
                 String regex = "Debug4jLine\\.tag\\((\\d+)\\);";
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(str);
-                if (matcher.find()){
+                if (matcher.find()) {
                     String group = matcher.group();
                     String newLine = str.replace(group, "/* next line number is: " + matcher.group(1) + " */");
                     lineMap.remove(newLine);

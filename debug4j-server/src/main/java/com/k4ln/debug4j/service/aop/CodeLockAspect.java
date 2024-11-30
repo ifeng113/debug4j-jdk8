@@ -25,14 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author lv
- * @date 2023/11/15 14:52
- * @description
+ * 增强接口类
+ *
+ * @author k4ln
+ * @since 2024-10-22
  */
 @Aspect
 @Slf4j
 @Component
-public class CodeLockAspect<T> {
+public class CodeLockAspect {
 
     /**
      * sessionId + className -> Lock
@@ -47,9 +48,9 @@ public class CodeLockAspect<T> {
     /**
      * 代码锁切面
      * <p>
-     *     Build,Execution,Deployment -> Build Tools -> Gradle -> Build and run using(Run test using)
-     *         如果修改为 IDEA，可避免调试agent时执行两次premain方法，但会导致在aop中无法获取参数名，从而导致无法使用EvaluationContext动态获取方法参数
-     *         如果修改为 Gradle，能够正常获取参数名，但会导致agent的premain方法执行两次
+     * Build,Execution,Deployment -> Build Tools -> Gradle -> Build and run using(Run test using)
+     * 如果修改为 IDEA，可避免调试agent时执行两次premain方法，但会导致在aop中无法获取参数名，从而导致无法使用EvaluationContext动态获取方法参数
+     * 如果修改为 Gradle，能够正常获取参数名，但会导致agent的premain方法执行两次 // todo（在此模式下Javassist premain的inst无法获取主类信息？）
      * </p>
      *
      * @param pjp
@@ -65,7 +66,7 @@ public class CodeLockAspect<T> {
             Method method = methodSignature.getMethod();
             EvaluationContext context = new StandardEvaluationContext();
             String[] params = getParameterNames(method);
-            for (int len = 0; len < params.length; len++){
+            for (int len = 0; len < params.length; len++) {
                 context.setVariable(params[len], pjp.getArgs()[len]);
             }
             CodeLock codeLock = method.getAnnotation(CodeLock.class);
@@ -79,9 +80,9 @@ public class CodeLockAspect<T> {
                 codeUpdateUnLock(clientSessionId, className);
                 return proceed;
             } else {
-                throw new BusinessAbort("code lock error with clientSessionId:" + clientSessionId + " className:" +  className);
+                throw new BusinessAbort("code lock error with clientSessionId:" + clientSessionId + " className:" + className);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new BusinessAbort("code lock error:" + e.getMessage());
         }
@@ -93,7 +94,7 @@ public class CodeLockAspect<T> {
      * @param clientSessionId
      * @param className
      */
-    private synchronized void codeUpdateLock(String clientSessionId, String className){
+    private synchronized void codeUpdateLock(String clientSessionId, String className) {
         String lock = reloadLock.get(clientSessionId + "@" + className);
         if (lock == null) {
             reloadLock.put(clientSessionId + "@" + className, className);
@@ -108,7 +109,7 @@ public class CodeLockAspect<T> {
      * @param clientSessionId
      * @param className
      */
-    private synchronized void codeUpdateUnLock(String clientSessionId, String className){
+    private synchronized void codeUpdateUnLock(String clientSessionId, String className) {
         String lock = reloadLock.get(clientSessionId + "@" + className);
         if (lock != null) {
             reloadLock.remove(clientSessionId + "@" + className);
@@ -118,13 +119,14 @@ public class CodeLockAspect<T> {
     /**
      * 获取方法参数名
      * 或使用#{DefaultParameterNameDiscoverer}
+     *
      * @param method
      * @return
      */
     private String[] getParameterNames(Method method) {
         List<String> parameters = new ArrayList<>();
         Parameter[] methodParameters = method.getParameters();
-        for (Parameter parameter : methodParameters){
+        for (Parameter parameter : methodParameters) {
             parameters.add(parameter.getName());
         }
         return parameters.toArray(new String[0]);

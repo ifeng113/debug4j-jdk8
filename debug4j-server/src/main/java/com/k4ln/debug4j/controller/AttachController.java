@@ -20,8 +20,7 @@ import java.util.List;
  * 增强接口类
  *
  * @author k4ln
- * @date 2022/4/20 16:49
- * @description
+ * @since 2024-10-22
  */
 @Slf4j
 @Validated
@@ -77,8 +76,8 @@ public class AttachController {
      */
     @PostMapping(value = "/reload/class", consumes = "multipart/form-data")
     public Result<AttachClassSourceRespVO> classReload(@RequestParam("file") MultipartFile classFile,
-                                      @RequestParam("clientSessionId") String clientSessionId,
-                                      @RequestParam("className") String className) {
+                                                       @RequestParam("clientSessionId") String clientSessionId,
+                                                       @RequestParam("className") String className) {
         return Result.ok(attachService.classReload(classFile, clientSessionId, className));
     }
 

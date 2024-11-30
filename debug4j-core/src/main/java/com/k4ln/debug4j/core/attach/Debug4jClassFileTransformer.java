@@ -1,9 +1,12 @@
 package com.k4ln.debug4j.core.attach;
 
 import cn.hutool.core.codec.Base64Decoder;
+import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.io.file.FileWriter;
 import cn.hutool.core.io.resource.Resource;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.MD5;
+import com.alibaba.fastjson2.JSON;
 import com.k4ln.debug4j.common.protocol.command.CommandTypeEnum;
 import com.k4ln.debug4j.common.protocol.command.message.enums.ByteCodeTypeEnum;
 import com.k4ln.debug4j.common.utils.FileUtils;
@@ -20,10 +23,11 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-
-import static com.k4ln.debug4j.core.attach.Debug4jAttachOperator.jadxByteCodeToSource;
 
 @Slf4j
 public class Debug4jClassFileTransformer implements ClassFileTransformer {
@@ -92,9 +96,9 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
                 return byteCodeInfo.getAttachClassByteCode();
             } else if (commandType.equals(CommandTypeEnum.ATTACH_REQ_CLASS_SOURCE)) {
                 byteCodeInfo.setAgentTransformClassBufferByteCode(classfileBuffer);
-                String classFileSourceCode = jadxByteCodeToSource(transformerClassName, byteCodeInfo.getOriginalClassFileByteCode());
-                String classBufferSourceCode = jadxByteCodeToSource(transformerClassName, byteCodeInfo.getAgentTransformClassBufferByteCode());
-                String classSourceCode = jadxByteCodeToSource(transformerClassName, byteCodeInfo.getAgentTransformClassByteCode());
+                String classFileSourceCode = classSignature(byteCodeInfo.getOriginalClassFileByteCode());
+                String classBufferSourceCode = classSignature(byteCodeInfo.getAgentTransformClassBufferByteCode());
+                String classSourceCode = classSignature(byteCodeInfo.getAgentTransformClassByteCode());
                 if (StrUtil.isBlank(classFileSourceCode) || StrUtil.isBlank(classBufferSourceCode) || StrUtil.isBlank(classSourceCode)) {
                     throw new RuntimeException("class source code is null or empty");
                 }
@@ -138,6 +142,27 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
             }
         }
         return classfileBuffer;
+    }
+
+    private String classSignature(byte[] byteCode){
+        try {
+            ClassPool pool = ClassPool.getDefault();
+            CtClass cc = pool.get(transformerClassName);
+            if (cc.isFrozen()) {
+                cc.defrost();
+            }
+            pool.makeClass(new ByteArrayInputStream(byteCode));
+            cc = pool.get(transformerClassName);
+            List<String> fieldList = new java.util.ArrayList<>(Arrays.stream(cc.getDeclaredFields()).map(e -> e.getName() + e.getSignature()).toList());
+            fieldList.sort(Comparator.naturalOrder());
+            List<String> methodList = new java.util.ArrayList<>(Arrays.stream(cc.getDeclaredMethods()).map(e -> e.getName() + e.getSignature() +
+                    MD5.create().digestHex(Base64Encoder.encode(e.getMethodInfo().getCodeAttribute().getCode()))).toList());
+            methodList.sort(Comparator.naturalOrder());
+            return cc.getName() + "@" + cc.getGenericSignature() + "@" + JSON.toJSONString(fieldList) + "@" + JSON.toJSONString(methodList);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

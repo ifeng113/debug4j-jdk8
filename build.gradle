@@ -50,12 +50,12 @@ allprojects {
     }
 
     dependencies {
-        compileOnly 'org.projectlombok:lombok:1.18.30'
-        annotationProcessor 'org.projectlombok:lombok:1.18.30'
-        implementation 'ch.qos.logback:logback-classic:1.5.8'
+        compileOnly 'org.projectlombok:lombok:1.18.36'
+        annotationProcessor 'org.projectlombok:lombok:1.18.36'
+        implementation 'ch.qos.logback:logback-classic:1.5.12'
 
-        implementation 'cn.hutool:hutool-all:5.8.32'
-        implementation 'com.alibaba.fastjson2:fastjson2:2.0.48'
+        implementation 'cn.hutool:hutool-all:5.8.34'
+        implementation 'com.alibaba.fastjson2:fastjson2:2.0.53'
     }
 
 }

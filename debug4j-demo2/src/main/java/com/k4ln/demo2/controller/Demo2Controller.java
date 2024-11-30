@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 服务端接口类
  *
  * @author k4ln
- * @date 2022/4/20 16:49
- * @description
+ * @since 2024-10-22
  */
 @Slf4j
 @RestController
