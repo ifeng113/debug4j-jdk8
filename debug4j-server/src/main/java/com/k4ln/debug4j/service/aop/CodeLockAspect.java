@@ -50,7 +50,17 @@ public class CodeLockAspect {
      * <p>
      * Build,Execution,Deployment -> Build Tools -> Gradle -> Build and run using(Run test using)
      * 如果修改为 IDEA，可避免调试agent时执行两次premain方法，但会导致在aop中无法获取参数名，从而导致无法使用EvaluationContext动态获取方法参数
-     * 如果修改为 Gradle，能够正常获取参数名，但会导致agent的premain方法执行两次 // todo（在此模式下Javassist premain的inst无法获取主类信息？）
+     *  - 使用-javaagent:时JavassistAgent调试正常，premain中无法通过inst.getAllLoadedClasses()获取到【被agent】的类，但是会因为inst.addTransformer(new CusDefinedClass(), true);配置，让后续加载的【被agent】的类触发transform方法
+     *  - 使用-javaagent:时ByteBuddyAgent调试正常，premain正常，intercept正常
+     * 如果修改为 Gradle，能够正常获取参数名，但会导致agent的premain方法执行两次
+     *  - 使用-javaagent:时JavassistAgent，无法调试，premain触发两次，agent transform不生效（推测与premain触发两次一样，是Gradle在agent模式下的BUG，正确结果应该与 java :javaagent -jar 执行结果一致）；
+     *    - 如果在addTransformer之前手动执行ClassLoader.getSystemClassLoader().loadClass或者Class.forName()，transform（retransformClasses执行）生效
+     *    - System.getProperty("sun.java.command")可获取主程序类型，配合上述条件可解决Gradle transform不生效的问题，但会导致transform执行3次（2次premain导致的2次retransformClasses），1次jvm的默认加载
+     *    - 奇怪的是，在已配置inst.addTransformer(new CusDefinedClass(), true);的情况下，如果没有手动加载主程序类，jvm默认加载主程序类时却不会触发transform
+     *  - 使用-javaagent:时ByteBuddyAgent，无法调试，premain触发两次，agent intercept正常
+     * 如果使用 java :javaagent -jar 运行JavassistAgent，效果已IDEA JavassistAgent(-javaagent) 一致，生效但不会执行retransformClasses，因为jvm加载主程序类晚于agent premain()
+     * Gradle BUG：
+     * 【SkyWalking8.7源码解析】：https://blog.csdn.net/qq_40378034/article/details/121882943
      * </p>
      *
      * @param pjp
