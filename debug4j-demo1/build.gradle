@@ -1,13 +1,23 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.bmuschko.docker-java-application' version '9.4.0'
 }
 
 group = 'com.k4ln'
 version = '1.0-SNAPSHOT'
 
+// docker run -d --name demo1 com.k4ln/debug4j-demo1:1.0-snapshot
+docker {
+    url = 'tcp://124.71.163.140:2375'
+    javaApplication {
+        // https://hub.docker.com/_/eclipse-temurin/tags?page=1&name=17
+        baseImage = 'eclipse-temurin:17.0.13_11-jdk'
+        maintainer = 'k4ln'
+    }
+}
+
 dependencies {
-    implementation project(":debug4j-core")
     implementation project(":debug4j-common")
     implementation project(":debug4j-daemon")
 

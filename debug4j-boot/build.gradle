@@ -22,7 +22,6 @@ shadowJar {
     }
 }
 
-
 test {
     useJUnitPlatform()
 }

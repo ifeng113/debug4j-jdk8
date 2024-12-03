@@ -27,15 +27,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://192.168.1.164:7987/manage/clients",
+					"raw": "http://{{host}}/manage/clients",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"manage",
 						"clients"
@@ -66,7 +62,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"serverPort\":33000,\r\n    \"clientSessionId\":\"aioSession-1575378401\",\r\n    \"remoteHost\":\"192.168.1.164\",\r\n    \"remotePort\":61113\r\n}",
+					"raw": "{\r\n    \"serverPort\":33002,\r\n    \"clientSessionId\":\"aioSession-1289418730\",\r\n    \"remoteHost\":\"192.168.4.96\",\r\n    \"remotePort\":6379\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -74,15 +70,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/proxy",
+					"raw": "http://{{host}}/proxy",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"proxy"
 					]
@@ -111,15 +103,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://192.168.1.164:7987/proxy/details?clientSessionId=aioSession-605743627",
+					"raw": "http://{{host}}/proxy/details?clientSessionId=aioSession-1289418730",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"proxy",
 						"details"
@@ -127,7 +115,7 @@
 					"query": [
 						{
 							"key": "clientSessionId",
-							"value": "aioSession-605743627"
+							"value": "aioSession-1289418730"
 						}
 					]
 				}
@@ -156,7 +144,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-896598862\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -164,15 +152,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/task",
+					"raw": "http://{{host}}/attach/task",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"task"
@@ -203,7 +187,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1960720060\",\r\n    \"filePath\": \"/DLogs/debug4j-boot.log\",\r\n    \"expire\": 10\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\",\r\n    \"filePath\": \"/app/debug4j/logs/debug4j-boot.log\",\r\n    \"expire\": 10\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -211,15 +195,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/task/open",
+					"raw": "http://{{host}}/attach/task/open",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"task",
@@ -251,7 +231,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-893429568\",\r\n    \"filePath\": \"/DLogs/debug4j-boot.log\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\",\r\n    \"filePath\": \"/app/debug4j/logs/debug4j-boot.log\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -259,15 +239,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/task/close",
+					"raw": "http://{{host}}/attach/task/close",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"task",
@@ -298,15 +274,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/task?path=/DLogs/debug4j-boot.log&sessionId=aioSession-893429568",
+					"raw": "http://{{host}}/attach/task?path=/app/debug4j/logs/debug4j-boot.log&sessionId=aioSession-1341587928",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"task"
@@ -314,11 +286,11 @@
 					"query": [
 						{
 							"key": "path",
-							"value": "/DLogs/debug4j-boot.log"
+							"value": "/app/debug4j/logs/debug4j-boot.log"
 						},
 						{
 							"key": "sessionId",
-							"value": "aioSession-893429568"
+							"value": "aioSession-1341587928"
 						}
 					]
 				}
@@ -347,7 +319,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1384498269\",\r\n    \"packageName\": \"\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\",\r\n    \"packageName\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -355,15 +327,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/class",
+					"raw": "http://{{host}}/attach/class",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"class"
@@ -394,7 +362,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-252577405\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"sourceCodeType\": \"attachClassByteCode\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"sourceCodeType\": \"attachClassByteCode\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -402,15 +370,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/source",
+					"raw": "http://{{host}}/attach/source",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"source"
@@ -441,7 +405,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-252577405\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"sourceCode\": \"package com.k4ln.demo;\\r\\n\\r\\nimport cn.hutool.core.util.RandomUtil;\\r\\nimport com.k4ln.debug4j.daemon.Debug4jDaemon;\\r\\nimport com.sun.tools.attach.AgentInitializationException;\\r\\nimport com.sun.tools.attach.AgentLoadException;\\r\\nimport com.sun.tools.attach.AttachNotSupportedException;\\r\\nimport java.io.IOException;\\r\\nimport org.slf4j.Logger;\\r\\nimport org.slf4j.LoggerFactory;\\r\\n\\r\\n/* loaded from: com.k4ln.demo.Demo1DaemonMain.class */\\r\\npublic class Demo1DaemonMain {\\r\\n    private static final Logger log = LoggerFactory.getLogger(Demo1DaemonMain.class);\\r\\n\\r\\n    public static void main(String[] strArr) throws IOException, AttachNotSupportedException, AgentLoadException, AgentInitializationException {\\r\\n        Debug4jDaemon.start(true, \\\"demo1-daemon\\\", \\\"com.k4ln\\\", \\\"192.168.1.164\\\", 7988, \\\"k4ln\\\");\\r\\n        int i = 0;\\r\\n        while (i < 1000) {\\r\\n            logNumber(i);\\r\\n            if (i == 999) {\\r\\n                i = 0;\\r\\n            }\\r\\n            i++;\\r\\n        }\\r\\n    }\\r\\n\\r\\n    private static void logNumber(int i) {\\r\\n        try {\\r\\n            Dog build = Dog.builder().name(RandomUtil.randomNumbers(4)).age(i).build();\\r\\n            Thread.sleep(5000L);\\r\\n            log.info(\\\"7987 random tid:{} pid:{} index:{} dog:{}\\\", new Object[]{Long.valueOf(Thread.currentThread().getId()), Long.valueOf(ProcessHandle.current().pid()), Integer.valueOf(i), build.toString()});\\r\\n        } catch (InterruptedException e) {\\r\\n            throw new RuntimeException(e);\\r\\n        }\\r\\n    }\\r\\n}\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"sourceCode\": \"package com.k4ln.demo;\\r\\n\\r\\nimport cn.hutool.core.util.RandomUtil;\\r\\nimport com.k4ln.debug4j.daemon.Debug4jDaemon;\\r\\nimport com.sun.tools.attach.AgentInitializationException;\\r\\nimport com.sun.tools.attach.AgentLoadException;\\r\\nimport com.sun.tools.attach.AttachNotSupportedException;\\r\\nimport java.io.IOException;\\r\\nimport org.slf4j.Logger;\\r\\nimport org.slf4j.LoggerFactory;\\r\\n\\r\\n/* loaded from: com.k4ln.demo.Demo1DaemonMain.class */\\r\\npublic class Demo1DaemonMain {\\r\\n    private static final Logger log = LoggerFactory.getLogger(Demo1DaemonMain.class);\\r\\n\\r\\n    public static void main(String[] strArr) throws IOException, AttachNotSupportedException, AgentLoadException, AgentInitializationException {\\r\\n        Debug4jDaemon.start(true, \\\"demo1-daemon\\\", \\\"com.k4ln\\\", \\\"192.168.1.164\\\", 7988, \\\"k4ln\\\");\\r\\n        int i = 0;\\r\\n        while (i < 1000) {\\r\\n            logNumber(i);\\r\\n            if (i == 999) {\\r\\n                i = 0;\\r\\n            }\\r\\n            i++;\\r\\n        }\\r\\n    }\\r\\n\\r\\n    private static void logNumber(int i) {\\r\\n        try {\\r\\n            Dog build = Dog.builder().name(RandomUtil.randomNumbers(4)).age(i).build();\\r\\n            Thread.sleep(5000L);\\r\\n            log.info(\\\"7987 random tid:{} pid:{} index:{} dog:{}\\\", new Object[]{Long.valueOf(Thread.currentThread().getId()), Long.valueOf(ProcessHandle.current().pid()), Integer.valueOf(i), build.toString()});\\r\\n        } catch (InterruptedException e) {\\r\\n            throw new RuntimeException(e);\\r\\n        }\\r\\n    }\\r\\n}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -449,15 +413,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/reload/source",
+					"raw": "http://{{host}}/attach/reload/source",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"reload",
@@ -503,7 +463,7 @@
 						},
 						{
 							"key": "clientSessionId",
-							"value": "aioSession-252577405",
+							"value": "aioSession-1341587928",
 							"type": "text"
 						},
 						{
@@ -514,15 +474,11 @@
 					]
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/reload/class",
+					"raw": "http://{{host}}/attach/reload/class",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"reload",
@@ -554,7 +510,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-252577405\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -562,15 +518,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/restore",
+					"raw": "http://{{host}}/attach/restore",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"restore"
@@ -601,7 +553,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-628738833\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"lineMethodName\": \"logNumber$original$GgYBt5Ir\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"lineMethodName\": \"logNumber\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -609,15 +561,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/source/method-line",
+					"raw": "http://{{host}}/attach/source/method-line",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"source",
@@ -649,7 +597,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"clientSessionId\": \"aioSession-628738833\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"lineMethodName\": \"logNumber$original$GgYBt5Ir\",\r\n    \"lineNumber\": 31,\r\n    \"sourceCode\": \"log.info(\\\"patch13\\\");\"\r\n}",
+					"raw": "{\r\n    \"clientSessionId\": \"aioSession-1341587928\",\r\n    \"className\": \"com.k4ln.demo.Demo1DaemonMain\",\r\n    \"lineMethodName\": \"logNumber\",\r\n    \"lineNumber\": 24,\r\n    \"sourceCode\": \"log.info(\\\"patch13\\\");\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -657,15 +605,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.164:7987/attach/patch/method-line",
+					"raw": "http://{{host}}/attach/patch/method-line",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"1",
-						"164"
+						"{{host}}"
 					],
-					"port": "7987",
 					"path": [
 						"attach",
 						"patch",
@@ -674,6 +618,35 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "124.71.163.140:7987",
+			"type": "string"
 		}
 	]
 }

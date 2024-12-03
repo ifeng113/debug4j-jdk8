@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Debug4jBoot {
 
-    public static final int LOG_FREQUENCY = 6;
+    public static final int LOG_FREQUENCY = 30;
 
     public static final int LOG_INTERVAL = 10000;
 

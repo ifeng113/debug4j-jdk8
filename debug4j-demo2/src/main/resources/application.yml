@@ -1,11 +1,12 @@
 server:
-  port: 10002
+  port: 33999
 
 spring:
   application:
     name: demo2
 
 debug4j:
-  host: 192.168.1.164
+  package-name: com.k4ln
+  host: 124.71.163.140
   port: 7988
   key: k4ln
