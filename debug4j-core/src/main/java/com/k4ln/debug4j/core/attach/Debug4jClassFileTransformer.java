@@ -89,39 +89,7 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
                 future.complete(byteCodeInfo);
                 return byteCodeInfo.getAttachClassByteCode();
             } else if (commandType.equals(CommandTypeEnum.ATTACH_REQ_CLASS_RELOAD_JAVA)) {
-                File file = new File(FileUtils.createTempDir(), transformerClassName.substring(transformerClassName.lastIndexOf('.') + 1) + ".java");
-                FileWriter.create(file).write(sourceCode);
-                JavaSourceCompiler javaSourceCompiler = CompilerUtil.getCompiler(loader).addSource(file);
-                ResourceClassLoader classLoader = (ResourceClassLoader) javaSourceCompiler.compile();
-                Map resourceMap = classLoader.getResourceMap();
-                Resource resource = (Resource) resourceMap.get(transformerClassName);
-                file.deleteOnExit();
-                byte[] bytes = resource.readBytes();
-                byteCodeInfo.setAttachClassByteCode(bytes);
-                future.complete(byteCodeInfo);
-                return byteCodeInfo.getAttachClassByteCode();
-//                File tempDir = FileUtils.createTempDir();
-//                String classLastName = transformerClassName.substring(transformerClassName.lastIndexOf('.') + 1);
-//                File file = new File(tempDir, classLastName + ".java");
-//                try (FileOutputStream fos = new FileOutputStream(file)) {
-//                    fos.write(sourceCode.getBytes());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return null;
-//                }
-//                JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
-//                StandardJavaFileManager standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
-//                Iterable<? extends JavaFileObject> javaFileObjects = standardFileManager.getJavaFileObjects(file);
-//                JavaCompiler.CompilationTask task = javaCompiler.getTask(null, standardFileManager, null, null, null, javaFileObjects);
-//                task.call();
-//                try {
-//                    byte[] bytes = Files.readAllBytes(Paths.get(tempDir.getAbsolutePath() + File.separator + classLastName + ".class"));
-//                    byteCodeInfo.setAttachClassByteCode(bytes);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                future.complete(byteCodeInfo);
-//                return byteCodeInfo.getAttachClassByteCode();
+                return compilerSourceCodeByCacheClass(loader);
             } else if (commandType.equals(CommandTypeEnum.ATTACH_REQ_CLASS_SOURCE)) {
                 byteCodeInfo.setAgentTransformClassBufferByteCode(classfileBuffer);
                 String classFileSourceCode = classSignature(byteCodeInfo.getOriginalClassFileByteCode());
@@ -172,7 +140,46 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
         return classfileBuffer;
     }
 
-    private String classSignature(byte[] byteCode){
+    private byte[] compilerSourceCodeByCacheClass(ClassLoader loader) {
+        File file = new File(FileUtils.createTempDir(), transformerClassName.substring(transformerClassName.lastIndexOf('.') + 1) + ".java");
+        FileWriter.create(file).write(sourceCode);
+        JavaSourceCompiler javaSourceCompiler = CompilerUtil.getCompiler(loader).addSource(file);
+        ResourceClassLoader classLoader = (ResourceClassLoader) javaSourceCompiler.compile();
+        Map resourceMap = classLoader.getResourceMap();
+        Resource resource = (Resource) resourceMap.get(transformerClassName);
+        file.deleteOnExit();
+        byte[] bytes = resource.readBytes();
+        byteCodeInfo.setAttachClassByteCode(bytes);
+        future.complete(byteCodeInfo);
+        return byteCodeInfo.getAttachClassByteCode();
+    }
+
+    private byte[] compilerSourceCodeByClassFile() {
+        File tempDir = FileUtils.createTempDir();
+        String classLastName = transformerClassName.substring(transformerClassName.lastIndexOf('.') + 1);
+        File file = new File(tempDir, classLastName + ".java");
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(sourceCode.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
+        StandardJavaFileManager standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
+        Iterable<? extends JavaFileObject> javaFileObjects = standardFileManager.getJavaFileObjects(file);
+        JavaCompiler.CompilationTask task = javaCompiler.getTask(null, standardFileManager, null, null, null, javaFileObjects);
+        task.call();
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get(tempDir.getAbsolutePath() + File.separator + classLastName + ".class"));
+            byteCodeInfo.setAttachClassByteCode(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        future.complete(byteCodeInfo);
+        return byteCodeInfo.getAttachClassByteCode();
+    }
+
+    private String classSignature(byte[] byteCode) {
         try {
             ClassPool pool = ClassPool.getDefault();
             CtClass cc = pool.get(transformerClassName);
@@ -187,7 +194,7 @@ public class Debug4jClassFileTransformer implements ClassFileTransformer {
                     MD5.create().digestHex(Base64Encoder.encode(e.getMethodInfo().getCodeAttribute().getCode()))).toList());
             methodList.sort(Comparator.naturalOrder());
             return cc.getName() + "@" + cc.getGenericSignature() + "@" + JSON.toJSONString(fieldList) + "@" + JSON.toJSONString(methodList);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
