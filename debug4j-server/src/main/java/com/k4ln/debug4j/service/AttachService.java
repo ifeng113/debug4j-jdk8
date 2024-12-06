@@ -13,11 +13,11 @@ import com.k4ln.debug4j.common.utils.FileUtils;
 import com.k4ln.debug4j.controller.vo.*;
 import com.k4ln.debug4j.service.aop.CodeLock;
 import com.k4ln.debug4j.socket.SocketServer;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;

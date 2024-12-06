@@ -6,14 +6,14 @@ import com.k4ln.debug4j.common.response.Result;
 import com.k4ln.debug4j.controller.vo.*;
 import com.k4ln.debug4j.service.AttachHub;
 import com.k4ln.debug4j.service.AttachService;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**

@@ -1,11 +1,12 @@
 package com.k4ln.debug4j.config;
 
 import com.k4ln.debug4j.socket.SocketServer;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Slf4j
 @Component

@@ -31,7 +31,7 @@ public class SocketTFProxyClient {
      */
     public void start(Integer clientId, String host, Integer port) throws Exception {
 
-        processor = new AbstractMessageProcessor<>() {
+        processor = new AbstractMessageProcessor<byte[]>() {
 
             // Target -> Client
             @Override
@@ -65,7 +65,8 @@ public class SocketTFProxyClient {
     public void sendMessage(byte[] body) {
         try {
             WriteBuffer writeBuffer = session.writeBuffer();
-            writeBuffer.writeAndFlush(body);
+            writeBuffer.write(body);
+            writeBuffer.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }

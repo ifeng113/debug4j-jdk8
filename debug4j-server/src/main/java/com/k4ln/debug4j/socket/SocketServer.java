@@ -2,6 +2,7 @@ package com.k4ln.debug4j.socket;
 
 import cn.hutool.core.util.ArrayUtil;
 import com.alibaba.fastjson2.JSON;
+import com.k4ln.debug4j.common.process.ProcessHandle;
 import com.k4ln.debug4j.common.protocol.command.Command;
 import com.k4ln.debug4j.common.protocol.command.CommandTypeEnum;
 import com.k4ln.debug4j.common.protocol.command.message.*;
@@ -87,7 +88,7 @@ public class SocketServer {
 
     public void start() throws Exception {
 
-        processor = new AbstractMessageProcessor<>() {
+        processor = new AbstractMessageProcessor<SocketProtocol>() {
 
             @Override
             public void process0(AioSession session, SocketProtocol protocol) {
@@ -114,7 +115,7 @@ public class SocketServer {
 
             private void messageHandler(AioSession session, SocketProtocol protocol, byte[] data) {
                 switch (protocol.getProtocolType()) {
-                    case AUTH -> {
+                    case AUTH: {
                         if (serverProperties.getKey().equals(new String(data))) {
                             authSessionMap.put(session.getSessionID(), -1);
                             sendMessage(session.getSessionID(), 0, ProtocolTypeEnum.COMMAND,
@@ -122,8 +123,9 @@ public class SocketServer {
                         } else {
                             session.close();
                         }
+                        break;
                     }
-                    case COMMAND -> {
+                    case COMMAND: {
                         Command command = JSON.parseObject(new String(data), Command.class);
                         if (command.getCommand().equals(CommandTypeEnum.PROXY_CLOSE)) {
                             closeClient(protocol.getClientId());
@@ -153,12 +155,13 @@ public class SocketServer {
                             CommandTaskTailRespMessage taskResp = JSON.parseObject(jsonString, CommandTaskTailRespMessage.class);
                             attachHub.pushSseEmitter(session.getSessionID() + "@" + taskResp.getFilePath(), taskResp.getLine());
                         }
+                        break;
                     }
-                    case PROXY -> callbackMessage(protocol.getClientId(), data);
+                    case PROXY: callbackMessage(protocol.getClientId(), data);
                 }
             }
 
-            private static String getSessionPackagingKey(AioSession session, SocketProtocol protocol) {
+            private String getSessionPackagingKey(AioSession session, SocketProtocol protocol) {
                 return session.getSessionID() + "-" + protocol.getProtocolType().name() + "-" + protocol.getClientId();
             }
 
@@ -191,7 +194,7 @@ public class SocketServer {
             }
         };
 
-        processor.addPlugin(new HeartPlugin<>(5, TimeUnit.SECONDS) {
+        processor.addPlugin(new HeartPlugin<SocketProtocol>(5, TimeUnit.SECONDS) {
 
             @Override
             public void sendHeartRequest(AioSession session) {
@@ -220,7 +223,7 @@ public class SocketServer {
         server.setReadBufferSize(SocketProtocolUtil.READ_BUFFER_SIZE);
         server.start();
 
-        log.info("socket server started at pid:{} port {}", ProcessHandle.current().pid(), serverProperties.getSocketPort());
+        log.info("socket server started at pid:{} port {}", ProcessHandle.pid(), serverProperties.getSocketPort());
     }
 
 

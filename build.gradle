@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'com.bmuschko.docker-java-application' version '9.4.0' apply(false)          // https://github.com/bmuschko/gradle-docker-plugin/issues/1182
-    id 'com.bmuschko.docker-spring-boot-application' version '9.4.0' apply(false)
+    id 'com.bmuschko.docker-java-application' version '6.7.0' apply(false)          // https://github.com/bmuschko/gradle-docker-plugin/issues/1182
+    id 'com.bmuschko.docker-spring-boot-application' version '6.7.0' apply(false)
 }
 
 group = 'com.k4ln'
@@ -54,8 +54,6 @@ allprojects {
     dependencies {
         implementation 'org.projectlombok:lombok:1.18.36'       // 如果使用compileOnly会导致在运行时无法获取lombok.Generated类，使得编译源代码时找不到@Generated，导致【源码热更新】失败
         annotationProcessor 'org.projectlombok:lombok:1.18.36'
-
-        implementation 'ch.qos.logback:logback-classic:1.5.12'
 
         implementation 'cn.hutool:hutool-all:5.8.34'
         implementation 'com.alibaba.fastjson2:fastjson2:2.0.53'

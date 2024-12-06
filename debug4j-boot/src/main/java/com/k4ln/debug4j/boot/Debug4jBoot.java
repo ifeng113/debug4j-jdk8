@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.k4ln.debug4j.common.daemon.Debug4jArgs;
 import com.k4ln.debug4j.common.daemon.Debug4jMode;
+import com.k4ln.debug4j.common.process.ProcessHandle;
 import com.k4ln.debug4j.core.Debugger;
 import lombok.extern.slf4j.Slf4j;
 
@@ -96,11 +97,9 @@ public class Debug4jBoot {
         int times = 0;
         while (bootRun) {
             try {
-                boolean isAlive = ProcessHandle.of(debug4jArgs.getPid())
-                        .map(ProcessHandle::isAlive)
-                        .orElse(false);
+                boolean isAlive = ProcessHandle.isAlive(debug4jArgs.getPid());
                 if ((times % LOG_FREQUENCY) == 0) {
-                    log.info("checkAppProcess pid:{} appProcessId:{} isAlive:{}", ProcessHandle.current().pid(), debug4jArgs.getPid(), isAlive);
+                    log.info("checkAppProcess pid:{} appProcessId:{} isAlive:{}", ProcessHandle.pid(), debug4jArgs.getPid(), isAlive);
                 }
 
                 times++;
@@ -126,6 +125,8 @@ public class Debug4jBoot {
         Debugger.shutdown();
 
         log.info("checkAppProcess break with Debug4j Boot shutdown");
+
+        System.exit(0);
     }
 
 

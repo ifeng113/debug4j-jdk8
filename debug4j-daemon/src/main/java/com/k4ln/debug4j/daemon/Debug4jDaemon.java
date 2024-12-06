@@ -5,6 +5,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import com.k4ln.debug4j.common.daemon.Debug4jArgs;
 import com.k4ln.debug4j.common.daemon.Debug4jMode;
+import com.k4ln.debug4j.common.process.ProcessHandle;
 import com.k4ln.debug4j.core.Debugger;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +32,7 @@ public class Debug4jDaemon {
      */
     public static void start(Boolean proxyMode, String application, String packageName, String host, Integer port, String key) {
         String uniqueId = UUID.fastUUID().toString(true);
-        Debugger.start(application, uniqueId, packageName, host, port, key, ProcessHandle.current().pid(), null, Debug4jMode.thread);
+        Debugger.start(application, uniqueId, packageName, host, port, key, ProcessHandle.pid(), null, Debug4jMode.thread);
         if (proxyMode != null && proxyMode) {
             startProxyProcess(application, uniqueId, packageName, host, port, key);
         }
@@ -79,11 +80,12 @@ public class Debug4jDaemon {
                 .host(host)
                 .port(port)
                 .key(key)
-                .pid(ProcessHandle.current().pid())
+                .pid(ProcessHandle.pid())
                 .build();
         RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
         List<String> jvmArguments = runtimeMXBean.getInputArguments();
         for (String arg : jvmArguments) {
+            log.info("arg: {}", arg);
             if (arg.startsWith("-agentlib:jdwp=transport=dt_socket")) {
                 String jdwpPort = extractPort(arg);
                 if (jdwpPort != null) {
@@ -110,7 +112,7 @@ public class Debug4jDaemon {
             return null;
         }
         // 正则表达式匹配 address 后的端口号
-        String regex = "address=[^:]*:(\\d+)";
+        String regex = "address=\\*?:?(\\d+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         return matcher.find() ? matcher.group(1) : null;

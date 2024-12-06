@@ -1,8 +1,8 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.4.0'
+    id 'org.springframework.boot' version '2.7.18'
     id 'io.spring.dependency-management' version '1.1.6'
-    id 'com.bmuschko.docker-spring-boot-application' version '9.4.0'
+    id 'com.bmuschko.docker-spring-boot-application' version '6.7.0'
 }
 
 group = 'com.k4ln'
@@ -10,18 +10,23 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(8)
     }
 }
 
 // docker run -d -p 33999:33999 --name demo2 com.k4ln/debug4j-demo2:0.0.1-snapshot
+// docker run -d -p 33999:33999 -e JAVA_OPTIONS='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005' --name demo2 com.k4ln/debug4j-demo2:0.0.1-snapshot
 docker {
     url = 'tcp://124.71.163.140:2375'
     springBootApplication {
         // https://hub.docker.com/_/eclipse-temurin/tags?page=1&name=17
-        baseImage = 'eclipse-temurin:17.0.13_11-jdk'
+        baseImage = 'eclipse-temurin:8-jdk'
         maintainer = 'k4ln'
     }
+}
+
+dockerCreateDockerfile {
+    entryPoint("sh","-c",'java $JAVA_OPTIONS -cp /app/resources:/app/classes:/app/libs/* com.k4ln.demo2.Demo2Application $APP_OPTIONS')
 }
 
 dependencies {
@@ -29,6 +34,8 @@ dependencies {
     implementation project(":debug4j-spring-boot-starter")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'ch.qos.logback:logback-classic:1.2.13'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

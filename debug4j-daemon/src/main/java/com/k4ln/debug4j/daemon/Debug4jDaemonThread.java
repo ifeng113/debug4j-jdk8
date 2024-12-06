@@ -41,7 +41,6 @@ public class Debug4jDaemonThread implements Runnable {
                     throw new IllegalStateException("can not find debug4j-boot.jar under tempDebug4jDir: " + tempDebug4jDir);
                 }
                 process = exec("java", "-Dfile.encoding=UTF-8", "-jar", debug4jBootJarFile.getAbsolutePath(), debug4jArgs.toString());
-                log.info("Debug4j Boot start with pid:{}", process.pid());
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);

@@ -12,6 +12,8 @@ dependencies {
     implementation project(":debug4j-packing") // process模式
     implementation project(":debug4j-core") // thread模式
 
+    implementation 'ch.qos.logback:logback-classic:1.3.14'
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

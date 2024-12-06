@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.4.0'
+    id 'org.springframework.boot' version '2.7.18'
     id 'io.spring.dependency-management' version '1.1.6'
 }
 
@@ -11,6 +11,8 @@ dependencies {
 
     implementation project(":debug4j-common")
     implementation project(":debug4j-daemon")
+
+    implementation 'ch.qos.logback:logback-classic:1.2.13'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-autoconfigure'

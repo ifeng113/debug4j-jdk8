@@ -14,10 +14,8 @@ import org.smartboot.socket.transport.AioQuickServer;
 import org.smartboot.socket.transport.AioSession;
 import org.smartboot.socket.transport.WriteBuffer;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -54,11 +52,11 @@ public class SocketTFProxyServer {
      * clientOutletIps
      */
     @Getter
-    private Set<String> clientOutletIps = new HashSet<>();
+    private Map<String, String> clientOutletIps = new ConcurrentHashMap<>();
 
     public void start() throws Exception {
 
-        processor = new AbstractMessageProcessor<>() {
+        processor = new AbstractMessageProcessor<byte[]>() {
 
             // Source -> TFPServer
             @Override
@@ -67,7 +65,7 @@ public class SocketTFProxyServer {
                 socketServer.sendMessage(proxyReqVO.getClientSessionId(), getSessionClientId(session), ProtocolTypeEnum.PROXY, body);
             }
 
-            private static Integer getSessionClientId(AioSession session) {
+            private Integer getSessionClientId(AioSession session) {
                 return Integer.parseInt(session.getSessionID().replace("aioSession-", ""));
             }
 
@@ -81,7 +79,7 @@ public class SocketTFProxyServer {
                             socketServer.sendMessage(proxyReqVO.getClientSessionId(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
                                     CommandProxyMessage.buildCommandProxyMessage(CommandTypeEnum.PROXY_OPEN, proxyReqVO.getRemoteHost(),
                                             proxyReqVO.getRemotePort()));
-                            clientOutletIps.add(session.getRemoteAddress().getAddress().getHostAddress());
+                            clientOutletIps.put(session.getSessionID(), session.getRemoteAddress().getAddress().getHostAddress());
                             return;
                         }
                     } catch (Exception e) {
@@ -96,11 +94,7 @@ public class SocketTFProxyServer {
                     socketServer.sendMessage(proxyReqVO.getClientSessionId(), getSessionClientId(session), ProtocolTypeEnum.COMMAND,
                             CommandProxyMessage.buildCommandProxyMessage(CommandTypeEnum.PROXY_CLOSE, proxyReqVO.getRemoteHost(),
                                     proxyReqVO.getRemotePort()));
-                    try {
-                        clientOutletIps.remove(session.getRemoteAddress().getAddress().getHostAddress());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    clientOutletIps.remove(session.getSessionID());
                 } else if (throwable != null) {
                     throwable.printStackTrace();
                 }
@@ -127,7 +121,8 @@ public class SocketTFProxyServer {
         try {
             AioSession session = sessionMap.get(parseSessionId(clientId));
             WriteBuffer writeBuffer = session.writeBuffer();
-            writeBuffer.writeAndFlush(body);
+            writeBuffer.write(body);
+            writeBuffer.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }

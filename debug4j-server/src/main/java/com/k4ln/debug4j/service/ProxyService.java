@@ -3,6 +3,7 @@ package com.k4ln.debug4j.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.extra.servlet.JakartaServletUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 import com.k4ln.debug4j.common.daemon.Debug4jMode;
 import com.k4ln.debug4j.common.protocol.command.message.CommandInfoMessage;
 import com.k4ln.debug4j.common.response.exception.BaseException;
@@ -13,16 +14,18 @@ import com.k4ln.debug4j.controller.vo.ProxyReqVO;
 import com.k4ln.debug4j.controller.vo.ProxyRespVO;
 import com.k4ln.debug4j.socket.SocketServer;
 import com.k4ln.debug4j.socket.SocketTFProxyServer;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.net.BindException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -53,7 +56,7 @@ public class ProxyService {
         for (Map.Entry<String, SocketTFProxyServer> entry : proxyServers.entrySet()) {
             if (entry.getKey().startsWith(clientSessionId)) {
                 ProxyDetailsRespVO serverRespVO = BeanUtil.toBean(entry.getValue().getProxyReqVO(), ProxyDetailsRespVO.class);
-                serverRespVO.setClientOutletIps(entry.getValue().getClientOutletIps());
+                serverRespVO.setClientOutletIps(new HashSet<>(entry.getValue().getClientOutletIps().values()));
                 proxyDetailsRespVOS.add(serverRespVO);
             }
         }
@@ -78,7 +81,7 @@ public class ProxyService {
                     proxyReqVO.setServerPort(NetUtil.getUsableLocalPort(serverProperties.getMinProxyPort(), serverProperties.getMaxProxyPort()));
                 }
                 if (proxyReqVO.getAllowNetworks() == null || proxyReqVO.getAllowNetworks().isEmpty()) {
-                    String clientIP = JakartaServletUtil.getClientIP(httpServletRequest);
+                    String clientIP = ServletUtil.getClientIP(httpServletRequest);
                     List<String> allowNetworks = new ArrayList<>();
                     allowNetworks.add(clientIP + "/32");
                     proxyReqVO.setAllowNetworks(allowNetworks);

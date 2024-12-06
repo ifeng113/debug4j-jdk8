@@ -138,7 +138,8 @@ public class SocketProtocolUtil {
         try {
             WriteBuffer writeBuffer = session.writeBuffer();
             byte[] data = SocketProtocolUtil.buildProxyProtocol(socketProtocol);
-            writeBuffer.writeAndFlush(data);
+            writeBuffer.write(data);
+            writeBuffer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

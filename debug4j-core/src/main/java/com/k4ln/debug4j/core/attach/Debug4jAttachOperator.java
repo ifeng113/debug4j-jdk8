@@ -8,9 +8,8 @@ import com.k4ln.debug4j.common.utils.FileUtils;
 import com.k4ln.debug4j.core.attach.dto.ByteCodeInfo;
 import com.k4ln.debug4j.core.attach.dto.MethodLineInfo;
 import com.k4ln.debug4j.core.attach.dto.SourceCodeInfo;
-import jadx.api.JadxArgs;
-import jadx.api.JadxDecompiler;
-import jadx.api.JavaClass;
+import com.strobel.decompiler.Decompiler;
+import com.strobel.decompiler.PlainTextOutput;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
@@ -69,7 +68,7 @@ public class Debug4jAttachOperator {
      */
     public static SourceCodeInfo getClassSource(Instrumentation instrumentation, String className, SourceCodeTypeEnum sourceCodeType) {
         ByteCodeInfo byteCodeInfo = getClassByteCodeInfo(instrumentation, className);
-        String classSource = jadxByteCodeToSource(className, getClassByteCodeByCache(sourceCodeType, byteCodeInfo));
+        String classSource = procyonByteCodeToSource(className, getClassByteCodeByCache(sourceCodeType, byteCodeInfo));
         return SourceCodeInfo.builder()
                 .byteCodeType(byteCodeInfo != null ? byteCodeInfo.getAttachClassByteCodeType() : null)
                 .classSource(classSource)
@@ -145,13 +144,13 @@ public class Debug4jAttachOperator {
     }
 
     /**
-     * jadx字节码转源码
+     * procyon字节码转源码
      *
      * @param className
      * @param byteCode
      * @return
      */
-    public static String jadxByteCodeToSource(String className, byte[] byteCode) {
+    public static String procyonByteCodeToSource(String className, byte[] byteCode) {
         try {
             File file = new File(FileUtils.createTempDir(), className + ".class");
             try (FileOutputStream fos = new FileOutputStream(file)) {
@@ -160,16 +159,10 @@ public class Debug4jAttachOperator {
                 e.printStackTrace();
                 return null;
             }
-            JadxArgs jadxArgs = new JadxArgs();
-            jadxArgs.setInputFile(file);
-            jadxArgs.setDebugInfo(false);
-            JadxDecompiler jadx = new JadxDecompiler(jadxArgs);
-            jadx.load();
-            for (JavaClass cls : jadx.getClasses()) {
-                return cls.getCode();
-            }
-            jadx.close();
+            PlainTextOutput output = new PlainTextOutput();
+            Decompiler.decompile(file.getAbsolutePath(), output);
             file.deleteOnExit();
+            return output.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -276,16 +269,16 @@ public class Debug4jAttachOperator {
         ByteCodeInfo byteCodeInfo = getClassByteCodeInfo(instrumentation, className);
         byte[] classByteCodeByCache = getClassByteCodeByCache(SourceCodeTypeEnum.attachClassByteCode, byteCodeInfo);
         if (classByteCodeByCache != null) {
-            try {
-                ClassPool pool = ClassPool.getDefault();
-                CtClass cc = pool.get(className);
-                if (cc.isFrozen()) {
-                    cc.defrost();
-                }
-                pool.makeClass(new ByteArrayInputStream(classByteCodeByCache));
-                cc = pool.get(className);
-                SortedSet<Integer> set = new TreeSet<>();
-                if (StrUtil.isNotBlank(lineMethodName)) {
+            if (StrUtil.isNotBlank(lineMethodName)) {
+                try {
+                    ClassPool pool = ClassPool.getDefault();
+                    CtClass cc = pool.get(className);
+                    if (cc.isFrozen()) {
+                        cc.defrost();
+                    }
+                    pool.makeClass(new ByteArrayInputStream(classByteCodeByCache));
+                    cc = pool.get(className);
+                    SortedSet<Integer> set = new TreeSet<>();
                     CtMethod declaredMethod = cc.getDeclaredMethod(lineMethodName);
                     CodeIterator iterator = declaredMethod.getMethodInfo().getCodeAttribute().iterator();
                     while (iterator.hasNext()) {
@@ -293,13 +286,16 @@ public class Debug4jAttachOperator {
                     }
                     Integer first = set.first();
                     declaredMethod.insertAt(first, "{com.k4ln.debug4j.common.daemon.Debug4jLine.tag(" + first + ");}");
+                    byte[] bytecode = cc.toBytecode();
+                    String sourceCode = procyonByteCodeToSource(className, bytecode);
+                    String flagSourceCode = sourceLineFlag(sourceCode);
+                    return MethodLineInfo.builder().sourceCode(flagSourceCode).lineNumbers(new ArrayList<>(set)).build();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                byte[] bytecode = cc.toBytecode();
-                String sourceCode = jadxByteCodeToSource(className, bytecode);
-                String flagSourceCode = sourceLineFlag(sourceCode);
-                return MethodLineInfo.builder().sourceCode(flagSourceCode).lineNumbers(set.stream().toList()).build();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                String sourceCode = procyonByteCodeToSource(className, classByteCodeByCache);
+                return MethodLineInfo.builder().sourceCode(sourceCode).lineNumbers(new ArrayList<>()).build();
             }
         }
         return MethodLineInfo.builder().build();
@@ -313,7 +309,7 @@ public class Debug4jAttachOperator {
      */
     private static String sourceLineFlag(String sourceCode) {
         if (StrUtil.isNotBlank(sourceCode)) {
-            String lineSeparator = System.lineSeparator();
+            String lineSeparator = "\\n";
             String[] split = sourceCode.split(lineSeparator);
             Map<String, String> lineMap = new LinkedHashMap<>();
             for (int i = 0; i < split.length; i++) {

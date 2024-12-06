@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.k4ln.debug4j.core.client.SocketClient.callbackMessage;
@@ -57,7 +58,7 @@ public class Debug4jWatcher {
         }
         Iterator<TaskInfo> iterator = watcher.iterator();
         return StreamSupport.stream(((Iterable<TaskInfo>) () -> iterator).spliterator(), false)
-                .map(e -> BeanUtil.toBean(e, CommandTaskReqMessage.class)).toList();
+                .map(e -> BeanUtil.toBean(e, CommandTaskReqMessage.class)).collect(Collectors.toList());
     }
 
     /**
