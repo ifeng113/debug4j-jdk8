@@ -1,6 +1,6 @@
 # Debug4j
 
-**Debug4j** 是一款高效便捷的 Java 调试工具，专注于远程服务器端的 Java 代码调试。它通过极具创意的方式实现了交互便捷的可视化远程代码修改与调试功能，具备轻松部署与快速集成的特点。
+**Debug4j** 是一款高效便捷的 Java 调试工具，专注于远程服务器端的 Java 代码调试。它通过极具创意的方式实现了可视化远程代码修改与调试功能，具备轻松部署与快速集成的特点。
 
 ### 支持版本
 - 本仓库适用于 JDK 8 及以上版本。
@@ -27,24 +27,24 @@
 
 1. 拉取 Docker 镜像：
    ```bash
-   docker pull k4ln/debug4j-server:0.0.1_api
+   docker pull k4ln/debug4j-server:0.0.1_api_jdk8
    ```
 
 2. 启动服务端：
    ```bash
-   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api
+   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api_jdk8
    ```
 
 3. 设置通信密钥和 API 密钥：
    ```bash
-   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api \
+   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api_jdk8 \
        --debug4j.key=k4ln --sa-token.http-basic='k4ln:123456'
    ```
 
    - `--debug4j.key`：设置通信密钥。
    - `--sa-token.http-basic`：设置 API 通信密钥。
 
-> API 文档见 [Debug4j.postman_collection.json](https://github.com/ifeng113/debug4j/blob/master/src/main/resources/Debug4j.postman_collection.json) （Web 管理页面正在开发中）。
+> API 文档见 [Debug4j.postman_collection.json](https://github.com/ifeng113/debug4j-jdk8/blob/master/src/main/resources/Debug4j.postman_collection.json) （Web 管理页面正在开发中）。
 
 ---
 
@@ -63,7 +63,7 @@
 ```java
 Debug4jDaemon.start(true, "demo1-daemon", "com.k4ln", "192.168.1.13", 7988, "k4ln");
 ```
-示例代码请参考 [debug4j-demo1](https://github.com/ifeng113/debug4j/tree/master/debug4j-demo1)。
+示例代码请参考 [debug4j-demo1](https://github.com/ifeng113/debug4j-jdk8/tree/master/debug4j-demo1)。
 
 ---
 
@@ -86,7 +86,7 @@ debug4j:
   port: 7988
   key: k4ln
 ```
-示例代码请参考 [debug4j-demo2](https://github.com/ifeng113/debug4j/tree/master/debug4j-demo2)。
+示例代码请参考 [debug4j-demo2](https://github.com/ifeng113/debug4j-jdk8/tree/master/debug4j-demo2)。
 
 ---
 

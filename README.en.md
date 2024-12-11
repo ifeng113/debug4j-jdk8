@@ -27,24 +27,24 @@
 
 1. Pull the Docker image:
    ```bash
-   docker pull k4ln/debug4j-server:0.0.1_api
+   docker pull k4ln/debug4j-server:0.0.1_api_jdk8
    ```
 
 2. Start the server:
    ```bash
-   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api
+   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api_jdk8
    ```
 
 3. Set the communication key and API key:
    ```bash
-   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api \
+   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api_jdk8 \
        --debug4j.key=k4ln --sa-token.http-basic='k4ln:123456'
    ```
 
    - `--debug4j.key`: Sets the communication key.
    - `--sa-token.http-basic`: Sets the API communication key.
 
-> Refer to the API documentation at [Debug4j.postman_collection.json](https://github.com/ifeng113/debug4j/blob/master/src/main/resources/Debug4j.postman_collection.json) (Web management page is under development).
+> Refer to the API documentation at [Debug4j.postman_collection.json](https://github.com/ifeng113/debug4j-jdk8/blob/master/src/main/resources/Debug4j.postman_collection.json) (Web management page is under development).
 
 ---
 
@@ -64,7 +64,7 @@ Start Debug4j in your application:
 Debug4jDaemon.start(true, "demo1-daemon", "com.k4ln", "192.168.1.13", 7988, "k4ln");
 ```
 
-For example code, refer to [debug4j-demo1](https://github.com/ifeng113/debug4j/tree/master/debug4j-demo1).
+For example code, refer to [debug4j-demo1](https://github.com/ifeng113/debug4j-jdk8/tree/master/debug4j-demo1).
 
 ---
 
@@ -88,7 +88,7 @@ debug4j:
   key: k4ln
 ```
 
-For example code, refer to [debug4j-demo2](https://github.com/ifeng113/debug4j/tree/master/debug4j-demo2).
+For example code, refer to [debug4j-demo2](https://github.com/ifeng113/debug4j-jdk8/tree/master/debug4j-demo2).
 
 ---
 
