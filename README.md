@@ -27,24 +27,50 @@
 
 1. 拉取 Docker 镜像：
    ```bash
-   docker pull k4ln/debug4j-server:0.0.1_api_jdk8
+   docker pull k4ln/debug4j-server:0.0.1_jdk8
    ```
 
 2. 启动服务端：
    ```bash
-   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api_jdk8
+   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_jdk8
    ```
 
 3. 设置通信密钥和 API 密钥：
    ```bash
-   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_api_jdk8 \
+   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_jdk8 \
        --debug4j.key=k4ln --sa-token.http-basic='k4ln:123456'
    ```
 
    - `--debug4j.key`：设置通信密钥。
    - `--sa-token.http-basic`：设置 API 通信密钥。
 
-> API 文档见 [Debug4j.postman_collection.json](https://github.com/ifeng113/debug4j-jdk8/blob/master/src/main/resources/Debug4j.postman_collection.json) （Web 管理页面正在开发中）。
+>**端口说明**
+
+- `7987`：api及web调试端口，访问[http://debug4j-server:7987](http://debug4j-server:7987) 进入调试管理页面。
+- `7988`：debug4j-server与被调试应用的通信端口。配置项： `--debug4j.socket-port`。
+- `33000-34000`：debug4j-server默认代理开放端口区段，如果server部署在公网中，请关闭对应端口防火墙。配置项： `--debug4j.min-proxy-port` 与 `--debug4j.max-proxy-port`。
+
+> API 文档见 [Debug4j.postman_collection.json](https://github.com/ifeng113/debug4j-jdk8/blob/master/src/main/resources/Debug4j.postman_collection.json) 。
+
+> **调试配置 + 代理管理 + 日志管理**
+
+![d1.jpg](src/main/resources/md/static/d1.png)
+
+> **源码类管理**
+
+![d2.jpg](src/main/resources/md/static/d2.png)
+
+> **日志查看**
+
+![d3.jpg](src/main/resources/md/static/d3.png)
+
+> **源码热更新**
+
+![d4.jpg](src/main/resources/md/static/d4.png)
+
+> **源码补丁**
+
+![d5.jpg](src/main/resources/md/static/d5.png)
 
 ---
 

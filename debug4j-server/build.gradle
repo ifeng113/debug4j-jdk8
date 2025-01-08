@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.k4ln'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-SNAPSHOT-8'
 
 java {
     toolchain {
@@ -14,7 +14,7 @@ java {
     }
 }
 
-// docker run --net=host -d --name debug4j-server com.k4ln/debug4j-server:0.0.1-snapshot
+// docker run --net=host -d --name debug4j-server com.k4ln/debug4j-server:0.0.1-snapshot-8
 docker {
     url = 'tcp://124.71.163.140:2375'
     springBootApplication {
