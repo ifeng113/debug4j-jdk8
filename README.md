@@ -27,17 +27,17 @@
 
 1. 拉取 Docker 镜像：
    ```bash
-   docker pull k4ln/debug4j-server:0.0.1_jdk8
+   docker pull k4ln/debug4j-server:0.0.1.1_jdk8
    ```
 
 2. 启动服务端：
    ```bash
-   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_jdk8
+   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1.1_jdk8
    ```
 
 3. 设置通信密钥和 API 密钥：
    ```bash
-   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1_jdk8 \
+   docker run --net=host -d --name debug4j-server k4ln/debug4j-server:0.0.1.1_jdk8 \
        --debug4j.key=k4ln --sa-token.http-basic='k4ln:123456'
    ```
 
