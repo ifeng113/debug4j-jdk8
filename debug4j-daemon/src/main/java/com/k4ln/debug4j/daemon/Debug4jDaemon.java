@@ -86,7 +86,7 @@ public class Debug4jDaemon {
         List<String> jvmArguments = runtimeMXBean.getInputArguments();
         for (String arg : jvmArguments) {
             log.info("arg: {}", arg);
-            if (arg.startsWith("-agentlib:jdwp=transport=dt_socket")) {
+            if (arg.startsWith("-agentlib:jdwp=transport=dt_socket") || arg.startsWith("-javaagent:jdwp=transport=dt_socket")) {
                 String jdwpPort = extractPort(arg);
                 if (jdwpPort != null) {
                     try {
@@ -111,10 +111,18 @@ public class Debug4jDaemon {
         if (input == null || input.isEmpty()) {
             return null;
         }
-        // 正则表达式匹配 address 后的端口号
-        String regex = "address=\\*?:?(\\d+)";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(input);
-        return matcher.find() ? matcher.group(1) : null;
+        if (input.contains("127.0.0.1")) {
+            // address=127.0.0.1:5005
+            String regex = "address=([\\w\\.]+):(\\d+)";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+            return matcher.find() ? matcher.group(2) : null;
+        } else {
+            // address=*:5005
+            String regex = "address=\\*?:?(\\d+)";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(input);
+            return matcher.find() ? matcher.group(1) : null;
+        }
     }
 }
