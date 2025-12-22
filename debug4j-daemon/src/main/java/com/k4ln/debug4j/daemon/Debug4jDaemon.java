@@ -12,8 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import static com.k4ln.debug4j.common.utils.StringUtils.extractPort;
 
 @Slf4j
 public class Debug4jDaemon {
@@ -86,7 +86,7 @@ public class Debug4jDaemon {
         List<String> jvmArguments = runtimeMXBean.getInputArguments();
         for (String arg : jvmArguments) {
             log.info("arg: {}", arg);
-            if (arg.startsWith("-agentlib:jdwp=transport=dt_socket") || arg.startsWith("-javaagent:jdwp=transport=dt_socket")) {
+            if (arg.startsWith("-agentlib:jdwp=transport=dt_socket")) {
                 String jdwpPort = extractPort(arg);
                 if (jdwpPort != null) {
                     try {
@@ -101,28 +101,5 @@ public class Debug4jDaemon {
         return debug4jArgs;
     }
 
-    /**
-     * 提取 JDWP 参数中的端口号
-     *
-     * @param input 输入的参数字符串
-     * @return 提取的端口号，找不到时返回 null
-     */
-    public static String extractPort(String input) {
-        if (input == null || input.isEmpty()) {
-            return null;
-        }
-        if (input.contains("127.0.0.1")) {
-            // address=127.0.0.1:5005
-            String regex = "address=([\\w\\.]+):(\\d+)";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(input);
-            return matcher.find() ? matcher.group(2) : null;
-        } else {
-            // address=*:5005
-            String regex = "address=\\*?:?(\\d+)";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(input);
-            return matcher.find() ? matcher.group(1) : null;
-        }
-    }
+
 }
